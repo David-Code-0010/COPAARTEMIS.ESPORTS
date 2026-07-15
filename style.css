@@ -29,9 +29,11 @@ body {
     align-items: center;
     min-height: 100vh;
     width: 100vw;
-    overflow: hidden; 
+    overflow-x: hidden; 
+    overflow-y: auto;   
     letter-spacing: 0.05em;
     position: relative;
+    padding: 20px 0;
 }
 
 /* ==========================================
@@ -338,59 +340,76 @@ header {
    PANTALLAS GRANDES (PC / LAPTOP) 🖥️
    ========================================== */
 @media (min-width: 1025px) {
-    .poster-container {
-        /* Desbloqueamos el tamaño para PC */
-        width: 85vw;
-        max-width: 850px;
-        height: 90vh;
-        max-height: 750px;
-        padding: 30px 40px;
+    body {
+        /* Permite scroll vertical fluido en PC si el monitor es de baja resolución */
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        align-items: center; /* Vuelve a centrar el póster perfectamente vertical */
+        padding: 40px 0;
     }
 
-    /* Escalamos las fuentes para que se vean majestuosas en monitor */
+    .poster-container {
+        /* Restauramos el formato ancho "cine" que se veía fantástico */
+        width: 90vw;
+        max-width: 1100px; 
+        height: 85vh;
+        max-height: 650px; 
+        padding: 35px 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Distribuye el contenido armónicamente de arriba a abajo */
+        margin: 0 auto;
+    }
+
+    /* Más separación horizontal entre las dos cajas de texto */
+    .info-panels {
+        gap: 30px; 
+    }
+
+    /* Escalamos las tipografías para que llenen la pantalla de PC con poder */
     .neon-text-main {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
 
     .main-logo-img {
-        max-width: 170px;
+        max-width: 160px;
     }
 
     .neon-text-title {
-        font-size: 2.6rem;
+        font-size: 3rem;
     }
 
     .gaming-text {
-        font-size: 0.85rem;
-        letter-spacing: 8px;
+        font-size: 0.9rem;
+        letter-spacing: 10px;
     }
 
     .info-panel p {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
 
     .info-panel .data {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
 
     .info-panel .data-star {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
 
     .neon-text-small {
-        font-size: 1.35rem;
+        font-size: 1.5rem;
     }
 
     .game-logo-img {
-        height: 28px;
+        height: 32px; /* Logos de juegos más grandes y nítidos */
     }
 
     .qr-replacement-logo {
-        width: 58px;
-        height: 58px;
+        width: 65px;
+        height: 65px;
     }
 
     .website-link {
-        font-size: 0.65rem;
+        font-size: 0.75rem;
     }
 }
