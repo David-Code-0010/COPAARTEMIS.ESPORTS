@@ -383,3 +383,60 @@ header {
     50% { transform: translateY(-5px); }
     100% { transform: translateY(0px); }
 }
+
+/* ==========================================
+   RESPONSIVE: OPTIMIZACIÓN PARA CELULARES
+   ========================================== */
+@media (max-width: 768px) {
+    /* Permitimos que el contenedor crezca hacia abajo si es necesario */
+    body {
+        overflow-y: auto; 
+    }
+
+    .poster-container {
+        width: 95vw;
+        height: auto;
+        min-height: 95vh;
+        max-height: none;
+        padding: 3vh 4vw;
+        font-size: 14px; /* Tamaño de letra base cómodo para móvil */
+    }
+
+    /* Reducimos un poco los títulos para que no se amontonen */
+    .neon-text-main {
+        font-size: 1.6rem;
+    }
+
+    .neon-text-title {
+        font-size: 2rem;
+    }
+
+    /* ¡La magia! Ponemos un panel debajo del otro en lugar de alinearlos de lado */
+    .info-panels {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .info-panel {
+        width: 100%; /* Ahora ocupan todo el ancho disponible */
+        padding: 15px;
+    }
+
+    .info-panel p {
+        font-size: 1.1rem;
+    }
+
+    .info-panel .data {
+        font-size: 1.4rem;
+    }
+
+    /* Ajustamos el tamaño de los logos de los juegos para que quepan bien */
+    .game-logos {
+        gap: 20px;
+    }
+
+    .game-logo-img {
+        height: 25px;
+    }
+}
