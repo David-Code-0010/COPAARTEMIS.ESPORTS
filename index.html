@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo Copa Artemis 2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="poster-container">
+        <div class="grid-overlay"></div>
+        <div class="glow-point top-left"></div>
+        <div class="glow-point bottom-right"></div>
+
+        <header>
+            <h1 class="neon-text-main">BIENVENIDOS<br>A LA GRIETA</h1>
+        </header>
+
+        <div class="main-logo-container">
+            <img src="Copa_Artemis_Logo.png" alt="Copa Artemis Logo" class="main-logo-img">
+            <h2 class="neon-text-title">COPA ARTEMIS <span class="gaming-text">GAMING</span></h2>
+        </div>
+
+        <section class="info-panels">
+            <div class="info-panel left">
+                <p>FECHA:</p>
+                <p class="data">1-10 DE AGOSTO, 2026</p>
+                <div class="line-decorator"></div>
+                <p>LUGAR:</p>
+                <p class="data">STREAMING EN VIVO | ARENA DIGITAL</p>
+            </div>
+            <div class="info-panel right">
+                <p>INSCRIPCIONES ABIERTAS</p>
+                <p class="data-star">★ APÚNTATE YA</p>
+                <div class="line-decorator"></div>
+                <p>EQUIPOS LIMITADOS</p>
+            </div>
+        </section>
+
+        <section class="games-and-register">
+            <h3 class="neon-text-small">JUEGOS OFICIALES</h3>
+            <div class="game-logos">
+                <img src="Fortnite.png" alt="Fortnite Logo" class="game-logo-img">
+                <img src="League_of_Legends_Logo.png" alt="League of Legends Logo" class="game-logo-img">
+            </div>
+            
+            <div class="qr-and-website">
+                <!-- Reemplazado el QR por tu logo oficial -->
+                <img src="Artemis_Gaming.png" alt="Artemis Gaming Logo" class="qr-replacement-logo">
+                <a href="http://WWW.COPAARTEMIS.ESPORTS.COM" class="website-link">WWW.COPAARTEMIS.ESPORTS.COM</a>
+            </div>
+        </section>
+        
+        <div id="register-form-overlay" class="hidden">
+            <form id="register-form">
+                <h3>Registro Copa Artemis</h3>
+                <input type="text" id="team-name" placeholder="Nombre del Equipo" required>
+                <input type="email" id="contact-email" placeholder="Correo de Contacto" required>
+                <select id="game-select" required>
+                    <option value="" disabled selected>Selecciona Juego</option>
+                    <option value="fortnite">Fortnite</option>
+                    <option value="lol">League of Legends</option>
+                </select>
+                <button type="submit">Enviar Inscripción</button>
+                <button type="button" id="close-form">Cerrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.ts" defer></script>
+</body>
+</html>
