@@ -29,6 +29,7 @@ body {
     align-items: center;
     min-height: 100vh;
     width: 100vw;
+    /* Bloquea desbordes horizontales, pero permite scroll vertical natural */
     overflow-x: hidden; 
     overflow-y: auto;   
     letter-spacing: 0.05em;
@@ -341,47 +342,65 @@ header {
    ========================================== */
 @media (min-width: 1025px) {
     body {
-        /* Permite scroll vertical fluido en PC si el monitor es de baja resolución */
+        /* Permitimos scroll vertical en PC de manera nativa */
         overflow-y: auto !important;
         overflow-x: hidden !important;
-        align-items: center; /* Vuelve a centrar el póster perfectamente vertical */
-        padding: 40px 0;
+        align-items: flex-start; /* Empieza arriba para que no se coma el encabezado */
+        padding: 60px 0; /* Colchón de espacio arriba y abajo */
     }
 
     .poster-container {
-        /* Restauramos el formato ancho "cine" que se veía fantástico */
+        /* Diseño panorámico y amplio */
         width: 90vw;
         max-width: 1100px; 
-        height: 85vh;
-        max-height: 650px; 
-        padding: 35px 50px;
+        
+        /* ALTO REDISEÑADO: Dejamos que use auto para que crezca libremente */
+        height: auto; 
+        min-height: 680px; 
+        
+        padding: 40px 50px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* Distribuye el contenido armónicamente de arriba a abajo */
+        justify-content: flex-start; /* Elementos fluyen hacia abajo de forma natural */
+        gap: 30px; /* Separación fija y perfecta entre secciones */
         margin: 0 auto;
     }
 
-    /* Más separación horizontal entre las dos cajas de texto */
+    /* Distribución de las cajas de datos en PC */
     .info-panels {
-        gap: 30px; 
+        gap: 35px; 
     }
 
-    /* Escalamos las tipografías para que llenen la pantalla de PC con poder */
+    /* Separamos un poco más la sección de juegos y QR abajo */
+    .games-and-register {
+        margin-top: 10px;
+        padding-top: 15px;
+    }
+
+    /* Escalamos las fuentes y logotipos para aprovechar el ancho */
     .neon-text-main {
         font-size: 2.5rem;
     }
 
+    .main-logo-container {
+        margin: 15px 0;
+    }
+
     .main-logo-img {
-        max-width: 160px;
+        max-width: 165px;
     }
 
     .neon-text-title {
-        font-size: 3rem;
+        font-size: 3.2rem;
     }
 
     .gaming-text {
-        font-size: 0.9rem;
-        letter-spacing: 10px;
+        font-size: 0.95rem;
+        letter-spacing: 11px;
+    }
+
+    .info-panel {
+        padding: 15px 20px;
     }
 
     .info-panel p {
@@ -389,27 +408,33 @@ header {
     }
 
     .info-panel .data {
-        font-size: 1.8rem;
+        font-size: 1.85rem;
     }
 
     .info-panel .data-star {
-        font-size: 1.6rem;
+        font-size: 1.65rem;
     }
 
     .neon-text-small {
-        font-size: 1.5rem;
+        font-size: 1.55rem;
+    }
+
+    .game-logos {
+        gap: 35px;
+        margin: 12px 0;
     }
 
     .game-logo-img {
-        height: 32px; /* Logos de juegos más grandes y nítidos */
+        height: 35px; /* Logos grandes, nítidos y sin recortarse */
     }
 
     .qr-replacement-logo {
-        width: 65px;
-        height: 65px;
+        width: 70px;
+        height: 70px;
     }
 
     .website-link {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
+        margin-top: 8px;
     }
 }
