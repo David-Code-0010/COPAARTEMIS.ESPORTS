@@ -1,759 +1,580 @@
----
-// Código del servidor Astro - Copa Artemis x Curi Gameplays
----
+import React, { useState, useEffect } from 'react';
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copa Artemis x Curi Gameplays - Moemon Ketzal</title>
-    <!-- Fuentes de Google estilo Gaming & Serif elegante -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700;800&family=Teko:wght@600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+export default function CopaArtemisApp() {
+  const [showModal, setShowModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Timer State
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0, hours: 0, minutes: 0, seconds: 0
+  });
 
-    <!-- MARCO METÁLICO HOLOGRÁFICO PRINCIPAL -->
-    <div class="poster-frame">
-        <div class="inner-border"></div>
+  // Countdown Logic (Oct 10, 2026)
+  useEffect(() => {
+    const targetDate = new Date('October 10, 2026 16:00:00 GMT-0600').getTime();
 
-        <!-- COLUMNA ELEMENTAL IZQUIERDA -->
-        <aside class="element-sidebar left-sidebar">
-            <div class="element-icon" title="Planta">🍃</div>
-            <div class="element-icon" title="Fuego">🔥</div>
-            <div class="element-icon" title="Agua">💧</div>
-            <div class="element-icon" title="Eléctrico">⚡</div>
-            <div class="element-icon" title="Psíquico">👁️</div>
-        </aside>
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-        <!-- CONTENIDO CENTRAL DEL POSTER -->
-        <main class="poster-content">
+      if (distance > 0) {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      }
+    };
 
-            <!-- ENCABEZADO / BÁNNER SUPERIOR -->
-            <header class="header-banner">
-                <div class="top-tag">COPA ARTEMIS</div>
-                <h1 class="main-title">
-                    CONCURSO ARTEMIS<br>
-                    <span class="sub-title">x CURI GAMEPLAYS</span>
-                </h1>
-                <p class="subtitle-badge">ATRAPALOS A TODOS – CACERÍA DE POKEMON EN MOEMON KETZAL</p>
-                <p class="description-text">
-                    Participa en el primer gran torneo de captura de Pokémon Moemon. Una carrera épica para ver quién es el maestro absoluto. El primero en completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
-                </p>
-            </header>
+    const timerId = setInterval(updateTimer, 1000);
+    return () => clearInterval(timerId);
+  }, []);
 
-            <!-- TARJETAS DE DESTACADOS Y PREMIOS -->
-            <section class="highlights-container">
-                <div class="highlight-card gold-border">
-                    <span class="card-icon">🏆</span>
-                    <div>
-                        <span class="card-label">PREMIO MAYOR</span>
-                        <p class="card-value red-text">REGALOS EXCLUSIVOS</p>
-                    </div>
-                </div>
+  const handleRegister = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simular envío
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setShowModal(false);
+      alert('¡Inscripción enviada con éxito! Revisa tu Discord.');
+    }, 1500);
+  };
 
-                <div class="highlight-card">
-                    <span class="tag-badge">MOÉMON KETZAL</span>
-                    <p class="card-value font-bold">ÚNICO JUEGO OFICIAL</p>
-                </div>
+  return (
+    <div style={styles.body}>
+      <div style={styles.posterContainer} className="poster-container">
+        
+        {/* Fondo con cuadrícula y brillos plateados */}
+        <div style={styles.gridOverlay}></div>
+        <div style={{...styles.glowPoint, ...styles.topLeft}}></div>
+        <div style={{...styles.glowPoint, ...styles.bottomRight}}></div>
 
-                <div class="highlight-card">
-                    <div class="master-badge">1 <span>Master</span></div>
-                    <div>
-                        <p class="card-value font-bold">1 GANADOR ABSOLUTO</p>
-                        <span class="card-sublabel">POKÉDEX COMPLETADA</span>
-                    </div>
-                </div>
+        {/* Encabezado */}
+        <header style={styles.header}>
+          <h2 style={styles.goldenSubtitle}>COPA ARTEMIS</h2>
+          <h1 style={styles.silverTitleMain}>
+            CONCURSO ARTEMIS<br/>x CURI GAMEPLAYS
+          </h1>
+          <h3 style={styles.silverSubtitle}>
+            ATRAPALOS A TODOS - CACERÍA DE POKEMON EN MOEMON KETZAL
+          </h3>
+          <p style={styles.description}>
+            Participa en el primer gran torneo de captura de Pokémon Moemon. 
+            Una carrera épica para ver quién es el maestro absoluto. El primero en 
+            completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
+          </p>
+        </header>
 
-                <!-- BOTONES DE INFORMACIÓN E INSCRIPCIÓN -->
-                <div class="action-row">
-                    <button id="open-register-btn" class="action-btn glow-gold">
-                        ¡INSCRÍBETE AHORA!<br>
-                        <small>(Cupos Limitados)</small>
-                    </button>
-                    <a href="#reglamento" class="action-btn">
-                        REGLAMENTO OFICIAL<br>
-                        <small>(Ver. Ketzal Ver.)</small>
-                    </a>
-                </div>
-            </section>
+        {/* Paneles Centrales */}
+        <section style={styles.centerPanels}>
+          <div style={styles.panelBox}>
+            <span style={styles.goldText}>🏆 PREMIO MAYOR</span>
+            <span style={styles.redHighlight}>REGALOS EXCLUSIVOS</span>
+          </div>
+          
+          <div style={styles.panelBox}>
+            <span style={styles.badge}>MOÉMON KETZAL</span> 
+            <span style={styles.whiteTextHeavy}>ÚNICO JUEGO OFICIAL</span>
+          </div>
 
-            <!-- DIVISOR SECCIÓN -->
-            <div class="section-divider">
-                <span>DETALLES DEL CONCURSO</span>
+          <div style={styles.panelBox}>
+            <span style={styles.masterBadge}>1<br/>Master</span>
+            <div style={styles.panelTextCol}>
+              <span style={styles.whiteTextHeavy}>1 GANADOR ABSOLUTO</span>
+              <span style={styles.grayTextSmall}>POKÉDEX COMPLETADA</span>
             </div>
+          </div>
+        </section>
 
-            <!-- DETALLES EN 2 COLUMNAS -->
-            <section class="details-grid">
-                <!-- COLUMNA IZQUIERDA: FECHA Y LUGAR -->
-                <div class="detail-card">
-                    <div class="detail-group">
-                        <span class="detail-title">📅 FECHA:</span>
-                        <p class="detail-highlight">10-25 DE OCTUBRE, 2026</p>
-                        <p class="detail-sub">Horario: 16:00 GMT-6 • 15 días de competición</p>
-                    </div>
+        {/* Botones de Acción */}
+        <section style={styles.actionButtonsContainer}>
+          <button 
+            style={styles.actionButtonMain} 
+            onClick={() => setShowModal(true)}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            ¡INSCRÍBETE AHORA!
+            <span style={styles.btnSubtext}>(Cupos Limitados)</span>
+          </button>
+          
+          <button style={styles.actionButtonSecondary}>
+            REGLAMENTO OFICIAL
+            <span style={styles.btnSubtext}>(Ver. Ketzal Ver.)</span>
+          </button>
+        </section>
 
-                    <div class="detail-group">
-                        <span class="detail-title">📍 LUGAR:</span>
-                        <p class="detail-bold">SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
-                        <p class="detail-sub">Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
-                    </div>
+        <div style={styles.dividerContainer}>
+          <div style={styles.dividerLine}></div>
+          <span style={styles.dividerText}>DETALLES DEL CONCURSO</span>
+          <div style={styles.dividerLine}></div>
+        </div>
 
-                    <div class="game-footer-logo">
-                        <div class="moemon-logo-text">MOÉMON <span>KETZAL</span></div>
-                        <div class="starters">🌱 🔥 💧</div>
-                    </div>
-                </div>
-
-                <!-- COLUMNA DERECHA: INSCRIPCIONES Y CANAL -->
-                <div class="detail-card">
-                    <div class="detail-group">
-                        <span class="detail-title">☆ INSCRIPCIONES:</span>
-                        <p class="detail-highlight red-text">ABIERTAS</p>
-                        <p class="detail-sub font-bold text-white">REGISTRO INDIVIDUAL ACTIVO</p>
-                        <p class="detail-sub mt-1">Carrera individual de velocidad • Región Ketzal (completa) • Pokédex Galar Ampliada</p>
-                    </div>
-
-                    <p class="prize-text">🏆 Premios: Master Trophy + <strong>REGALOS EXCLUSIVOS</strong></p>
-
-                    <div class="discord-section">
-                        <p class="question-text">¿ERES UN MAESTRO POKEMON?</p>
-                        <p class="sub-question">Únete al canal para seguimiento en vivo y soporte.</p>
-
-                        <button id="open-register-btn-2" class="discord-join-btn">
-                            <svg class="discord-icon" viewBox="0 0 127.14 96.36">
-                                <path fill="currentColor" d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.87,53,48.8,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.11,53,91.08,65.69,84.69,65.69Z"/>
-                            </svg>
-                            <span>UNIRSE AL CANAL DE CURI GAMEPLAYS</span>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FOOTER LEGAL Y SITIO WEB -->
-            <footer class="poster-footer">
-                <p>©2026 CONCURSO ARTEMIS x CURI GAMEPLAYS • Todos los derechos reservados</p>
-                <a href="https://www.caceria-ketzal-esports.com" target="_blank" class="website-link">WWW.CACERIA-KETZAL-ESPORTS.COM</a>
-            </footer>
-
-        </main>
-
-        <!-- COLUMNA ELEMENTAL DERECHA -->
-        <aside class="element-sidebar right-sidebar">
-            <div class="element-icon" title="Lucha">👊</div>
-            <div class="element-icon" title="Siniestro">🌙</div>
-            <div class="element-icon" title="Acero">⚙️</div>
-            <div class="element-icon" title="Volador">🦅</div>
-            <div class="element-icon" title="Normal">🌟</div>
-        </aside>
-
-    </div>
-
-    <!-- MODAL POP-UP DE INSCRIPCIÓN -->
-    <div id="register-form-overlay" class="hidden" data-lenis-prevent>
-        <form id="register-form">
-            <h3>REGISTRO COPA ARTEMIS</h3>
-            <p class="form-subtext">Cacería Pokémon Moemon Ketzal</p>
+        {/* Paneles de Información (Fecha y Registro) */}
+        <section style={styles.infoGrid} className="info-grid">
+          <div style={styles.infoCard}>
+            <h4 style={styles.goldHeader}>📅 FECHA:</h4>
+            <p style={styles.whiteTitle}>10-25 DE OCTUBRE, 2026</p>
+            <p style={styles.grayTextSmall}>Horario: 16:00 GMT-6 • 15 días de competición</p>
             
-            <input type="text" id="nickname" placeholder="Nickname del Entrenador" required>
-            <input type="email" id="contact-email" placeholder="Correo Electrónico de Contacto" required>
-            <input type="text" id="discord-tag" placeholder="Usuario de Discord (Ej: Entrenador#1234)" required>
+            <h4 style={{...styles.goldHeader, marginTop: '20px'}}>📍 LUGAR:</h4>
+            <p style={styles.whiteTitleSmall}>SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
+            <p style={styles.grayTextSmall}>Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
+            
+            {/* Countdown */}
+            <div style={styles.countdownBox}>
+              <div style={styles.countItem}><span>{timeLeft.days}</span><small>D</small></div>
+              <div style={styles.countItem}><span>{timeLeft.hours}</span><small>H</small></div>
+              <div style={styles.countItem}><span>{timeLeft.minutes}</span><small>M</small></div>
+              <div style={styles.countItem}><span>{timeLeft.seconds}</span><small>S</small></div>
+            </div>
+          </div>
 
-            <button type="submit" class="submit-btn">Completar Registro</button>
-            <button type="button" id="close-form" class="close-btn">Cancelar / Cerrar</button>
-        </form>
+          <div style={styles.infoCard}>
+            <h4 style={styles.goldHeader}>☆ INSCRIPCIONES:</h4>
+            <p style={styles.redHighlight}>ABIERTAS</p>
+            <p style={styles.whiteTitleSmall}>REGISTRO INDIVIDUAL ACTIVO</p>
+            <p style={styles.grayTextSmall}>Carrera individual de velocidad • Región Ketzal (completa) • Pokédex Galar Ampliada</p>
+            
+            <p style={{...styles.goldHeader, fontSize: '0.85rem', marginTop: '15px'}}>
+              🏆 Premios: Master Trophy + REGALOS EXCLUSIVOS
+            </p>
+
+            <div style={styles.discordSection}>
+              <h4 style={styles.whiteTitleSmall}>¿ERES UN MAESTRO POKEMON?</h4>
+              <p style={styles.grayTextSmall}>Únete al canal para seguimiento en vivo y soporte.</p>
+              
+              <button 
+                style={styles.discordBtn}
+                onMouseOver={(e) => e.currentTarget.style.filter = 'brightness(1.2)'}
+                onMouseOut={(e) => e.currentTarget.style.filter = 'brightness(1)'}
+              >
+                <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="currentColor">
+                    <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.87,53,48.8,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.11,53,91.08,65.69,84.69,65.69Z"/>
+                </svg>
+                UNIRSE AL CANAL DE CURI
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <footer style={styles.footer}>
+          ©2026 CONCURSO ARTEMIS x CURI GAMEPLAYS • Todos los derechos reservados<br/>
+          <span style={styles.footerLink}>WWW.CACERIA-KETZAL-ESPORTS.COM</span>
+        </footer>
+
+        {/* Estilos inyectados para Media Queries y animaciones */}
+        <style>
+          {`
+            @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@400;600;800&display=swap');
+            
+            .poster-container {
+              width: 100%;
+              max-width: 480px;
+              transition: all 0.3s ease;
+            }
+            
+            .info-grid {
+              flex-direction: column;
+            }
+
+            /* RESPONSIVIDAD PARA PC (Pantallas grandes) */
+            @media (min-width: 1025px) {
+              .poster-container {
+                max-width: 1200px !important;
+                padding: 60px !important;
+                border-width: 4px !important;
+                border-radius: 30px !important;
+              }
+              .info-grid {
+                flex-direction: row !important;
+                gap: 40px !important;
+              }
+            }
+
+            @keyframes pulseSilver {
+              0% { box-shadow: 0 0 15px rgba(192, 192, 192, 0.2); }
+              50% { box-shadow: 0 0 25px rgba(220, 220, 220, 0.5); }
+              100% { box-shadow: 0 0 15px rgba(192, 192, 192, 0.2); }
+            }
+          `}
+        </style>
+
+        {/* Modal de Registro */}
+        {showModal && (
+          <div style={styles.modalOverlay} onClick={() => setShowModal(false)}>
+            <div style={styles.modalContent} onClick={e => e.stopPropagation()}>
+              <h2 style={styles.silverTitleMain}>REGISTRO OFICIAL</h2>
+              <form onSubmit={handleRegister} style={styles.form}>
+                <input type="text" placeholder="Nickname en el Juego" required style={styles.input} />
+                <input type="email" placeholder="Correo Electrónico" required style={styles.input} />
+                <input type="text" placeholder="Usuario de Discord" required style={styles.input} />
+                
+                <button type="submit" style={styles.submitBtn} disabled={isSubmitting}>
+                  {isSubmitting ? 'PROCESANDO...' : 'CONFIRMAR INSCRIPCIÓN'}
+                </button>
+                <button type="button" onClick={() => setShowModal(false)} style={styles.closeBtn}>
+                  CANCELAR
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
-
-    <!-- SCRIPT WEBHOOK DISCORD + REDIRECCIÓN -->
-    <script>
-        const DISCORD_WEBHOOK_KETZAL = "https://discord.com/api/webhooks/1533123442508042431/JMG7CwgPM_E29BjcZrr4K13qQJNVWxA6Qaa9kcnXg_ybo_4jPhzkPnUAqctQMno5-9Xi";
-        const DISCORD_INVITE_LINK = "https://discord.gg/EN4zwvT86f";
-
-        const openRegisterBtn = document.getElementById('open-register-btn');
-        const openRegisterBtn2 = document.getElementById('open-register-btn-2');
-        const registerFormOverlay = document.getElementById('register-form-overlay');
-        const closeFormBtn = document.getElementById('close-form');
-        const registerForm = document.getElementById('register-form');
-
-        const showModalForm = () => {
-            registerFormOverlay?.classList.remove('hidden');
-            if(typeof lenis !== 'undefined') lenis.stop();
-        };
-
-        const hideModalForm = () => {
-            registerFormOverlay?.classList.add('hidden');
-            if(typeof lenis !== 'undefined') lenis.start();
-        };
-
-        openRegisterBtn?.addEventListener('click', showModalForm);
-        openRegisterBtn2?.addEventListener('click', showModalForm);
-
-        closeFormBtn?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            hideModalForm();
-        });
-
-        registerFormOverlay?.addEventListener('click', (e) => {
-            if (e.target === registerFormOverlay) hideModalForm();
-        });
-
-        registerForm?.addEventListener('click', (e) => e.stopPropagation());
-
-        registerForm?.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const nicknameInput = document.getElementById('nickname');
-            const emailInput = document.getElementById('contact-email');
-            const discordTagInput = document.getElementById('discord-tag');
-            const submitBtn = registerForm.querySelector('.submit-btn');
-
-            if (!nicknameInput || !emailInput || !discordTagInput) return;
-
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Enviando Datos...';
-            }
-
-            const discordPayload = {
-                username: "Copa Artemis Bot",
-                embeds: [
-                    {
-                        title: "🏆 ¡NUEVA INSCRIPCIÓN - CACERÍA POKÉMON MOEMON!",
-                        color: 0xE2A838, // Color Dorado
-                        fields: [
-                            {
-                                name: "🎮 Nickname Entrenador",
-                                value: `\`${nicknameInput.value}\``,
-                                inline: true
-                            },
-                            {
-                                name: "👾 Discord Tag",
-                                value: `\`${discordTagInput.value}\``,
-                                inline: true
-                            },
-                            {
-                                name: "📧 Correo de Contacto",
-                                value: emailInput.value,
-                                inline: false
-                            },
-                            {
-                                name: "🎮 Juego Oficial",
-                                value: "Moémon Ketzal",
-                                inline: true
-                            }
-                        ],
-                        footer: {
-                            text: "Concurso Artemis x Curi Gameplays • 2026"
-                        },
-                        timestamp: new Date().toISOString()
-                    }
-                ]
-            };
-
-            try {
-                const response = await fetch(DISCORD_WEBHOOK_KETZAL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(discordPayload)
-                });
-
-                if (response.ok) {
-                    alert(`¡Inscripción Registrada Con Éxito!\nBienvenido a la Copa Artemis. Te redirigiremos a nuestro canal oficial.`);
-                    registerForm.reset();
-                    hideModalForm();
-                    window.open(DISCORD_INVITE_LINK, '_blank');
-                } else {
-                    alert('Error enviando la inscripción. Por favor intenta de nuevo.');
-                }
-            } catch (error) {
-                console.error('Error enviando a Discord:', error);
-                alert('Error de conexión al enviar los datos.');
-            } finally {
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Completar Registro';
-                }
-            }
-        });
-    </script>
-
-    <!-- SCRIPT LENIS PARA SCROLL FLUIDO -->
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-    <script>
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            smoothTouch: true,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-
-        requestAnimationFrame(raf);
-    </script>
-</body>
-</html>
-
-<!-- ESTILOS FIDELIDAD VISUAL AL AFICHE -->
-<style>
-    :root {
-        --gold-primary: #e2a838;
-        --gold-light: #fef08a;
-        --red-accent: #ff3838;
-        --dark-bg: #09090b;
-        --card-bg: rgba(18, 18, 22, 0.95);
-        --metal-border: #cbd5e1;
-        --font-header: 'Cinzel', serif;
-        --font-body: 'Rajdhani', sans-serif;
-        --font-condensed: 'Teko', sans-serif;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        background-color: #030304;
-        color: #ffffff;
-        font-family: var(--font-body);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px 10px;
-    }
-
-    /* CONTENEDOR PRINCIPAL TIPO MARCO METÁLICO */
-    .poster-frame {
-        position: relative;
-        width: 100%;
-        max-width: 520px;
-        background: var(--dark-bg);
-        border: 7px solid var(--metal-border);
-        border-radius: 36px;
-        box-shadow: 
-            0 0 30px rgba(255, 255, 255, 0.15),
-            inset 0 0 15px rgba(0, 0, 0, 0.8);
-        display: grid;
-        grid-template-columns: 45px 1fr 45px;
-        overflow: hidden;
-        padding: 10px 5px;
-    }
-
-    .inner-border {
-        position: absolute;
-        inset: 4px;
-        border: 1px solid rgba(226, 168, 56, 0.4);
-        border-radius: 28px;
-        pointer-events: none;
-        z-index: 2;
-    }
-
-    /* BARRAS LATERALES ELEMENTALES */
-    .element-sidebar {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        z-index: 5;
-        padding: 20px 0;
-    }
-
-    .element-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        box-shadow: 0 0 8px rgba(0,0,0,0.5);
-    }
-
-    /* CONTENIDO CENTRAL */
-    .poster-content {
-        z-index: 5;
-        padding: 10px 5px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    /* HEADER */
-    .top-tag {
-        font-family: var(--font-header);
-        color: var(--gold-primary);
-        font-size: 0.9rem;
-        letter-spacing: 4px;
-        font-weight: 900;
-        margin-bottom: 4px;
-        text-shadow: 0 0 10px rgba(226, 168, 56, 0.5);
-    }
-
-    .main-title {
-        font-family: var(--font-header);
-        font-size: 1.35rem;
-        font-weight: 900;
-        line-height: 1.1;
-        letter-spacing: -0.5px;
-        color: #ffffff;
-    }
-
-    .sub-title {
-        color: #f1f5f9;
-        font-size: 1.2rem;
-    }
-
-    .subtitle-badge {
-        color: var(--gold-primary);
-        font-family: var(--font-body);
-        font-size: 0.75rem;
-        font-weight: 800;
-        letter-spacing: 1px;
-        margin: 8px 0 6px;
-    }
-
-    .description-text {
-        font-size: 0.65rem;
-        color: #94a3b8;
-        line-height: 1.3;
-        max-width: 92%;
-        margin: 0 auto 12px;
-    }
-
-    /* TARJETAS DESTACADAS */
-    .highlights-container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .highlight-card {
-        background: var(--card-bg);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 10px;
-        padding: 6px 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .gold-border {
-        border-color: rgba(226, 168, 56, 0.6);
-    }
-
-    .card-icon { font-size: 1.2rem; }
-
-    .card-label {
-        font-size: 0.6rem;
-        color: var(--gold-primary);
-        font-weight: 800;
-        display: block;
-        letter-spacing: 1px;
-    }
-
-    .card-value {
-        font-size: 0.85rem;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-    }
-
-    .red-text { color: var(--red-accent); }
-    .font-bold { font-weight: 800; }
-
-    .tag-badge {
-        background: var(--gold-primary);
-        color: #000;
-        font-weight: 900;
-        font-size: 0.65rem;
-        padding: 2px 6px;
-        border-radius: 4px;
-    }
-
-    .master-badge {
-        width: 24px;
-        height: 24px;
-        border: 1px solid var(--gold-primary);
-        border-radius: 50%;
-        font-size: 0.7rem;
-        font-weight: 900;
-        color: var(--gold-primary);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        line-height: 0.8;
-    }
-    .master-badge span { font-size: 0.4rem; }
-
-    .card-sublabel {
-        font-size: 0.55rem;
-        color: #94a3b8;
-        display: block;
-    }
-
-    /* BOTONES */
-    .action-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-        margin-top: 4px;
-    }
-
-    .action-btn {
-        background: var(--card-bg);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: #ffffff;
-        padding: 6px;
-        border-radius: 8px;
-        font-size: 0.7rem;
-        font-weight: 800;
-        text-decoration: none;
-        cursor: pointer;
-        line-height: 1.1;
-    }
-
-    .glow-gold {
-        border-color: var(--gold-primary);
-        box-shadow: 0 0 10px rgba(226, 168, 56, 0.2);
-    }
-
-    .action-btn small {
-        font-size: 0.55rem;
-        color: #94a3b8;
-        font-weight: 400;
-    }
-
-    /* SEPARADOR */
-    .section-divider {
-        margin: 12px 0 8px;
-        position: relative;
-        width: 100%;
-    }
-
-    .section-divider span {
-        background: #000;
-        border: 1px solid var(--gold-primary);
-        color: var(--gold-primary);
-        font-size: 0.65rem;
-        font-weight: 900;
-        padding: 3px 12px;
-        border-radius: 12px;
-        letter-spacing: 1px;
-    }
-
-    /* DETALLES EN 2 COLUMNAS */
-    .details-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-        width: 100%;
-        text-align: left;
-    }
-
-    .detail-card {
-        background: var(--card-bg);
-        border: 1px solid rgba(226, 168, 56, 0.3);
-        border-radius: 10px;
-        padding: 8px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .detail-title {
-        color: var(--gold-primary);
-        font-size: 0.65rem;
-        font-weight: 800;
-        display: block;
-    }
-
-    .detail-highlight {
-        font-size: 0.8rem;
-        font-weight: 900;
-    }
-
-    .detail-sub {
-        font-size: 0.55rem;
-        color: #94a3b8;
-        line-height: 1.2;
-    }
-
-    .detail-bold {
-        font-size: 0.65rem;
-        font-weight: 800;
-        color: #e2e8f0;
-    }
-
-    .game-footer-logo {
-        margin-top: 8px;
-        padding-top: 6px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .moemon-logo-text {
-        font-weight: 900;
-        font-size: 0.65rem;
-        color: var(--gold-primary);
-    }
-    .moemon-logo-text span { color: #fff; }
-
-    .starters { font-size: 0.75rem; }
-
-    .prize-text {
-        font-size: 0.6rem;
-        color: var(--gold-light);
-        margin: 6px 0;
-    }
-
-    .discord-section {
-        margin-top: 4px;
-    }
-
-    .question-text {
-        font-size: 0.6rem;
-        font-weight: 800;
-        color: #ffffff;
-    }
-
-    .sub-question {
-        font-size: 0.5rem;
-        color: #94a3b8;
-        margin-bottom: 4px;
-    }
-
-    .discord-join-btn {
-        width: 100%;
-        background: #4f46e5;
-        color: #fff;
-        border: none;
-        padding: 6px 4px;
-        border-radius: 6px;
-        font-size: 0.55rem;
-        font-weight: 800;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-    }
-
-    .discord-icon {
-        width: 12px;
-        height: 12px;
-    }
-
-    /* FOOTER */
-    .poster-footer {
-        margin-top: 10px;
-        font-size: 0.5rem;
-        color: #64748b;
-    }
-
-    .website-link {
-        color: #cbd5e1;
-        text-decoration: none;
-        font-weight: 700;
-        display: block;
-        margin-top: 2px;
-    }
-
-    /* MODAL */
-    #register-form-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.85);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 100;
-        backdrop-filter: blur(5px);
-    }
-
-    .hidden { display: none !important; }
-
-    #register-form {
-        background: var(--dark-bg);
-        padding: 25px 20px;
-        border: 2px solid var(--gold-primary);
-        border-radius: 16px;
-        width: 90%;
-        max-width: 380px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        box-shadow: 0 0 25px rgba(226, 168, 56, 0.3);
-    }
-
-    #register-form h3 {
-        font-family: var(--font-header);
-        color: var(--gold-primary);
-        text-align: center;
-        font-size: 1.1rem;
-    }
-
-    .form-subtext {
-        text-align: center;
-        font-size: 0.75rem;
-        color: #94a3b8;
-        margin-top: -8px;
-        margin-bottom: 6px;
-    }
-
-    #register-form input {
-        padding: 10px 12px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(226, 168, 56, 0.4);
-        color: #fff;
-        border-radius: 6px;
-        font-family: var(--font-body);
-        font-size: 0.9rem;
-    }
-
-    #register-form input:focus {
-        outline: none;
-        border-color: var(--gold-primary);
-    }
-
-    .submit-btn {
-        background: var(--gold-primary);
-        color: #000;
-        font-weight: 800;
-        border: none;
-        padding: 10px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.9rem;
-    }
-
-    .close-btn {
-        background: transparent;
-        color: #94a3b8;
-        border: 1px solid #334155;
-        padding: 8px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.8rem;
-    }
-
-    /* ESCRITORIO / LARGO */
-    @media (max-width: 400px) {
-        .element-sidebar { display: none; }
-        .poster-frame { grid-template-columns: 1fr; }
-    }
-</style>
+  );
+}
+
+// Estilos en JS (Object)
+const styles = {
+  body: {
+    backgroundColor: '#0a0a0a',
+    color: '#ffffff',
+    fontFamily: "'Montserrat', sans-serif",
+    minHeight: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '20px 10px',
+    overflowX: 'hidden'
+  },
+  posterContainer: {
+    backgroundColor: '#0f0f11',
+    border: '2px solid #b3b3b3', // Borde Plateado
+    borderRadius: '16px',
+    position: 'relative',
+    boxShadow: '0 0 30px rgba(180, 180, 180, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.05)',
+    padding: '30px 20px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    overflow: 'hidden',
+    zIndex: 1
+  },
+  gridOverlay: {
+    position: 'absolute',
+    top: '-50%', left: '-50%', right: '-50%', bottom: '-50%',
+    backgroundImage: `
+      linear-gradient(rgba(200, 200, 200, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200, 200, 200, 0.05) 1px, transparent 1px)
+    `,
+    backgroundSize: '40px 40px',
+    transform: 'perspective(300px) rotateX(60deg)',
+    zIndex: -1,
+  },
+  glowPoint: {
+    position: 'absolute',
+    width: '300px', height: '300px',
+    borderRadius: '50%',
+    filter: 'blur(80px)',
+    zIndex: -1,
+    opacity: 0.3
+  },
+  topLeft: {
+    background: 'radial-gradient(circle, #e0e0e0, transparent 70%)',
+    top: '-100px', left: '-100px',
+  },
+  bottomRight: {
+    background: 'radial-gradient(circle, #a0a0a0, transparent 70%)',
+    bottom: '-100px', right: '-100px',
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: '20px',
+    zIndex: 2,
+  },
+  goldenSubtitle: {
+    fontFamily: "'Cinzel', serif",
+    color: '#d4af37',
+    fontSize: '1rem',
+    letterSpacing: '3px',
+    margin: '0 0 5px 0'
+  },
+  silverTitleMain: {
+    fontFamily: "'Cinzel', serif",
+    fontSize: '1.8rem',
+    fontWeight: 800,
+    color: '#ffffff',
+    textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(200,200,200,0.5)',
+    lineHeight: 1.2,
+    margin: '0 0 10px 0'
+  },
+  silverSubtitle: {
+    color: '#d4af37',
+    fontSize: '0.9rem',
+    fontWeight: 600,
+    letterSpacing: '1px',
+    marginBottom: '15px'
+  },
+  description: {
+    fontSize: '0.8rem',
+    color: '#b0b0b0',
+    lineHeight: 1.5,
+    maxWidth: '90%',
+    margin: '0 auto'
+  },
+  centerPanels: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    marginBottom: '20px',
+    zIndex: 2
+  },
+  panelBox: {
+    border: '1px solid #505050',
+    backgroundColor: 'rgba(20, 20, 25, 0.8)',
+    borderRadius: '10px',
+    padding: '12px 15px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '15px',
+    textAlign: 'center'
+  },
+  goldText: {
+    color: '#d4af37',
+    fontWeight: 'bold',
+    fontSize: '0.9rem'
+  },
+  redHighlight: {
+    color: '#ff4444',
+    fontWeight: 800,
+    letterSpacing: '1px'
+  },
+  badge: {
+    backgroundColor: '#d4af37',
+    color: '#000',
+    padding: '3px 8px',
+    borderRadius: '4px',
+    fontWeight: 800,
+    fontSize: '0.75rem'
+  },
+  whiteTextHeavy: {
+    color: '#fff',
+    fontWeight: 800,
+    letterSpacing: '1px'
+  },
+  masterBadge: {
+    border: '2px solid #d4af37',
+    borderRadius: '50%',
+    width: '45px', height: '45px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#d4af37',
+    fontSize: '0.6rem',
+    fontWeight: 'bold',
+    lineHeight: 1.1
+  },
+  panelTextCol: {
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'left'
+  },
+  grayTextSmall: {
+    color: '#888',
+    fontSize: '0.75rem',
+    marginTop: '3px'
+  },
+  actionButtonsContainer: {
+    display: 'flex',
+    gap: '10px',
+    width: '100%',
+    marginBottom: '20px',
+    zIndex: 2
+  },
+  actionButtonMain: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    border: '1px solid #d4af37',
+    color: '#fff',
+    padding: '10px',
+    borderRadius: '8px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    transition: 'transform 0.2s',
+  },
+  actionButtonSecondary: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    border: '1px solid #505050',
+    color: '#fff',
+    padding: '10px',
+    borderRadius: '8px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  btnSubtext: {
+    fontSize: '0.65rem',
+    color: '#888',
+    marginTop: '3px',
+    fontWeight: 'normal'
+  },
+  dividerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    gap: '10px',
+    marginBottom: '20px'
+  },
+  dividerLine: {
+    flex: 1,
+    height: '1px',
+    backgroundColor: '#d4af37'
+  },
+  dividerText: {
+    color: '#d4af37',
+    fontSize: '0.8rem',
+    fontWeight: 'bold',
+    border: '1px solid #d4af37',
+    padding: '4px 12px',
+    borderRadius: '15px'
+  },
+  infoGrid: {
+    display: 'flex',
+    width: '100%',
+    gap: '15px',
+    zIndex: 2
+  },
+  infoCard: {
+    flex: 1,
+    border: '1px solid #505050',
+    backgroundColor: 'rgba(20, 20, 25, 0.8)',
+    borderRadius: '10px',
+    padding: '15px',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  goldHeader: {
+    color: '#d4af37',
+    margin: '0 0 5px 0',
+    fontSize: '0.9rem'
+  },
+  whiteTitle: {
+    color: '#fff',
+    fontSize: '1.2rem',
+    fontWeight: 800,
+    margin: '0 0 5px 0'
+  },
+  whiteTitleSmall: {
+    color: '#fff',
+    fontSize: '0.9rem',
+    fontWeight: 800,
+    margin: '0 0 5px 0'
+  },
+  countdownBox: {
+    display: 'flex',
+    gap: '10px',
+    marginTop: '15px',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    padding: '10px',
+    borderRadius: '8px',
+    justifyContent: 'center'
+  },
+  countItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    color: '#d4af37',
+    fontWeight: 'bold',
+    fontSize: '1.2rem'
+  },
+  discordSection: {
+    marginTop: '15px',
+    paddingTop: '15px',
+    borderTop: '1px solid #333'
+  },
+  discordBtn: {
+    width: '100%',
+    marginTop: '10px',
+    backgroundColor: '#5865F2', // Color oficial de Discord
+    color: '#fff',
+    border: 'none',
+    padding: '12px',
+    borderRadius: '8px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    transition: 'filter 0.2s'
+  },
+  footer: {
+    marginTop: '25px',
+    textAlign: 'center',
+    color: '#666',
+    fontSize: '0.65rem',
+    zIndex: 2
+  },
+  footerLink: {
+    color: '#fff',
+    fontWeight: 'bold',
+    letterSpacing: '1px',
+    marginTop: '5px',
+    display: 'inline-block'
+  },
+  modalOverlay: {
+    position: 'fixed',
+    top: 0, left: 0, right: 0, bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.85)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 100,
+    backdropFilter: 'blur(5px)'
+  },
+  modalContent: {
+    backgroundColor: '#111',
+    border: '2px solid #b3b3b3',
+    padding: '30px',
+    borderRadius: '12px',
+    width: '90%',
+    maxWidth: '400px',
+    textAlign: 'center',
+    boxShadow: '0 0 30px rgba(180, 180, 180, 0.2)'
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '15px',
+    marginTop: '20px'
+  },
+  input: {
+    padding: '12px',
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    border: '1px solid #555',
+    borderRadius: '6px',
+    color: '#fff',
+    outline: 'none',
+    fontFamily: 'inherit'
+  },
+  submitBtn: {
+    padding: '12px',
+    backgroundColor: '#b3b3b3', // Botón plateado
+    color: '#000',
+    border: 'none',
+    borderRadius: '6px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    marginTop: '10px'
+  },
+  closeBtn: {
+    padding: '10px',
+    backgroundColor: 'transparent',
+    color: '#888',
+    border: '1px solid #444',
+    borderRadius: '6px',
+    cursor: 'pointer'
+  }
+};
