@@ -1,5 +1,5 @@
 ---
-// --- DATOS INICIALES (Renderizado en el Servidor) ---
+// --- DATOS INICIALES ---
 const POKEMON_TYPES = [
   { name: 'Planta', icon: '<path d="M11 20A7 7 0 0 1 4 13v-5a2 2 0 0 1 2-2h5a7 7 0 0 1 7 7v5a2 2 0 0 1-2 2h-5Z"/><path d="M11 20V10"/>', color: 'from-emerald-400 to-green-600', glow: 'shadow-emerald-500/50' },
   { name: 'Fuego', icon: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>', color: 'from-amber-500 to-red-600', glow: 'shadow-red-500/50' },
@@ -20,12 +20,17 @@ const POKEMON_TYPES = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copa Artemis 2026</title>
-    <!-- Tailwind inyectado para garantizar que los estilos carguen -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- EL is:inline ES VITAL PARA QUE VERCEL Y ASTRO NO LO BLOQUEEN -->
+    <script src="https://cdn.tailwindcss.com" is:inline></script>
+    <style>
+        /* Estilos de respaldo por si el internet es lento en cargar Tailwind */
+        body { background-color: #08090d; color: #f1f5f9; font-family: system-ui, sans-serif; }
+        .icon-svg { width: 1.25rem; height: 1.25rem; } /* Evita los íconos gigantes */
+    </style>
 </head>
-<body class="min-h-screen bg-[#08090d] text-slate-100 font-sans antialiased relative overflow-x-hidden selection:bg-slate-300 selection:text-slate-900">
+<body class="min-h-screen bg-[#08090d] text-slate-100 antialiased relative overflow-x-hidden selection:bg-slate-300 selection:text-slate-900">
   
-  <!-- BACKGROUND GRAPHICS: METALLIC CYBERPUNK GRID & AMBIENT GLOW -->
+  <!-- FONDO CYBERPUNK -->
   <div class="fixed inset-0 pointer-events-none z-0">
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(203,213,225,0.12),rgba(255,255,255,0))]"></div>
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px]"></div>
@@ -33,14 +38,14 @@ const POKEMON_TYPES = [
     <div class="absolute bottom-1/3 right-10 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse" style="animation-duration: 6s;"></div>
   </div>
 
-  <!-- TOP FLOATING NAVIGATION / UTILITY BAR -->
+  <!-- NAVEGACIÓN SUPERIOR -->
   <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#08090d]/80 border-b border-slate-800/80 px-4 py-3 shadow-2xl">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
       
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-200 via-slate-400 to-slate-700 p-[1px] shadow-lg shadow-slate-500/20">
           <div class="w-full h-full bg-[#0d0f17] rounded-[11px] flex items-center justify-center">
-            <svg class="w-5 h-5 text-amber-400 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+            <svg class="icon-svg text-amber-400 animate-bounce" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
           </div>
         </div>
         <div>
@@ -51,31 +56,29 @@ const POKEMON_TYPES = [
         </div>
       </div>
 
-      <!-- Quick Controls -->
       <div class="flex items-center gap-2">
         <button id="btn-leaderboard" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-xs font-semibold text-slate-200 transition-all active:scale-95">
-          <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <span class="hidden sm:inline">Tabla de Jugadores</span>
+          <svg class="icon-svg text-amber-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="hidden sm:inline">Jugadores</span>
           <span id="player-count" class="bg-slate-900 text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full border border-slate-700">6</span>
         </button>
 
-        <button id="btn-share" class="p-2 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-slate-300 transition-all hover:text-slate-100" title="Compartir evento">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+        <button id="btn-share" class="p-2 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-slate-300 transition-all hover:text-slate-100">
+          <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
         </button>
 
-        <button id="btn-audio" class="p-2 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-slate-300 transition-all hover:text-slate-100" title="Silenciar">
-          <svg id="icon-vol-on" class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-          <svg id="icon-vol-off" class="w-4 h-4 text-rose-400 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" x2="1" y1="1" y2="23"/><line x1="22.54" x2="16.46" y1="8.46" y2="14.54"/></svg>
+        <button id="btn-audio" class="p-2 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-slate-300 transition-all hover:text-slate-100">
+          <svg id="icon-vol-on" class="icon-svg text-emerald-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <svg id="icon-vol-off" class="icon-svg text-rose-400 hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" x2="1" y1="1" y2="23"/><line x1="22.54" x2="16.46" y1="8.46" y2="14.54"/></svg>
         </button>
       </div>
-
     </div>
   </header>
 
-  <!-- TOAST NOTIFICATION -->
-  <div id="toast-container" class="fixed top-16 right-4 z-50 animate-in fade-in slide-in-from-top-4 duration-300 hidden pointer-events-none">
+  <!-- TOAST -->
+  <div id="toast-container" class="fixed top-16 right-4 z-50 transition-all duration-300 hidden pointer-events-none">
     <div id="toast-body" class="px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl flex items-center gap-3 bg-slate-900/90 border-slate-500/50 text-slate-100">
-      <svg class="w-5 h-5 shrink-0 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+      <svg class="icon-svg text-amber-400" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
       <p id="toast-text" class="text-sm font-medium">Notificación</p>
     </div>
   </div>
@@ -85,11 +88,11 @@ const POKEMON_TYPES = [
       
       <div class="bg-[#0b0c12] rounded-[14px] md:rounded-[22px] overflow-hidden relative">
 
-        <!-- SIDE RAIL TYPE BADGES -->
+        <!-- LATERALES POKEMON -->
         <div class="hidden lg:flex flex-col gap-3 absolute left-3 top-1/2 -translate-y-1/2 z-20 pointer-events-auto">
           {POKEMON_TYPES.slice(0, 5).map((type) => (
             <div class={`w-9 h-9 rounded-xl bg-slate-900/90 border border-slate-700 flex items-center justify-center group hover:scale-110 transition-all duration-300 shadow-md ${type.glow}`} title={type.name}>
-              <svg class="w-4 h-4 text-slate-300 group-hover:text-amber-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={type.icon} />
+              <svg class="icon-svg text-slate-300 group-hover:text-amber-400 transition-colors" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={type.icon} />
             </div>
           ))}
         </div>
@@ -97,16 +100,16 @@ const POKEMON_TYPES = [
         <div class="hidden lg:flex flex-col gap-3 absolute right-3 top-1/2 -translate-y-1/2 z-20 pointer-events-auto">
           {POKEMON_TYPES.slice(5, 10).map((type) => (
             <div class={`w-9 h-9 rounded-xl bg-slate-900/90 border border-slate-700 flex items-center justify-center group hover:scale-110 transition-all duration-300 shadow-md ${type.glow}`} title={type.name}>
-              <svg class="w-4 h-4 text-slate-300 group-hover:text-amber-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={type.icon} />
+              <svg class="icon-svg text-slate-300 group-hover:text-amber-400 transition-colors" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={type.icon} />
             </div>
           ))}
         </div>
 
-        <!-- CONTENT -->
+        <!-- CONTENIDO PRINCIPAL -->
         <div class="p-4 sm:p-8 md:p-12 lg:px-16">
           <div class="text-center mb-6">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-amber-500/40 shadow-inner">
-              <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
+              <svg class="icon-svg text-amber-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
               <h2 class="text-xs sm:text-sm font-bold tracking-[0.25em] text-amber-300 uppercase">
                 COPA ARTEMIS
               </h2>
@@ -133,11 +136,11 @@ const POKEMON_TYPES = [
             </p>
           </div>
 
-          <!-- TIMER -->
+          <!-- CONTADOR DE TIEMPO -->
           <div class="mb-10 max-w-2xl mx-auto rounded-xl bg-gradient-to-r from-slate-900 via-slate-800/90 to-slate-900 p-4 border border-slate-700/60 shadow-xl">
             <div class="flex items-center justify-between mb-3 border-b border-slate-700/50 pb-2">
               <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-amber-400 animate-spin" style="animation-duration: 10s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <svg class="icon-svg text-amber-400 animate-spin" style="animation-duration: 10s;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <span class="text-xs font-bold tracking-wider text-slate-300 uppercase">INICIO DEL TORNEO EN VIVO</span>
               </div>
               <span class="text-[11px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50">
@@ -165,11 +168,11 @@ const POKEMON_TYPES = [
             </div>
           </div>
 
-          <!-- CARDS -->
+          <!-- CARTAS HIGHLIGHT -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div class="group relative rounded-xl bg-slate-900/90 p-4 border border-slate-700 hover:border-slate-400 transition-all duration-300 shadow-lg flex flex-col items-center text-center justify-center">
               <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mb-2 border border-slate-600 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                <svg class="icon-svg text-amber-400" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
               </div>
               <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase">PREMIO MAYOR</span>
               <p class="text-sm sm:text-base font-extrabold text-rose-500 tracking-wider uppercase mt-1">REGALOS EXCLUSIVOS</p>
@@ -190,13 +193,13 @@ const POKEMON_TYPES = [
             </div>
           </div>
 
-          <!-- BUTTONS -->
+          <!-- BOTONES -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-10">
             <button id="btn-open-register" class="group relative overflow-hidden rounded-xl p-[2px] bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400 shadow-xl hover:shadow-slate-300/20 active:scale-98 transition-all">
               <div class="bg-slate-950 rounded-[10px] px-6 py-4 flex flex-col items-center justify-center group-hover:bg-slate-900/90 transition-colors">
                 <span class="text-base font-black tracking-wider text-slate-100 uppercase flex items-center gap-2">
                   ¡INSCRÍBETE AHORA!
-                  <svg class="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                  <svg class="icon-svg text-amber-400 group-hover:translate-x-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
                 </span>
                 <span class="text-[11px] text-slate-400 font-medium">(Cupos Limitados)</span>
               </div>
@@ -204,13 +207,13 @@ const POKEMON_TYPES = [
             <button id="btn-open-rules" class="group relative overflow-hidden rounded-xl border border-slate-700 bg-slate-900/80 hover:border-slate-400 p-4 flex flex-col items-center justify-center active:scale-98 transition-all shadow-lg">
               <span class="text-base font-black tracking-wider text-slate-100 uppercase flex items-center gap-2">
                 REGLAMENTO OFICIAL
-                <svg class="w-4 h-4 text-slate-400 group-hover:text-amber-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+                <svg class="icon-svg text-slate-400 group-hover:text-amber-400 transition-colors" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
               </span>
               <span class="text-[11px] text-slate-400 font-medium">(Ver. Ketzal Ver.)</span>
             </button>
           </div>
 
-          <!-- DETALLES Y FOOTER -->
+          <!-- DETALLES DEL EVENTO -->
           <div class="text-center mb-6">
             <span class="inline-block px-6 py-1.5 rounded-full border border-amber-500/30 bg-slate-900/90 text-xs font-extrabold tracking-widest text-amber-400 uppercase shadow-md">
               DETALLES DEL CONCURSO
@@ -222,7 +225,7 @@ const POKEMON_TYPES = [
               <div class="space-y-6">
                 <div>
                   <div class="flex items-center gap-2 text-amber-400 mb-1">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                    <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
                     <span class="text-xs font-black tracking-wider uppercase">FECHA:</span>
                   </div>
                   <p class="text-lg font-black text-slate-100 tracking-wide">10-25 DE OCTUBRE, 2026</p>
@@ -230,7 +233,7 @@ const POKEMON_TYPES = [
                 </div>
                 <div>
                   <div class="flex items-center gap-2 text-amber-400 mb-1">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                     <span class="text-xs font-black tracking-wider uppercase">LUGAR:</span>
                   </div>
                   <p class="text-sm font-extrabold text-slate-100 uppercase tracking-wide">SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
@@ -249,7 +252,7 @@ const POKEMON_TYPES = [
               <div class="space-y-4">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2 text-amber-400">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                    <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
                     <span class="text-xs font-black tracking-wider uppercase">INSCRIPCIONES:</span>
                   </div>
                   <span class="px-2.5 py-0.5 rounded text-[11px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40">ABIERTAS</span>
@@ -266,26 +269,26 @@ const POKEMON_TYPES = [
               </div>
               <div class="mt-6">
                 <a href="#" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-slate-700 via-slate-800 to-slate-900 border border-slate-500/50 flex items-center justify-center gap-3 text-slate-100 text-xs font-black tracking-wider uppercase transition-all shadow-lg hover:shadow-slate-500/20">
+                  <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                   UNIRSE AL CANAL DE CURI GAMEPLAYS
                 </a>
               </div>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
   </main>
 
   <!-- MODAL: REGISTRO -->
-  <div id="modal-register" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+  <div id="modal-register" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-200">
     <div class="relative w-full max-w-lg rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 overflow-hidden">
       <button class="close-modal absolute top-4 right-4 text-slate-400 hover:text-slate-100 p-1 rounded-lg bg-slate-800 border border-slate-700">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        <svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
       </button>
       <div class="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
         <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+          <svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
         </div>
         <div>
           <h3 class="text-lg font-black text-slate-100 uppercase tracking-wide">Registro de Entrenador</h3>
@@ -316,14 +319,14 @@ const POKEMON_TYPES = [
   </div>
 
   <!-- MODAL: REGLAS -->
-  <div id="modal-rules" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+  <div id="modal-rules" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-200">
     <div class="relative w-full max-w-2xl rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 overflow-hidden max-h-[85vh] flex flex-col">
       <button class="close-modal absolute top-4 right-4 text-slate-400 hover:text-slate-100 p-1 rounded-lg bg-slate-800 border border-slate-700">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        <svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
       </button>
       <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-4 shrink-0">
         <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 6.5 2a1 1 0 0 1 1 1z"/></svg>
+          <svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 6.5 2a1 1 0 0 1 1 1z"/></svg>
         </div>
         <div>
           <h3 class="text-lg font-black text-slate-100 uppercase tracking-wide">Reglamento Oficial</h3>
@@ -342,22 +345,22 @@ const POKEMON_TYPES = [
   </div>
 
   <!-- MODAL: LEADERBOARD -->
-  <div id="modal-leaderboard" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+  <div id="modal-leaderboard" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-200">
     <div class="relative w-full max-w-3xl rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 overflow-hidden max-h-[85vh] flex flex-col">
       <button class="close-modal absolute top-4 right-4 text-slate-400 hover:text-slate-100 p-1 rounded-lg bg-slate-800 border border-slate-700">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        <svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
       </button>
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-4 shrink-0">
         <div class="flex items-center gap-3">
           <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+            <svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
           </div>
           <div>
             <h3 class="text-lg font-black text-slate-100 uppercase tracking-wide">Entrenadores</h3>
           </div>
         </div>
         <div class="relative">
-          <svg class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
+          <svg class="icon-svg text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
           <input type="text" id="search-trainer" placeholder="Buscar entrenador..." class="bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-4 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-slate-500 w-full sm:w-48" />
         </div>
       </div>
