@@ -1,580 +1,405 @@
-import React, { useState, useEffect } from 'react';
+---
+// Componente Astro: Copa Artemis x Curi Gameplays (Estilo Plateado/Chrome)
+---
 
-export default function CopaArtemisApp() {
-  const [showModal, setShowModal] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  // Timer State
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0, hours: 0, minutes: 0, seconds: 0
-  });
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concurso Artemis x Curi Gameplays</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
 
-  // Countdown Logic (Oct 10, 2026)
-  useEffect(() => {
-    const targetDate = new Date('October 10, 2026 16:00:00 GMT-0600').getTime();
-
-    const updateTimer = () => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance > 0) {
-        setTimeLeft({
-          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((distance % (1000 * 60)) / 1000)
-        });
-      }
-    };
-
-    const timerId = setInterval(updateTimer, 1000);
-    return () => clearInterval(timerId);
-  }, []);
-
-  const handleRegister = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simular envío
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setShowModal(false);
-      alert('¡Inscripción enviada con éxito! Revisa tu Discord.');
-    }, 1500);
-  };
-
-  return (
-    <div style={styles.body}>
-      <div style={styles.posterContainer} className="poster-container">
+    <div class="poster-container">
         
-        {/* Fondo con cuadrícula y brillos plateados */}
-        <div style={styles.gridOverlay}></div>
-        <div style={{...styles.glowPoint, ...styles.topLeft}}></div>
-        <div style={{...styles.glowPoint, ...styles.bottomRight}}></div>
+        <!-- Fondo con cuadrícula y brillos plateados -->
+        <div class="grid-overlay"></div>
+        <div class="glow-point top-left"></div>
+        <div class="glow-point bottom-right"></div>
 
-        {/* Encabezado */}
-        <header style={styles.header}>
-          <h2 style={styles.goldenSubtitle}>COPA ARTEMIS</h2>
-          <h1 style={styles.silverTitleMain}>
-            CONCURSO ARTEMIS<br/>x CURI GAMEPLAYS
-          </h1>
-          <h3 style={styles.silverSubtitle}>
-            ATRAPALOS A TODOS - CACERÍA DE POKEMON EN MOEMON KETZAL
-          </h3>
-          <p style={styles.description}>
-            Participa en el primer gran torneo de captura de Pokémon Moemon. 
-            Una carrera épica para ver quién es el maestro absoluto. El primero en 
-            completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
-          </p>
+        <!-- Encabezado -->
+        <header>
+            <h2 class="golden-subtitle">COPA ARTEMIS</h2>
+            <h1 class="silver-title-main">
+                CONCURSO ARTEMIS<br/>x CURI GAMEPLAYS
+            </h1>
+            <h3 class="silver-subtitle">
+                ATRAPALOS A TODOS - CACERÍA DE POKEMON EN MOEMON KETZAL
+            </h3>
+            <p class="description">
+                Participa en el primer gran torneo de captura de Pokémon Moemon. 
+                Una carrera épica para ver quién es el maestro absoluto. El primero en 
+                completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
+            </p>
         </header>
 
-        {/* Paneles Centrales */}
-        <section style={styles.centerPanels}>
-          <div style={styles.panelBox}>
-            <span style={styles.goldText}>🏆 PREMIO MAYOR</span>
-            <span style={styles.redHighlight}>REGALOS EXCLUSIVOS</span>
-          </div>
-          
-          <div style={styles.panelBox}>
-            <span style={styles.badge}>MOÉMON KETZAL</span> 
-            <span style={styles.whiteTextHeavy}>ÚNICO JUEGO OFICIAL</span>
-          </div>
-
-          <div style={styles.panelBox}>
-            <span style={styles.masterBadge}>1<br/>Master</span>
-            <div style={styles.panelTextCol}>
-              <span style={styles.whiteTextHeavy}>1 GANADOR ABSOLUTO</span>
-              <span style={styles.grayTextSmall}>POKÉDEX COMPLETADA</span>
+        <!-- Paneles Centrales -->
+        <section class="center-panels">
+            <div class="panel-box">
+                <span class="gold-text">🏆 PREMIO MAYOR</span>
+                <span class="red-highlight">REGALOS EXCLUSIVOS</span>
             </div>
-          </div>
+            
+            <div class="panel-box">
+                <span class="badge">MOÉMON KETZAL</span> 
+                <span class="white-text-heavy">ÚNICO JUEGO OFICIAL</span>
+            </div>
+
+            <div class="panel-box">
+                <span class="master-badge">1<br/>Master</span>
+                <div class="panel-text-col">
+                    <span class="white-text-heavy">1 GANADOR ABSOLUTO</span>
+                    <span class="gray-text-small">POKÉDEX COMPLETADA</span>
+                </div>
+            </div>
         </section>
 
-        {/* Botones de Acción */}
-        <section style={styles.actionButtonsContainer}>
-          <button 
-            style={styles.actionButtonMain} 
-            onClick={() => setShowModal(true)}
-            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-          >
-            ¡INSCRÍBETE AHORA!
-            <span style={styles.btnSubtext}>(Cupos Limitados)</span>
-          </button>
-          
-          <button style={styles.actionButtonSecondary}>
-            REGLAMENTO OFICIAL
-            <span style={styles.btnSubtext}>(Ver. Ketzal Ver.)</span>
-          </button>
+        <!-- Botones de Acción -->
+        <section class="action-buttons-container">
+            <button id="open-register-btn" class="action-button-main">
+                ¡INSCRÍBETE AHORA!
+                <span class="btn-subtext">(Cupos Limitados)</span>
+            </button>
+            
+            <button class="action-button-secondary">
+                REGLAMENTO OFICIAL
+                <span class="btn-subtext">(Ver. Ketzal Ver.)</span>
+            </button>
         </section>
 
-        <div style={styles.dividerContainer}>
-          <div style={styles.dividerLine}></div>
-          <span style={styles.dividerText}>DETALLES DEL CONCURSO</span>
-          <div style={styles.dividerLine}></div>
+        <!-- Divisor -->
+        <div class="divider-container">
+            <div class="divider-line"></div>
+            <span class="divider-text">DETALLES DEL CONCURSO</span>
+            <div class="divider-line"></div>
         </div>
 
-        {/* Paneles de Información (Fecha y Registro) */}
-        <section style={styles.infoGrid} className="info-grid">
-          <div style={styles.infoCard}>
-            <h4 style={styles.goldHeader}>📅 FECHA:</h4>
-            <p style={styles.whiteTitle}>10-25 DE OCTUBRE, 2026</p>
-            <p style={styles.grayTextSmall}>Horario: 16:00 GMT-6 • 15 días de competición</p>
-            
-            <h4 style={{...styles.goldHeader, marginTop: '20px'}}>📍 LUGAR:</h4>
-            <p style={styles.whiteTitleSmall}>SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
-            <p style={styles.grayTextSmall}>Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
-            
-            {/* Countdown */}
-            <div style={styles.countdownBox}>
-              <div style={styles.countItem}><span>{timeLeft.days}</span><small>D</small></div>
-              <div style={styles.countItem}><span>{timeLeft.hours}</span><small>H</small></div>
-              <div style={styles.countItem}><span>{timeLeft.minutes}</span><small>M</small></div>
-              <div style={styles.countItem}><span>{timeLeft.seconds}</span><small>S</small></div>
+        <!-- Paneles de Información -->
+        <section class="info-grid">
+            <div class="info-card">
+                <h4 class="gold-header">📅 FECHA:</h4>
+                <p class="white-title">10-25 DE OCTUBRE, 2026</p>
+                <p class="gray-text-small">Horario: 16:00 GMT-6 • 15 días de competición</p>
+                
+                <h4 class="gold-header" style="margin-top: 20px;">📍 LUGAR:</h4>
+                <p class="white-title-small">SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
+                <p class="gray-text-small">Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
+                
+                <!-- Countdown -->
+                <div class="countdown-box">
+                    <div class="count-item"><span id="timer-days">00</span><small>D</small></div>
+                    <div class="count-item"><span id="timer-hours">00</span><small>H</small></div>
+                    <div class="count-item"><span id="timer-minutes">00</span><small>M</small></div>
+                    <div class="count-item"><span id="timer-seconds">00</span><small>S</small></div>
+                </div>
             </div>
-          </div>
 
-          <div style={styles.infoCard}>
-            <h4 style={styles.goldHeader}>☆ INSCRIPCIONES:</h4>
-            <p style={styles.redHighlight}>ABIERTAS</p>
-            <p style={styles.whiteTitleSmall}>REGISTRO INDIVIDUAL ACTIVO</p>
-            <p style={styles.grayTextSmall}>Carrera individual de velocidad • Región Ketzal (completa) • Pokédex Galar Ampliada</p>
-            
-            <p style={{...styles.goldHeader, fontSize: '0.85rem', marginTop: '15px'}}>
-              🏆 Premios: Master Trophy + REGALOS EXCLUSIVOS
-            </p>
+            <div class="info-card">
+                <h4 class="gold-header">☆ INSCRIPCIONES:</h4>
+                <p class="red-highlight">ABIERTAS</p>
+                <p class="white-title-small">REGISTRO INDIVIDUAL ACTIVO</p>
+                <p class="gray-text-small">Carrera individual de velocidad • Región Ketzal (completa) • Pokédex Galar Ampliada</p>
+                
+                <p class="gold-header" style="font-size: 0.85rem; margin-top: 15px;">
+                    🏆 Premios: Master Trophy + REGALOS EXCLUSIVOS
+                </p>
 
-            <div style={styles.discordSection}>
-              <h4 style={styles.whiteTitleSmall}>¿ERES UN MAESTRO POKEMON?</h4>
-              <p style={styles.grayTextSmall}>Únete al canal para seguimiento en vivo y soporte.</p>
-              
-              <button 
-                style={styles.discordBtn}
-                onMouseOver={(e) => e.currentTarget.style.filter = 'brightness(1.2)'}
-                onMouseOut={(e) => e.currentTarget.style.filter = 'brightness(1)'}
-              >
-                <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="currentColor">
-                    <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.87,53,48.8,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.11,53,91.08,65.69,84.69,65.69Z"/>
-                </svg>
-                UNIRSE AL CANAL DE CURI
-              </button>
+                <div class="discord-section">
+                    <h4 class="white-title-small">¿ERES UN MAESTRO POKEMON?</h4>
+                    <p class="gray-text-small">Únete al canal para seguimiento en vivo y soporte.</p>
+                    
+                    <button class="discord-btn" onclick="window.open('https://discord.gg/TU_LINK', '_blank')">
+                        <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="currentColor">
+                            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.87,53,48.8,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.11,53,91.08,65.69,84.69,65.69Z"/>
+                        </svg>
+                        UNIRSE AL CANAL DE CURI
+                    </button>
+                </div>
             </div>
-          </div>
         </section>
 
-        <footer style={styles.footer}>
-          ©2026 CONCURSO ARTEMIS x CURI GAMEPLAYS • Todos los derechos reservados<br/>
-          <span style={styles.footerLink}>WWW.CACERIA-KETZAL-ESPORTS.COM</span>
+        <footer>
+            ©2026 CONCURSO ARTEMIS x CURI GAMEPLAYS • Todos los derechos reservados<br/>
+            <span class="footer-link">WWW.CACERIA-KETZAL-ESPORTS.COM</span>
         </footer>
 
-        {/* Estilos inyectados para Media Queries y animaciones */}
-        <style>
-          {`
-            @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@400;600;800&display=swap');
-            
-            .poster-container {
-              width: 100%;
-              max-width: 480px;
-              transition: all 0.3s ease;
-            }
-            
-            .info-grid {
-              flex-direction: column;
-            }
-
-            /* RESPONSIVIDAD PARA PC (Pantallas grandes) */
-            @media (min-width: 1025px) {
-              .poster-container {
-                max-width: 1200px !important;
-                padding: 60px !important;
-                border-width: 4px !important;
-                border-radius: 30px !important;
-              }
-              .info-grid {
-                flex-direction: row !important;
-                gap: 40px !important;
-              }
-            }
-
-            @keyframes pulseSilver {
-              0% { box-shadow: 0 0 15px rgba(192, 192, 192, 0.2); }
-              50% { box-shadow: 0 0 25px rgba(220, 220, 220, 0.5); }
-              100% { box-shadow: 0 0 15px rgba(192, 192, 192, 0.2); }
-            }
-          `}
-        </style>
-
-        {/* Modal de Registro */}
-        {showModal && (
-          <div style={styles.modalOverlay} onClick={() => setShowModal(false)}>
-            <div style={styles.modalContent} onClick={e => e.stopPropagation()}>
-              <h2 style={styles.silverTitleMain}>REGISTRO OFICIAL</h2>
-              <form onSubmit={handleRegister} style={styles.form}>
-                <input type="text" placeholder="Nickname en el Juego" required style={styles.input} />
-                <input type="email" placeholder="Correo Electrónico" required style={styles.input} />
-                <input type="text" placeholder="Usuario de Discord" required style={styles.input} />
-                
-                <button type="submit" style={styles.submitBtn} disabled={isSubmitting}>
-                  {isSubmitting ? 'PROCESANDO...' : 'CONFIRMAR INSCRIPCIÓN'}
-                </button>
-                <button type="button" onClick={() => setShowModal(false)} style={styles.closeBtn}>
-                  CANCELAR
-                </button>
-              </form>
+        <!-- Modal de Registro -->
+        <div id="register-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <h2 class="silver-title-main">REGISTRO OFICIAL</h2>
+                <form id="register-form" class="form">
+                    <input type="text" id="nickname" placeholder="Nickname en el Juego" required class="input" />
+                    <input type="email" id="email" placeholder="Correo Electrónico" required class="input" />
+                    <input type="text" id="discord" placeholder="Usuario de Discord" required class="input" />
+                    
+                    <button type="submit" id="submit-btn" class="submit-btn">
+                        CONFIRMAR INSCRIPCIÓN
+                    </button>
+                    <button type="button" id="close-modal-btn" class="close-btn">
+                        CANCELAR
+                    </button>
+                </form>
             </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+        </div>
 
-// Estilos en JS (Object)
-const styles = {
-  body: {
-    backgroundColor: '#0a0a0a',
-    color: '#ffffff',
-    fontFamily: "'Montserrat', sans-serif",
-    minHeight: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '20px 10px',
-    overflowX: 'hidden'
-  },
-  posterContainer: {
-    backgroundColor: '#0f0f11',
-    border: '2px solid #b3b3b3', // Borde Plateado
-    borderRadius: '16px',
-    position: 'relative',
-    boxShadow: '0 0 30px rgba(180, 180, 180, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.05)',
-    padding: '30px 20px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    overflow: 'hidden',
-    zIndex: 1
-  },
-  gridOverlay: {
-    position: 'absolute',
-    top: '-50%', left: '-50%', right: '-50%', bottom: '-50%',
-    backgroundImage: `
-      linear-gradient(rgba(200, 200, 200, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200, 200, 200, 0.05) 1px, transparent 1px)
-    `,
-    backgroundSize: '40px 40px',
-    transform: 'perspective(300px) rotateX(60deg)',
-    zIndex: -1,
-  },
-  glowPoint: {
-    position: 'absolute',
-    width: '300px', height: '300px',
-    borderRadius: '50%',
-    filter: 'blur(80px)',
-    zIndex: -1,
-    opacity: 0.3
-  },
-  topLeft: {
-    background: 'radial-gradient(circle, #e0e0e0, transparent 70%)',
-    top: '-100px', left: '-100px',
-  },
-  bottomRight: {
-    background: 'radial-gradient(circle, #a0a0a0, transparent 70%)',
-    bottom: '-100px', right: '-100px',
-  },
-  header: {
-    textAlign: 'center',
-    marginBottom: '20px',
-    zIndex: 2,
-  },
-  goldenSubtitle: {
-    fontFamily: "'Cinzel', serif",
-    color: '#d4af37',
-    fontSize: '1rem',
-    letterSpacing: '3px',
-    margin: '0 0 5px 0'
-  },
-  silverTitleMain: {
-    fontFamily: "'Cinzel', serif",
-    fontSize: '1.8rem',
-    fontWeight: 800,
-    color: '#ffffff',
-    textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(200,200,200,0.5)',
-    lineHeight: 1.2,
-    margin: '0 0 10px 0'
-  },
-  silverSubtitle: {
-    color: '#d4af37',
-    fontSize: '0.9rem',
-    fontWeight: 600,
-    letterSpacing: '1px',
-    marginBottom: '15px'
-  },
-  description: {
-    fontSize: '0.8rem',
-    color: '#b0b0b0',
-    lineHeight: 1.5,
-    maxWidth: '90%',
-    margin: '0 auto'
-  },
-  centerPanels: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-    marginBottom: '20px',
-    zIndex: 2
-  },
-  panelBox: {
-    border: '1px solid #505050',
-    backgroundColor: 'rgba(20, 20, 25, 0.8)',
-    borderRadius: '10px',
-    padding: '12px 15px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '15px',
-    textAlign: 'center'
-  },
-  goldText: {
-    color: '#d4af37',
-    fontWeight: 'bold',
-    fontSize: '0.9rem'
-  },
-  redHighlight: {
-    color: '#ff4444',
-    fontWeight: 800,
-    letterSpacing: '1px'
-  },
-  badge: {
-    backgroundColor: '#d4af37',
-    color: '#000',
-    padding: '3px 8px',
-    borderRadius: '4px',
-    fontWeight: 800,
-    fontSize: '0.75rem'
-  },
-  whiteTextHeavy: {
-    color: '#fff',
-    fontWeight: 800,
-    letterSpacing: '1px'
-  },
-  masterBadge: {
-    border: '2px solid #d4af37',
-    borderRadius: '50%',
-    width: '45px', height: '45px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#d4af37',
-    fontSize: '0.6rem',
-    fontWeight: 'bold',
-    lineHeight: 1.1
-  },
-  panelTextCol: {
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'left'
-  },
-  grayTextSmall: {
-    color: '#888',
-    fontSize: '0.75rem',
-    marginTop: '3px'
-  },
-  actionButtonsContainer: {
-    display: 'flex',
-    gap: '10px',
-    width: '100%',
-    marginBottom: '20px',
-    zIndex: 2
-  },
-  actionButtonMain: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    border: '1px solid #d4af37',
-    color: '#fff',
-    padding: '10px',
-    borderRadius: '8px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    transition: 'transform 0.2s',
-  },
-  actionButtonSecondary: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    border: '1px solid #505050',
-    color: '#fff',
-    padding: '10px',
-    borderRadius: '8px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  btnSubtext: {
-    fontSize: '0.65rem',
-    color: '#888',
-    marginTop: '3px',
-    fontWeight: 'normal'
-  },
-  dividerContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-    gap: '10px',
-    marginBottom: '20px'
-  },
-  dividerLine: {
-    flex: 1,
-    height: '1px',
-    backgroundColor: '#d4af37'
-  },
-  dividerText: {
-    color: '#d4af37',
-    fontSize: '0.8rem',
-    fontWeight: 'bold',
-    border: '1px solid #d4af37',
-    padding: '4px 12px',
-    borderRadius: '15px'
-  },
-  infoGrid: {
-    display: 'flex',
-    width: '100%',
-    gap: '15px',
-    zIndex: 2
-  },
-  infoCard: {
-    flex: 1,
-    border: '1px solid #505050',
-    backgroundColor: 'rgba(20, 20, 25, 0.8)',
-    borderRadius: '10px',
-    padding: '15px',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  goldHeader: {
-    color: '#d4af37',
-    margin: '0 0 5px 0',
-    fontSize: '0.9rem'
-  },
-  whiteTitle: {
-    color: '#fff',
-    fontSize: '1.2rem',
-    fontWeight: 800,
-    margin: '0 0 5px 0'
-  },
-  whiteTitleSmall: {
-    color: '#fff',
-    fontSize: '0.9rem',
-    fontWeight: 800,
-    margin: '0 0 5px 0'
-  },
-  countdownBox: {
-    display: 'flex',
-    gap: '10px',
-    marginTop: '15px',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    padding: '10px',
-    borderRadius: '8px',
-    justifyContent: 'center'
-  },
-  countItem: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    color: '#d4af37',
-    fontWeight: 'bold',
-    fontSize: '1.2rem'
-  },
-  discordSection: {
-    marginTop: '15px',
-    paddingTop: '15px',
-    borderTop: '1px solid #333'
-  },
-  discordBtn: {
-    width: '100%',
-    marginTop: '10px',
-    backgroundColor: '#5865F2', // Color oficial de Discord
-    color: '#fff',
-    border: 'none',
-    padding: '12px',
-    borderRadius: '8px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '10px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    transition: 'filter 0.2s'
-  },
-  footer: {
-    marginTop: '25px',
-    textAlign: 'center',
-    color: '#666',
-    fontSize: '0.65rem',
-    zIndex: 2
-  },
-  footerLink: {
-    color: '#fff',
-    fontWeight: 'bold',
-    letterSpacing: '1px',
-    marginTop: '5px',
-    display: 'inline-block'
-  },
-  modalOverlay: {
-    position: 'fixed',
-    top: 0, left: 0, right: 0, bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.85)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 100,
-    backdropFilter: 'blur(5px)'
-  },
-  modalContent: {
-    backgroundColor: '#111',
-    border: '2px solid #b3b3b3',
-    padding: '30px',
-    borderRadius: '12px',
-    width: '90%',
-    maxWidth: '400px',
-    textAlign: 'center',
-    boxShadow: '0 0 30px rgba(180, 180, 180, 0.2)'
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '15px',
-    marginTop: '20px'
-  },
-  input: {
-    padding: '12px',
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    border: '1px solid #555',
-    borderRadius: '6px',
-    color: '#fff',
-    outline: 'none',
-    fontFamily: 'inherit'
-  },
-  submitBtn: {
-    padding: '12px',
-    backgroundColor: '#b3b3b3', // Botón plateado
-    color: '#000',
-    border: 'none',
-    borderRadius: '6px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    marginTop: '10px'
-  },
-  closeBtn: {
-    padding: '10px',
-    backgroundColor: 'transparent',
-    color: '#888',
-    border: '1px solid #444',
-    borderRadius: '6px',
-    cursor: 'pointer'
-  }
-};
+    </div>
+
+    <!-- Script de Lógica Vanilla JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lógica del Contador
+            const targetDate = new Date('October 10, 2026 16:00:00 GMT-0600').getTime();
+            const timerDays = document.getElementById('timer-days');
+            const timerHours = document.getElementById('timer-hours');
+            const timerMinutes = document.getElementById('timer-minutes');
+            const timerSeconds = document.getElementById('timer-seconds');
+
+            const updateTimer = () => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance > 0) {
+                    timerDays.innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    timerHours.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    timerMinutes.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    timerSeconds.innerText = Math.floor((distance % (1000 * 60)) / 1000);
+                }
+            };
+            
+            setInterval(updateTimer, 1000);
+            updateTimer();
+
+            // Lógica del Modal
+            const modal = document.getElementById('register-modal');
+            const openBtn = document.getElementById('open-register-btn');
+            const closeBtn = document.getElementById('close-modal-btn');
+            const form = document.getElementById('register-form');
+            const submitBtn = document.getElementById('submit-btn');
+
+            openBtn.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+            });
+
+            closeBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'PROCESANDO...';
+
+                // Aquí iría tu lógica de Webhook de Discord
+                setTimeout(() => {
+                    alert('¡Inscripción exitosa! Te esperamos en la competencia.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'CONFIRMAR INSCRIPCIÓN';
+                    form.reset();
+                    modal.classList.add('hidden');
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
+
+<style>
+    :root {
+        --bg-body: #0a0a0a;
+        --bg-card: #0f0f11;
+        --silver-border: #b3b3b3;
+        --gold: #d4af37;
+        --red: #ff4444;
+        --gray-text: #b0b0b0;
+        --panel-bg: rgba(20, 20, 25, 0.8);
+        --font-primary: 'Montserrat', sans-serif;
+        --font-title: 'Cinzel', serif;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: var(--bg-body);
+        color: #ffffff;
+        font-family: var(--font-primary);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 10px;
+        overflow-x: hidden;
+    }
+
+    .poster-container {
+        width: 100%;
+        max-width: 480px;
+        background-color: var(--bg-card);
+        border: 2px solid var(--silver-border);
+        border-radius: 16px;
+        position: relative;
+        box-shadow: 0 0 30px rgba(180, 180, 180, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.05);
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+
+    .grid-overlay {
+        position: absolute;
+        top: -50%; left: -50%; right: -50%; bottom: -50%;
+        background-image: 
+            linear-gradient(rgba(200, 200, 200, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(200, 200, 200, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        transform: perspective(300px) rotateX(60deg);
+        z-index: -1;
+    }
+
+    .glow-point {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        filter: blur(80px);
+        z-index: -1;
+        opacity: 0.3;
+    }
+    .top-left { background: radial-gradient(circle, #e0e0e0, transparent 70%); top: -100px; left: -100px; }
+    .bottom-right { background: radial-gradient(circle, #a0a0a0, transparent 70%); bottom: -100px; right: -100px; }
+
+    header { text-align: center; margin-bottom: 20px; z-index: 2; }
+    
+    .golden-subtitle { font-family: var(--font-title); color: var(--gold); font-size: 1rem; letter-spacing: 3px; margin-bottom: 5px; }
+    .silver-title-main {
+        font-family: var(--font-title);
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(200,200,200,0.5);
+        line-height: 1.2;
+        margin-bottom: 10px;
+    }
+    .silver-subtitle { color: var(--gold); font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 15px; }
+    .description { font-size: 0.8rem; color: var(--gray-text); line-height: 1.5; max-width: 90%; margin: 0 auto; }
+
+    .center-panels { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; z-index: 2; }
+    
+    .panel-box {
+        border: 1px solid #505050;
+        background-color: var(--panel-bg);
+        border-radius: 10px;
+        padding: 12px 15px;
+        display: flex; justify-content: center; align-items: center; gap: 15px; text-align: center;
+    }
+    
+    .gold-text { color: var(--gold); font-weight: bold; font-size: 0.9rem; }
+    .red-highlight { color: var(--red); font-weight: 800; letter-spacing: 1px; }
+    .badge { background-color: var(--gold); color: #000; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 0.75rem; }
+    .white-text-heavy { color: #fff; font-weight: 800; letter-spacing: 1px; }
+    
+    .master-badge {
+        border: 2px solid var(--gold);
+        border-radius: 50%;
+        width: 45px; height: 45px;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        color: var(--gold); font-size: 0.6rem; font-weight: bold; line-height: 1.1;
+    }
+    .panel-text-col { display: flex; flex-direction: column; text-align: left; }
+    .gray-text-small { color: #888; font-size: 0.75rem; margin-top: 3px; }
+
+    .action-buttons-container { display: flex; gap: 10px; width: 100%; margin-bottom: 20px; z-index: 2; }
+    
+    .action-button-main, .action-button-secondary {
+        flex: 1;
+        background-color: transparent;
+        padding: 10px;
+        border-radius: 8px;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex; flex-direction: column; align-items: center;
+        transition: transform 0.2s;
+    }
+    .action-button-main { border: 1px solid var(--gold); }
+    .action-button-main:hover { transform: scale(1.05); }
+    .action-button-secondary { border: 1px solid #505050; }
+    .btn-subtext { font-size: 0.65rem; color: #888; margin-top: 3px; font-weight: normal; }
+
+    .divider-container { display: flex; align-items: center; width: 100%; gap: 10px; margin-bottom: 20px; }
+    .divider-line { flex: 1; height: 1px; background-color: var(--gold); }
+    .divider-text { color: var(--gold); font-size: 0.8rem; font-weight: bold; border: 1px solid var(--gold); padding: 4px 12px; border-radius: 15px; }
+
+    .info-grid { display: flex; flex-direction: column; width: 100%; gap: 15px; z-index: 2; }
+    .info-card { flex: 1; border: 1px solid #505050; background-color: var(--panel-bg); border-radius: 10px; padding: 15px; display: flex; flex-direction: column; }
+    
+    .gold-header { color: var(--gold); margin-bottom: 5px; font-size: 0.9rem; }
+    .white-title { color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 5px; }
+    .white-title-small { color: #fff; font-size: 0.9rem; font-weight: 800; margin-bottom: 5px; }
+    
+    .countdown-box { display: flex; gap: 10px; margin-top: 15px; background-color: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; justify-content: center; }
+    .count-item { display: flex; flex-direction: column; align-items: center; color: var(--gold); font-weight: bold; font-size: 1.2rem; }
+
+    .discord-section { margin-top: 15px; padding-top: 15px; border-top: 1px solid #333; }
+    .discord-btn {
+        width: 100%; margin-top: 10px; background-color: #5865F2; color: #fff; border: none; padding: 12px;
+        border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 10px;
+        font-weight: bold; cursor: pointer; transition: filter 0.2s;
+    }
+    .discord-btn:hover { filter: brightness(1.2); }
+
+    footer { margin-top: 25px; text-align: center; color: #666; font-size: 0.65rem; z-index: 2; }
+    .footer-link { color: #fff; font-weight: bold; letter-spacing: 1px; margin-top: 5px; display: inline-block; }
+
+    /* Modal Styles */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0,0,0,0.85);
+        display: flex; justify-content: center; align-items: center;
+        z-index: 100; backdrop-filter: blur(5px);
+    }
+    .hidden { display: none !important; }
+    
+    .modal-content {
+        background-color: #111; border: 2px solid var(--silver-border);
+        padding: 30px; border-radius: 12px; width: 90%; max-width: 400px;
+        text-align: center; box-shadow: 0 0 30px rgba(180, 180, 180, 0.2);
+    }
+    
+    .form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+    .input { padding: 12px; background-color: rgba(255,255,255,0.05); border: 1px solid #555; border-radius: 6px; color: #fff; outline: none; font-family: inherit; }
+    
+    .submit-btn { padding: 12px; background-color: var(--silver-border); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+    .close-btn { padding: 10px; background-color: transparent; color: #888; border: 1px solid #444; border-radius: 6px; cursor: pointer; }
+
+    /* RESPONSIVIDAD PARA PC */
+    @media (min-width: 1025px) {
+        .poster-container {
+            max-width: 1200px;
+            padding: 60px;
+            border-width: 4px;
+            border-radius: 30px;
+        }
+        .info-grid {
+            flex-direction: row;
+            gap: 40px;
+        }
+    }
+</style>
