@@ -1,405 +1,414 @@
 ---
-// Componente Astro: Copa Artemis x Curi Gameplays (Estilo Plateado/Chrome)
+// --- DATOS INICIALES ---
+const POKEMON_TYPES = [
+  { name: 'Planta', icon: '<path d="M11 20A7 7 0 0 1 4 13v-5a2 2 0 0 1 2-2h5a7 7 0 0 1 7 7v5a2 2 0 0 1-2 2h-5Z"/><path d="M11 20V10"/>', color: 'from-emerald-400 to-green-600', glow: 'shadow-emerald-500/50' },
+  { name: 'Fuego', icon: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>', color: 'from-amber-500 to-red-600', glow: 'shadow-red-500/50' },
+  { name: 'Agua', icon: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>', color: 'from-cyan-400 to-blue-600', glow: 'shadow-cyan-500/50' },
+  { name: 'Eléctrico', icon: '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>', color: 'from-yellow-300 to-amber-500', glow: 'shadow-yellow-500/50' },
+  { name: 'Psíquico', icon: '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>', color: 'from-fuchsia-400 to-purple-600', glow: 'shadow-purple-500/50' },
+  { name: 'Lucha', icon: '<circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/>', color: 'from-orange-500 to-amber-700', glow: 'shadow-orange-500/50' },
+  { name: 'Siniestro', icon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>', color: 'from-slate-400 to-zinc-800', glow: 'shadow-zinc-500/50' },
+  { name: 'Acero', icon: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 6.5 2a1 1 0 0 1 1 1z"/>', color: 'from-slate-200 to-slate-500', glow: 'shadow-slate-300/50' },
+  { name: 'Dragón', icon: '<polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" x2="19" y1="19" y2="13"/><line x1="16" x2="21" y1="16" y2="21"/><line x1="19" x2="21" y1="21" y2="19"/>', color: 'from-indigo-400 to-blue-800', glow: 'shadow-indigo-500/50' },
+  { name: 'Hada', icon: '<path d="M12.67 19a2 2 0 0 0 1.416-.588l6.154-6.172a6 6 0 0 0-8.49-8.49L5.586 9.914A2 2 0 0 0 5 11.328V18a1 1 0 0 0 1 1z"/><polyline points="16 8 2 22"/><polyline points="17.5 15 9 6.5"/>', color: 'from-pink-300 to-rose-500', glow: 'shadow-pink-400/50' },
+];
 ---
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concurso Artemis x Curi Gameplays</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
-</head>
-<body>
+<div class="min-h-screen bg-[#08090d] text-slate-100 font-sans antialiased relative overflow-x-hidden selection:bg-slate-300 selection:text-slate-900">
+  
+  <!-- BACKGROUND GRAPHICS: METALLIC CYBERPUNK GRID & AMBIENT GLOW -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(203,213,225,0.12),rgba(255,255,255,0))]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+    <div class="absolute top-1/4 left-10 w-96 h-96 bg-slate-300/5 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/3 right-10 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse" style="animation-duration: 6s;"></div>
+  </div>
 
-    <div class="poster-container">
-        
-        <!-- Fondo con cuadrícula y brillos plateados -->
-        <div class="grid-overlay"></div>
-        <div class="glow-point top-left"></div>
-        <div class="glow-point bottom-right"></div>
-
-        <!-- Encabezado -->
-        <header>
-            <h2 class="golden-subtitle">COPA ARTEMIS</h2>
-            <h1 class="silver-title-main">
-                CONCURSO ARTEMIS<br/>x CURI GAMEPLAYS
-            </h1>
-            <h3 class="silver-subtitle">
-                ATRAPALOS A TODOS - CACERÍA DE POKEMON EN MOEMON KETZAL
-            </h3>
-            <p class="description">
-                Participa en el primer gran torneo de captura de Pokémon Moemon. 
-                Una carrera épica para ver quién es el maestro absoluto. El primero en 
-                completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
-            </p>
-        </header>
-
-        <!-- Paneles Centrales -->
-        <section class="center-panels">
-            <div class="panel-box">
-                <span class="gold-text">🏆 PREMIO MAYOR</span>
-                <span class="red-highlight">REGALOS EXCLUSIVOS</span>
-            </div>
-            
-            <div class="panel-box">
-                <span class="badge">MOÉMON KETZAL</span> 
-                <span class="white-text-heavy">ÚNICO JUEGO OFICIAL</span>
-            </div>
-
-            <div class="panel-box">
-                <span class="master-badge">1<br/>Master</span>
-                <div class="panel-text-col">
-                    <span class="white-text-heavy">1 GANADOR ABSOLUTO</span>
-                    <span class="gray-text-small">POKÉDEX COMPLETADA</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Botones de Acción -->
-        <section class="action-buttons-container">
-            <button id="open-register-btn" class="action-button-main">
-                ¡INSCRÍBETE AHORA!
-                <span class="btn-subtext">(Cupos Limitados)</span>
-            </button>
-            
-            <button class="action-button-secondary">
-                REGLAMENTO OFICIAL
-                <span class="btn-subtext">(Ver. Ketzal Ver.)</span>
-            </button>
-        </section>
-
-        <!-- Divisor -->
-        <div class="divider-container">
-            <div class="divider-line"></div>
-            <span class="divider-text">DETALLES DEL CONCURSO</span>
-            <div class="divider-line"></div>
+  <!-- TOP FLOATING NAVIGATION / UTILITY BAR -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#08090d]/80 border-b border-slate-800/80 px-4 py-3 shadow-2xl">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-200 via-slate-400 to-slate-700 p-[1px] shadow-lg shadow-slate-500/20">
+          <div class="w-full h-full bg-[#0d0f17] rounded-[11px] flex items-center justify-center">
+            <svg class="w-5 h-5 text-amber-400 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+          </div>
         </div>
-
-        <!-- Paneles de Información -->
-        <section class="info-grid">
-            <div class="info-card">
-                <h4 class="gold-header">📅 FECHA:</h4>
-                <p class="white-title">10-25 DE OCTUBRE, 2026</p>
-                <p class="gray-text-small">Horario: 16:00 GMT-6 • 15 días de competición</p>
-                
-                <h4 class="gold-header" style="margin-top: 20px;">📍 LUGAR:</h4>
-                <p class="white-title-small">SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
-                <p class="gray-text-small">Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
-                
-                <!-- Countdown -->
-                <div class="countdown-box">
-                    <div class="count-item"><span id="timer-days">00</span><small>D</small></div>
-                    <div class="count-item"><span id="timer-hours">00</span><small>H</small></div>
-                    <div class="count-item"><span id="timer-minutes">00</span><small>M</small></div>
-                    <div class="count-item"><span id="timer-seconds">00</span><small>S</small></div>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <h4 class="gold-header">☆ INSCRIPCIONES:</h4>
-                <p class="red-highlight">ABIERTAS</p>
-                <p class="white-title-small">REGISTRO INDIVIDUAL ACTIVO</p>
-                <p class="gray-text-small">Carrera individual de velocidad • Región Ketzal (completa) • Pokédex Galar Ampliada</p>
-                
-                <p class="gold-header" style="font-size: 0.85rem; margin-top: 15px;">
-                    🏆 Premios: Master Trophy + REGALOS EXCLUSIVOS
-                </p>
-
-                <div class="discord-section">
-                    <h4 class="white-title-small">¿ERES UN MAESTRO POKEMON?</h4>
-                    <p class="gray-text-small">Únete al canal para seguimiento en vivo y soporte.</p>
-                    
-                    <button class="discord-btn" onclick="window.open('https://discord.gg/TU_LINK', '_blank')">
-                        <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="currentColor">
-                            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.87,53,48.8,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.11,53,91.08,65.69,84.69,65.69Z"/>
-                        </svg>
-                        UNIRSE AL CANAL DE CURI
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            ©2026 CONCURSO ARTEMIS x CURI GAMEPLAYS • Todos los derechos reservados<br/>
-            <span class="footer-link">WWW.CACERIA-KETZAL-ESPORTS.COM</span>
-        </footer>
-
-        <!-- Modal de Registro -->
-        <div id="register-modal" class="modal-overlay hidden">
-            <div class="modal-content">
-                <h2 class="silver-title-main">REGISTRO OFICIAL</h2>
-                <form id="register-form" class="form">
-                    <input type="text" id="nickname" placeholder="Nickname en el Juego" required class="input" />
-                    <input type="email" id="email" placeholder="Correo Electrónico" required class="input" />
-                    <input type="text" id="discord" placeholder="Usuario de Discord" required class="input" />
-                    
-                    <button type="submit" id="submit-btn" class="submit-btn">
-                        CONFIRMAR INSCRIPCIÓN
-                    </button>
-                    <button type="button" id="close-modal-btn" class="close-btn">
-                        CANCELAR
-                    </button>
-                </form>
-            </div>
+        <div>
+          <span class="text-xs font-bold tracking-widest text-slate-400 uppercase block">Torneo Oficial Moemon</span>
+          <span class="text-sm font-black tracking-wider text-slate-100 bg-gradient-to-r from-slate-100 via-slate-300 to-slate-400 bg-clip-text text-transparent">
+            COPA ARTEMIS 2026
+          </span>
         </div>
+      </div>
+
+      <!-- Quick Controls -->
+      <div class="flex items-center gap-2">
+        <button id="btn-leaderboard" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-xs font-semibold text-slate-200 transition-all active:scale-95">
+          <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="hidden sm:inline">Tabla de Jugadores</span>
+          <span id="player-count" class="bg-slate-900 text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full border border-slate-700">6</span>
+        </button>
+
+        <button id="btn-share" class="p-2 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-slate-300 transition-all hover:text-slate-100" title="Compartir evento">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+        </button>
+
+        <button id="btn-audio" class="p-2 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-slate-300 transition-all hover:text-slate-100" title="Silenciar">
+          <svg id="icon-vol-on" class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <svg id="icon-vol-off" class="w-4 h-4 text-rose-400 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" x2="1" y1="1" y2="23"/><line x1="22.54" x2="16.46" y1="8.46" y2="14.54"/></svg>
+        </button>
+      </div>
 
     </div>
+  </header>
 
-    <!-- Script de Lógica Vanilla JS -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Lógica del Contador
-            const targetDate = new Date('October 10, 2026 16:00:00 GMT-0600').getTime();
-            const timerDays = document.getElementById('timer-days');
-            const timerHours = document.getElementById('timer-hours');
-            const timerMinutes = document.getElementById('timer-minutes');
-            const timerSeconds = document.getElementById('timer-seconds');
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-container" class="fixed top-16 right-4 z-50 animate-in fade-in slide-in-from-top-4 duration-300 hidden">
+    <div id="toast-body" class="px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl flex items-center gap-3 bg-slate-900/90 border-slate-500/50 text-slate-100">
+      <svg class="w-5 h-5 shrink-0 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+      <p id="toast-text" class="text-sm font-medium">Notificación</p>
+    </div>
+  </div>
 
-            const updateTimer = () => {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
+  <main class="relative z-10 max-w-6xl mx-auto px-2 sm:px-4 py-6 md:py-10">
+    <div class="relative rounded-2xl md:rounded-3xl p-[2px] md:p-[3px] bg-gradient-to-b from-slate-200 via-slate-400 to-slate-700 shadow-[0_0_50px_rgba(203,213,225,0.18)]">
+      
+      <div class="bg-[#0b0c12] rounded-[14px] md:rounded-[22px] overflow-hidden relative">
 
-                if (distance > 0) {
-                    timerDays.innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    timerHours.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    timerMinutes.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    timerSeconds.innerText = Math.floor((distance % (1000 * 60)) / 1000);
-                }
-            };
-            
-            setInterval(updateTimer, 1000);
-            updateTimer();
+        <!-- SIDE RAIL TYPE BADGES -->
+        <div class="hidden lg:flex flex-col gap-3 absolute left-3 top-1/2 -translate-y-1/2 z-20 pointer-events-auto">
+          {POKEMON_TYPES.slice(0, 5).map((type) => (
+            <div class={`w-9 h-9 rounded-xl bg-slate-900/90 border border-slate-700 flex items-center justify-center group hover:scale-110 transition-all duration-300 shadow-md ${type.glow}`} title={type.name}>
+              <svg class="w-4 h-4 text-slate-300 group-hover:text-amber-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={type.icon} />
+            </div>
+          ))}
+        </div>
 
-            // Lógica del Modal
-            const modal = document.getElementById('register-modal');
-            const openBtn = document.getElementById('open-register-btn');
-            const closeBtn = document.getElementById('close-modal-btn');
-            const form = document.getElementById('register-form');
-            const submitBtn = document.getElementById('submit-btn');
+        <div class="hidden lg:flex flex-col gap-3 absolute right-3 top-1/2 -translate-y-1/2 z-20 pointer-events-auto">
+          {POKEMON_TYPES.slice(5, 10).map((type) => (
+            <div class={`w-9 h-9 rounded-xl bg-slate-900/90 border border-slate-700 flex items-center justify-center group hover:scale-110 transition-all duration-300 shadow-md ${type.glow}`} title={type.name}>
+              <svg class="w-4 h-4 text-slate-300 group-hover:text-amber-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={type.icon} />
+            </div>
+          ))}
+        </div>
 
-            openBtn.addEventListener('click', () => {
-                modal.classList.remove('hidden');
-            });
+        <!-- CONTENT -->
+        <div class="p-4 sm:p-8 md:p-12 lg:px-16">
+          <div class="text-center mb-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-amber-500/40 shadow-inner">
+              <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
+              <h2 class="text-xs sm:text-sm font-bold tracking-[0.25em] text-amber-300 uppercase">
+                COPA ARTEMIS
+              </h2>
+            </div>
+          </div>
 
-            closeBtn.addEventListener('click', () => {
-                modal.classList.add('hidden');
-            });
+          <div class="text-center space-y-2 mb-8">
+            <h1 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-100 uppercase font-sans drop-shadow-md">
+              CONCURSO ARTEMIS
+            </h1>
+            <div class="text-xl sm:text-3xl md:text-4xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400">
+              x CURI GAMEPLAYS
+            </div>
+            <div class="pt-2">
+              <p class="text-xs sm:text-sm md:text-base font-bold tracking-widest text-amber-400 uppercase">
+                ATRAPALOS A TODOS - CACERÍA DE POKEMON EN MOEMON KETZAL
+              </p>
+            </div>
+          </div>
 
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
+          <div class="max-w-2xl mx-auto text-center mb-10">
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+              Participa en el primer gran torneo de captura de Pokémon Moemon. Una carrera épica para ver quién es el maestro absoluto. El primero en completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
+            </p>
+          </div>
 
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                submitBtn.disabled = true;
-                submitBtn.innerText = 'PROCESANDO...';
+          <!-- TIMER -->
+          <div class="mb-10 max-w-2xl mx-auto rounded-xl bg-gradient-to-r from-slate-900 via-slate-800/90 to-slate-900 p-4 border border-slate-700/60 shadow-xl">
+            <div class="flex items-center justify-between mb-3 border-b border-slate-700/50 pb-2">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-amber-400 animate-spin" style="animation-duration: 10s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span class="text-xs font-bold tracking-wider text-slate-300 uppercase">INICIO DEL TORNEO EN VIVO</span>
+              </div>
+              <span class="text-[11px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50">
+                10 OCT, 2026
+              </span>
+            </div>
 
-                // Aquí iría tu lógica de Webhook de Discord
-                setTimeout(() => {
-                    alert('¡Inscripción exitosa! Te esperamos en la competencia.');
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = 'CONFIRMAR INSCRIPCIÓN';
-                    form.reset();
-                    modal.classList.add('hidden');
-                }, 1500);
-            });
+            <div class="grid grid-cols-4 gap-2 text-center">
+              <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                <div id="t-days" class="text-lg sm:text-2xl font-black font-mono text-slate-100">00</div>
+                <div class="text-[10px] text-slate-400 uppercase font-bold">Días</div>
+              </div>
+              <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                <div id="t-hours" class="text-lg sm:text-2xl font-black font-mono text-slate-100">00</div>
+                <div class="text-[10px] text-slate-400 uppercase font-bold">Horas</div>
+              </div>
+              <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                <div id="t-minutes" class="text-lg sm:text-2xl font-black font-mono text-slate-100">00</div>
+                <div class="text-[10px] text-slate-400 uppercase font-bold">Min</div>
+              </div>
+              <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                <div id="t-seconds" class="text-lg sm:text-2xl font-black font-mono text-slate-100">00</div>
+                <div class="text-[10px] text-slate-400 uppercase font-bold">Seg</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARDS -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="group relative rounded-xl bg-slate-900/90 p-4 border border-slate-700 hover:border-slate-400 transition-all duration-300 shadow-lg flex flex-col items-center text-center justify-center">
+              <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mb-2 border border-slate-600 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+              </div>
+              <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase">PREMIO MAYOR</span>
+              <p class="text-sm sm:text-base font-extrabold text-rose-500 tracking-wider uppercase mt-1">REGALOS EXCLUSIVOS</p>
+            </div>
+            <div class="group relative rounded-xl bg-slate-900/90 p-4 border border-slate-700 hover:border-slate-400 transition-all duration-300 shadow-lg flex flex-col items-center text-center justify-center">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-md text-xs font-bold tracking-wider uppercase">MOÉMON KETZAL</span>
+              </div>
+              <p class="text-xs sm:text-sm font-extrabold text-slate-100 tracking-wider uppercase">ÚNICO JUEGO OFICIAL</p>
+            </div>
+            <div class="group relative rounded-xl bg-slate-900/90 p-4 border border-slate-700 hover:border-slate-400 transition-all duration-300 shadow-lg flex flex-col items-center text-center justify-center">
+              <div class="w-10 h-10 rounded-full border-2 border-amber-400/80 bg-slate-950 flex flex-col items-center justify-center mb-1">
+                <span class="text-[9px] font-bold text-amber-400 leading-none">1</span>
+                <span class="text-[8px] text-slate-300 font-extrabold leading-none">Master</span>
+              </div>
+              <p class="text-xs sm:text-sm font-extrabold text-slate-100 tracking-wider uppercase">1 GANADOR ABSOLUTO</p>
+              <span class="text-[10px] text-slate-400 font-medium">POKÉDEX COMPLETADA</span>
+            </div>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-10">
+            <button id="btn-open-register" class="group relative overflow-hidden rounded-xl p-[2px] bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400 shadow-xl hover:shadow-slate-300/20 active:scale-98 transition-all">
+              <div class="bg-slate-950 rounded-[10px] px-6 py-4 flex flex-col items-center justify-center group-hover:bg-slate-900/90 transition-colors">
+                <span class="text-base font-black tracking-wider text-slate-100 uppercase flex items-center gap-2">
+                  ¡INSCRÍBETE AHORA!
+                  <svg class="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+                <span class="text-[11px] text-slate-400 font-medium">(Cupos Limitados)</span>
+              </div>
+            </button>
+            <button id="btn-open-rules" class="group relative overflow-hidden rounded-xl border border-slate-700 bg-slate-900/80 hover:border-slate-400 p-4 flex flex-col items-center justify-center active:scale-98 transition-all shadow-lg">
+              <span class="text-base font-black tracking-wider text-slate-100 uppercase flex items-center gap-2">
+                REGLAMENTO OFICIAL
+                <svg class="w-4 h-4 text-slate-400 group-hover:text-amber-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+              </span>
+              <span class="text-[11px] text-slate-400 font-medium">(Ver. Ketzal Ver.)</span>
+            </button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL: REGISTRO -->
+  <div id="modal-register" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div class="relative w-full max-w-lg rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 overflow-hidden">
+      <button class="close-modal absolute top-4 right-4 text-slate-400 hover:text-slate-100 p-1 rounded-lg bg-slate-800 border border-slate-700">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+      </button>
+      <div class="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
+        <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+        </div>
+        <div>
+          <h3 class="text-lg font-black text-slate-100 uppercase tracking-wide">Registro de Entrenador</h3>
+          <p class="text-xs text-slate-400">Inscripción para la Copa Artemis Moémon</p>
+        </div>
+      </div>
+      <form id="form-register" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Nombre de Entrenador *</label>
+          <input type="text" id="reg-nick" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-slate-400 transition-colors" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Usuario de Discord *</label>
+          <input type="text" id="reg-discord" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-slate-400 transition-colors" />
+        </div>
+        <div class="pt-2">
+          <label class="flex items-start gap-2.5 cursor-pointer">
+            <input type="checkbox" id="reg-rules" class="mt-0.5 rounded border-slate-700 bg-slate-950 text-amber-500" />
+            <span class="text-xs text-slate-400 leading-snug">Acepto cumplir con el reglamento oficial y juego limpio.</span>
+          </label>
+        </div>
+        <div class="pt-4 flex justify-end gap-3">
+          <button type="button" class="close-modal px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700 transition-colors">Cancelar</button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400 text-slate-950 text-xs font-black uppercase tracking-wider hover:opacity-90 transition-opacity shadow-lg">Confirmar Inscripción</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: LEADERBOARD -->
+  <div id="modal-leaderboard" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div class="relative w-full max-w-3xl rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 overflow-hidden max-h-[85vh] flex flex-col">
+      <button class="close-modal absolute top-4 right-4 text-slate-400 hover:text-slate-100 p-1 rounded-lg bg-slate-800 border border-slate-700">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+      </button>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-slate-800 pb-4 shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-black text-slate-100 uppercase tracking-wide">Entrenadores</h3>
+          </div>
+        </div>
+        <div class="relative">
+          <svg class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
+          <input type="text" id="search-trainer" placeholder="Buscar entrenador..." class="bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-4 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-slate-500 w-full sm:w-48" />
+        </div>
+      </div>
+      <div id="trainer-list" class="overflow-y-auto space-y-2 pr-1 scrollbar-thin scrollbar-thumb-slate-700">
+        <!-- Renderizado dinámico desde JS -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Vanilla JS Lógica -->
+<script>
+  // --- ESTADO INICIAL ---
+  let isAudioMuted = false;
+  let trainers = [
+    { rank: 1, name: "KetzalMaster99", pokedex: "184/200", status: "En Carrera", region: "Ketzal Alpha", avatar: "👑" },
+    { rank: 2, name: "CuriFanatic_Rx", pokedex: "162/200", status: "En Carrera", region: "Ketzal Beta", avatar: "⚡" },
+    { rank: 3, name: "ArtemisChallenger", pokedex: "145/200", status: "En Carrera", region: "Ketzal Alpha", avatar: "🔥" },
+    { rank: 4, name: "MoemonCollector", pokedex: "128/200", status: "En Carrera", region: "Ketzal Gamma", avatar: "💧" },
+    { rank: 5, name: "SilverTrainer_X", pokedex: "98/200", status: "Inscrito", region: "Ketzal Beta", avatar: "🛡️" },
+    { rank: 6, name: "ShadowHunter", pokedex: "76/200", status: "Inscrito", region: "Ketzal Alpha", avatar: "🌙" },
+  ];
+
+  // --- AUDIO API ---
+  const playAudioFx = (type = 'click') => {
+    if (isAudioMuted) return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      const now = ctx.currentTime;
+
+      if (type === 'click') {
+        osc.type = 'sine'; osc.frequency.setValueAtTime(800, now);
+        osc.frequency.exponentialRampToValueAtTime(400, now + 0.08);
+        gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+        osc.start(now); osc.stop(now + 0.08);
+      } else if (type === 'success') {
+        [523.25, 659.25, 783.99].forEach((freq, idx) => {
+          const o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'triangle';
+          o.frequency.setValueAtTime(freq, now + idx * 0.05); g.gain.setValueAtTime(0.12, now + idx * 0.05);
+          g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.05 + 0.3);
+          o.connect(g); g.connect(ctx.destination); o.start(now + idx * 0.05); o.stop(now + idx * 0.05 + 0.3);
         });
-    </script>
-</body>
-</html>
+      } else if (type === 'modal') {
+        osc.type = 'triangle'; osc.frequency.setValueAtTime(300, now); osc.frequency.exponentialRampToValueAtTime(900, now + 0.15);
+        gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+        osc.start(now); osc.stop(now + 0.15);
+      }
+    } catch(e) {}
+  };
 
-<style>
-    :root {
-        --bg-body: #0a0a0a;
-        --bg-card: #0f0f11;
-        --silver-border: #b3b3b3;
-        --gold: #d4af37;
-        --red: #ff4444;
-        --gray-text: #b0b0b0;
-        --panel-bg: rgba(20, 20, 25, 0.8);
-        --font-primary: 'Montserrat', sans-serif;
-        --font-title: 'Cinzel', serif;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        background-color: var(--bg-body);
-        color: #ffffff;
-        font-family: var(--font-primary);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px 10px;
-        overflow-x: hidden;
-    }
-
-    .poster-container {
-        width: 100%;
-        max-width: 480px;
-        background-color: var(--bg-card);
-        border: 2px solid var(--silver-border);
-        border-radius: 16px;
-        position: relative;
-        box-shadow: 0 0 30px rgba(180, 180, 180, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.05);
-        padding: 30px 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow: hidden;
-        z-index: 1;
-        transition: all 0.3s ease;
-    }
-
-    .grid-overlay {
-        position: absolute;
-        top: -50%; left: -50%; right: -50%; bottom: -50%;
-        background-image: 
-            linear-gradient(rgba(200, 200, 200, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(200, 200, 200, 0.05) 1px, transparent 1px);
-        background-size: 40px 40px;
-        transform: perspective(300px) rotateX(60deg);
-        z-index: -1;
-    }
-
-    .glow-point {
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        filter: blur(80px);
-        z-index: -1;
-        opacity: 0.3;
-    }
-    .top-left { background: radial-gradient(circle, #e0e0e0, transparent 70%); top: -100px; left: -100px; }
-    .bottom-right { background: radial-gradient(circle, #a0a0a0, transparent 70%); bottom: -100px; right: -100px; }
-
-    header { text-align: center; margin-bottom: 20px; z-index: 2; }
+  // --- DOM ELEMENTS & LOGIC ---
+  document.addEventListener('DOMContentLoaded', () => {
     
-    .golden-subtitle { font-family: var(--font-title); color: var(--gold); font-size: 1rem; letter-spacing: 3px; margin-bottom: 5px; }
-    .silver-title-main {
-        font-family: var(--font-title);
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: #ffffff;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(200,200,200,0.5);
-        line-height: 1.2;
-        margin-bottom: 10px;
-    }
-    .silver-subtitle { color: var(--gold); font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 15px; }
-    .description { font-size: 0.8rem; color: var(--gray-text); line-height: 1.5; max-width: 90%; margin: 0 auto; }
+    // Controles de Audio
+    document.getElementById('btn-audio').addEventListener('click', () => {
+      isAudioMuted = !isAudioMuted;
+      document.getElementById('icon-vol-on').classList.toggle('hidden', isAudioMuted);
+      document.getElementById('icon-vol-off').classList.toggle('hidden', !isAudioMuted);
+    });
 
-    .center-panels { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; z-index: 2; }
-    
-    .panel-box {
-        border: 1px solid #505050;
-        background-color: var(--panel-bg);
-        border-radius: 10px;
-        padding: 12px 15px;
-        display: flex; justify-content: center; align-items: center; gap: 15px; text-align: center;
-    }
-    
-    .gold-text { color: var(--gold); font-weight: bold; font-size: 0.9rem; }
-    .red-highlight { color: var(--red); font-weight: 800; letter-spacing: 1px; }
-    .badge { background-color: var(--gold); color: #000; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 0.75rem; }
-    .white-text-heavy { color: #fff; font-weight: 800; letter-spacing: 1px; }
-    
-    .master-badge {
-        border: 2px solid var(--gold);
-        border-radius: 50%;
-        width: 45px; height: 45px;
-        display: flex; flex-direction: column; justify-content: center; align-items: center;
-        color: var(--gold); font-size: 0.6rem; font-weight: bold; line-height: 1.1;
-    }
-    .panel-text-col { display: flex; flex-direction: column; text-align: left; }
-    .gray-text-small { color: #888; font-size: 0.75rem; margin-top: 3px; }
+    // Toast Function
+    const triggerToast = (msg, type = 'info') => {
+      const toast = document.getElementById('toast-container');
+      const text = document.getElementById('toast-text');
+      const body = document.getElementById('toast-body');
+      
+      text.innerText = msg;
+      body.className = `px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl flex items-center gap-3 ${type === 'error' ? 'bg-rose-950/90 border-rose-500/50 text-rose-100' : 'bg-emerald-950/90 border-emerald-500/50 text-emerald-100'}`;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 4000);
+    };
 
-    .action-buttons-container { display: flex; gap: 10px; width: 100%; margin-bottom: 20px; z-index: 2; }
-    
-    .action-button-main, .action-button-secondary {
-        flex: 1;
-        background-color: transparent;
-        padding: 10px;
-        border-radius: 8px;
-        color: #fff;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex; flex-direction: column; align-items: center;
-        transition: transform 0.2s;
-    }
-    .action-button-main { border: 1px solid var(--gold); }
-    .action-button-main:hover { transform: scale(1.05); }
-    .action-button-secondary { border: 1px solid #505050; }
-    .btn-subtext { font-size: 0.65rem; color: #888; margin-top: 3px; font-weight: normal; }
+    // Compartir
+    document.getElementById('btn-share').addEventListener('click', () => {
+      playAudioFx('click');
+      navigator.clipboard.writeText(window.location.href);
+      triggerToast('¡Enlace copiado!', 'success');
+    });
 
-    .divider-container { display: flex; align-items: center; width: 100%; gap: 10px; margin-bottom: 20px; }
-    .divider-line { flex: 1; height: 1px; background-color: var(--gold); }
-    .divider-text { color: var(--gold); font-size: 0.8rem; font-weight: bold; border: 1px solid var(--gold); padding: 4px 12px; border-radius: 15px; }
+    // Modal Controladores
+    const openModal = (id) => {
+      playAudioFx('modal');
+      document.getElementById(id).classList.remove('hidden');
+      document.getElementById(id).classList.add('flex');
+    };
+    const closeModals = () => {
+      document.querySelectorAll('.fixed.z-50').forEach(el => {
+        if(el.id !== 'toast-container') { el.classList.add('hidden'); el.classList.remove('flex'); }
+      });
+    };
 
-    .info-grid { display: flex; flex-direction: column; width: 100%; gap: 15px; z-index: 2; }
-    .info-card { flex: 1; border: 1px solid #505050; background-color: var(--panel-bg); border-radius: 10px; padding: 15px; display: flex; flex-direction: column; }
-    
-    .gold-header { color: var(--gold); margin-bottom: 5px; font-size: 0.9rem; }
-    .white-title { color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 5px; }
-    .white-title-small { color: #fff; font-size: 0.9rem; font-weight: 800; margin-bottom: 5px; }
-    
-    .countdown-box { display: flex; gap: 10px; margin-top: 15px; background-color: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; justify-content: center; }
-    .count-item { display: flex; flex-direction: column; align-items: center; color: var(--gold); font-weight: bold; font-size: 1.2rem; }
+    document.getElementById('btn-open-register').addEventListener('click', () => openModal('modal-register'));
+    document.getElementById('btn-leaderboard').addEventListener('click', () => { openModal('modal-leaderboard'); renderLeaderboard(); });
+    document.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', closeModals));
 
-    .discord-section { margin-top: 15px; padding-top: 15px; border-top: 1px solid #333; }
-    .discord-btn {
-        width: 100%; margin-top: 10px; background-color: #5865F2; color: #fff; border: none; padding: 12px;
-        border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 10px;
-        font-weight: bold; cursor: pointer; transition: filter 0.2s;
-    }
-    .discord-btn:hover { filter: brightness(1.2); }
+    // Formulario Registro
+    document.getElementById('form-register').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nick = document.getElementById('reg-nick').value;
+      const rules = document.getElementById('reg-rules').checked;
+      
+      if(!rules) return triggerToast('Debes aceptar el reglamento.', 'error');
 
-    footer { margin-top: 25px; text-align: center; color: #666; font-size: 0.65rem; z-index: 2; }
-    .footer-link { color: #fff; font-weight: bold; letter-spacing: 1px; margin-top: 5px; display: inline-block; }
+      trainers.unshift({ rank: trainers.length + 1, name: nick, pokedex: "0/200", status: "Inscrito", region: "Ketzal Main", avatar: "✨" });
+      document.getElementById('player-count').innerText = trainers.length;
+      closeModals();
+      playAudioFx('success');
+      triggerToast(`¡Inscripción exitosa, ${nick}!`, 'success');
+      e.target.reset();
+    });
 
-    /* Modal Styles */
-    .modal-overlay {
-        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-        background-color: rgba(0,0,0,0.85);
-        display: flex; justify-content: center; align-items: center;
-        z-index: 100; backdrop-filter: blur(5px);
-    }
-    .hidden { display: none !important; }
-    
-    .modal-content {
-        background-color: #111; border: 2px solid var(--silver-border);
-        padding: 30px; border-radius: 12px; width: 90%; max-width: 400px;
-        text-align: center; box-shadow: 0 0 30px rgba(180, 180, 180, 0.2);
-    }
-    
-    .form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-    .input { padding: 12px; background-color: rgba(255,255,255,0.05); border: 1px solid #555; border-radius: 6px; color: #fff; outline: none; font-family: inherit; }
-    
-    .submit-btn { padding: 12px; background-color: var(--silver-border); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-    .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-    .close-btn { padding: 10px; background-color: transparent; color: #888; border: 1px solid #444; border-radius: 6px; cursor: pointer; }
+    // Renderizado Leaderboard
+    const renderLeaderboard = (filter = "") => {
+      const container = document.getElementById('trainer-list');
+      const filtered = trainers.filter(t => t.name.toLowerCase().includes(filter.toLowerCase()));
+      container.innerHTML = filtered.map(t => `
+        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="w-6 text-center text-xs font-mono font-bold text-amber-400">#${t.rank}</span>
+            <span class="text-base">${t.avatar}</span>
+            <div><p class="text-xs font-bold text-slate-200">${t.name}</p><p class="text-[10px] text-slate-500">${t.region}</p></div>
+          </div>
+          <div class="flex items-center gap-4 text-right">
+            <div><span class="text-xs font-mono font-bold text-emerald-400 block">${t.pokedex}</span><span class="text-[9px] text-slate-500">Pokédex</span></div>
+          </div>
+        </div>
+      `).join('');
+    };
 
-    /* RESPONSIVIDAD PARA PC */
-    @media (min-width: 1025px) {
-        .poster-container {
-            max-width: 1200px;
-            padding: 60px;
-            border-width: 4px;
-            border-radius: 30px;
-        }
-        .info-grid {
-            flex-direction: row;
-            gap: 40px;
-        }
-    }
-</style>
+    document.getElementById('search-trainer').addEventListener('input', (e) => renderLeaderboard(e.target.value));
+
+    // Contador de Tiempo (Cuenta regresiva estricta JS)
+    const targetDate = new Date('2026-10-10T16:00:00-06:00').getTime();
+    setInterval(() => {
+      const distance = targetDate - new Date().getTime();
+      if (distance > 0) {
+        document.getElementById('t-days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+        document.getElementById('t-hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('t-minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('t-seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+      }
+    }, 1000);
+
+  });
+</script>
