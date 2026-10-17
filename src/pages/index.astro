@@ -81,20 +81,17 @@ const title = "Copa Artemis 2026";
 
           <section class="feature-grid">
             <article class="feature-card">
-              <img src="https://files.catbox.moe/ptoku8.jpg" class="card-deco deco-premio" alt="">
-              <span class="feature-icon">🏆</span>
+              <img src="https://files.catbox.moe/ptoku8.jpg" class="card-deco" alt="">
               <span class="muted">PREMIO MAYOR</span>
               <p class="prize-text">REGALOS EXCLUSIVOS</p>
             </article>
             <article class="feature-card">
-              <img src="https://files.catbox.moe/1iilzg.jpg" class="card-deco deco-juego" alt="">
-              <span class="feature-icon">🎮</span>
+              <img src="https://files.catbox.moe/1iilzg.jpg" class="card-deco" alt="">
               <span class="pill pill-game">MOÉMON KETZAL</span>
               <p>ÚNICO JUEGO OFICIAL</p>
             </article>
             <article class="feature-card">
-              <img src="https://files.catbox.moe/an6jpo.jpg" class="card-deco deco-ganador" alt="">
-              <span class="feature-icon">🥇</span>
+              <img src="https://files.catbox.moe/an6jpo.jpg" class="card-deco" alt="">
               <p>1 GANADOR ABSOLUTO</p>
               <span class="muted">POKÉDEX COMPLETADA</span>
             </article>
@@ -111,7 +108,7 @@ const title = "Copa Artemis 2026";
 
           <section class="details-grid">
             <article class="detail-card">
-              <img src="https://files.catbox.moe/omht9x.jpg" class="card-deco deco-fecha" alt="">
+              <img src="https://files.catbox.moe/omht9x.jpg" class="card-deco deco-detail" alt="">
               <h2>FECHA</h2>
               <p class="detail-main">10-25 DE OCTUBRE, 2026</p>
               <p class="muted small">Horario: 16:00 GMT-6 · 15 días de competición</p>
@@ -125,10 +122,9 @@ const title = "Copa Artemis 2026";
             </article>
 
             <article class="detail-card">
-              <img src="https://files.catbox.moe/lniiri.jpg" class="card-deco deco-lugar" alt="">
+              <img src="https://files.catbox.moe/lniiri.jpg" class="card-deco deco-detail" alt="">
               <div class="registration-heading">
                 <h2>INSCRIPCIONES</h2>
-                <span class="status">ABIERTAS</span>
               </div>
               <div class="registration-info">
                 <p><strong>REGISTRO INDIVIDUAL ACTIVO</strong></p>
@@ -298,11 +294,10 @@ const title = "Copa Artemis 2026";
     .time-box span { margin-top: 3px; color: #94a3b8; font-size: 10px; }
     .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px; }
     .feature-card {
-      display: flex; min-width: 0; min-height: 145px; flex-direction: column; align-items: center; justify-content: center;
-      padding: 20px 12px; border: 1px solid #334155; border-radius: 14px; background: #0f172a; text-align: center;
+      display: flex; min-width: 0; min-height: 180px; flex-direction: column; align-items: center; justify-content: flex-end;
+      padding: 16px 12px 20px; border: 1px solid #334155; border-radius: 14px; background: #0f172a; text-align: center;
       position: relative; overflow: hidden;
     }
-    .feature-icon { margin-bottom: 10px; font-size: 30px; }
     .muted { color: #94a3b8; }
     .feature-card .muted { font-size: 10px; }
     .feature-card p { margin: 8px 0 0; font-size: 13px; font-weight: 900; }
@@ -327,7 +322,6 @@ const title = "Copa Artemis 2026";
     .detail-footer strong { color: #fbbf24; font-size: 11px; }
     .registration-heading { justify-content: space-between; gap: 12px; margin-bottom: 20px; }
     .registration-heading h2 { margin: 0; }
-    .status { padding: 6px 8px; border-radius: 5px; background: rgba(244, 63, 94, .15); color: #fb7185; font-size: 10px; font-weight: 950; }
     .registration-info { color: #cbd5e1; font-size: 12px; line-height: 1.8; }
     .registration-info p { margin: 5px 0; }
     .prize-footer { margin: 22px 0 0; padding-top: 18px; border-top: 1px solid #1e293b; color: #cbd5e1; font-size: 11px; line-height: 1.8; }
@@ -398,40 +392,40 @@ const title = "Copa Artemis 2026";
     .leaderboard-region { margin-top: 4px; color: #94a3b8; font-size: 10px; }
     .leaderboard-count { flex-shrink: 0; color: #34d399; font-size: 12px; font-weight: 950; }
 
-    /* Decoraciones Pokémon (corregidas) */
+    /* Decoraciones Pokémon (grandes y centradas) */
     .card-deco {
-      position: absolute;
-      width: 64px;
-      height: 64px;
+      width: 90px;
+      height: 90px;
       object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      pointer-events: none;
-      z-index: 2;
-      opacity: 0.88;
-      transition: transform 0.25s ease, opacity 0.25s ease;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 10px;
+      transition: transform 0.25s ease;
     }
     .feature-card:hover .card-deco,
     .detail-card:hover .card-deco {
-      transform: scale(1.08);
-      opacity: 1;
+      transform: scale(1.06);
     }
-    .deco-premio  { top: 6px; right: 6px; }
-    .deco-juego   { top: 6px; left: 6px; }
-    .deco-ganador { top: 6px; right: 6px; }
-    .deco-fecha   { top: 8px; right: 8px; }
-    .deco-lugar   { top: 8px; right: 8px; }
+    .deco-detail {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 72px;
+      height: 72px;
+      margin: 0;
+    }
 
     @media (max-width: 700px) {
       .main-container { padding: 20px 10px; }
       .content { padding: 28px 16px; }
       .details-grid { grid-template-columns: 1fr; gap: 16px; }
       .feature-grid { gap: 8px; }
-      .feature-card { padding: 16px 6px; }
+      .feature-card { padding: 14px 6px 16px; min-height: 160px; }
       .feature-card p { font-size: 11px; line-height: 1.5; }
       .detail-card { padding: 20px; }
-      .card-deco { width: 52px; height: 52px; }
+      .card-deco { width: 76px; height: 76px; }
+      .deco-detail { width: 60px; height: 60px; }
     }
     @media (max-width: 480px) {
       .navbar { padding: 10px; }
@@ -549,7 +543,7 @@ const title = "Copa Artemis 2026";
       try {
         const { data: trainer, error: trainerError } = await supabaseClient
           .from('entrenadores')
-          .insert([{ nickname: discord }])
+          .insert([{ nickname: nick, discord: discord }])
           .select()
           .single();
         if (trainerError) throw trainerError;
