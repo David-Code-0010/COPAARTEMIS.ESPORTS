@@ -34,7 +34,11 @@ const title = "Copa Artemis 2026";
           <span class="players-label">Jugadores</span>
           <span id="player-count" class="count">0</span>
         </button>
+
+        <img src="https://files.catbox.moe/0naii0.jpg" class="nav-deco" alt="">
+
         <button id="btn-share" class="button button-dark">Compartir</button>
+
         <button id="btn-audio" class="button button-dark icon-button" aria-pressed="true">
           <span id="icon-vol-on">🔊</span>
           <span id="icon-vol-off" hidden>🔇</span>
@@ -272,6 +276,15 @@ const title = "Copa Artemis 2026";
     .button-dark { border-color: rgba(100, 116, 139, .4); background: rgba(30, 41, 59, .75); }
     .icon-button { min-width: 42px; padding: 9px; font-size: 17px; }
     .count { padding: 3px 7px; border-radius: 999px; background: #08090d; color: #cbd5e1; font-size: 10px; }
+    .nav-deco {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
+    }
     .main-container { position: relative; z-index: 1; max-width: 1152px; margin: 0 auto; padding: 32px 16px; }
     .outer-frame { padding: 2px; border-radius: 26px; background: linear-gradient(180deg, #e2e8f0, #94a3b8 60%, #334155); box-shadow: 0 24px 70px rgba(0, 0, 0, .35); }
     .panel { overflow: hidden; border-radius: 24px; background: #0b0c12; }
@@ -392,7 +405,6 @@ const title = "Copa Artemis 2026";
     .leaderboard-region { margin-top: 4px; color: #94a3b8; font-size: 10px; }
     .leaderboard-count { flex-shrink: 0; color: #34d399; font-size: 12px; font-weight: 950; }
 
-    /* Decoraciones Pokémon (grandes y centradas) */
     .card-deco {
       width: 90px;
       height: 90px;
@@ -438,6 +450,7 @@ const title = "Copa Artemis 2026";
       .button { padding: 9px; font-size: 10px; }
       .players-label { display: none; }
       .icon-button { min-width: 36px; }
+      .nav-deco { width: 30px; height: 30px; }
       .hero-tagline { font-size: 9px; }
       .primary-actions { grid-template-columns: 1fr; gap: 10px; }
       .countdown-card { padding: 12px 8px; }
