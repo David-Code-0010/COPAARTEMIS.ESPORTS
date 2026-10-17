@@ -1,17 +1,10 @@
-{
-  "name": "torneo",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
+
+ // @ts-check
+import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  vite: {
+    plugins: [tailwindcss()],
   },
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "astro": "^7.1.6"
-  }
-}
+});
