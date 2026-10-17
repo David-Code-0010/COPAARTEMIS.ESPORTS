@@ -1,4 +1,4 @@
----
+Ñ---
 const title = "Copa Artemis 2026";
 ---
 
@@ -9,7 +9,10 @@ const title = "Copa Artemis 2026";
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#08090d" />
   <title>{title}</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"
+  ></script>
 </head>
 
 <body>
@@ -29,6 +32,7 @@ const title = "Copa Artemis 2026";
           <strong>COPA ARTEMIS 2026</strong>
         </span>
       </a>
+
       <nav class="nav-actions">
         <button id="btn-leaderboard" class="button button-dark">
           <span class="players-label">Jugadores</span>
@@ -480,6 +484,7 @@ const title = "Copa Artemis 2026";
     }
 
     const targetDate = new Date("2026-10-10T16:00:00-06:00").getTime();
+
     function updateCountdown() {
       const diff = targetDate - Date.now();
       if (diff <= 0) {
@@ -494,6 +499,7 @@ const title = "Copa Artemis 2026";
       $('t-minutes').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
       $('t-seconds').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
     }
+
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
@@ -501,19 +507,26 @@ const title = "Copa Artemis 2026";
       $(id).hidden = false;
       document.body.style.overflow = 'hidden';
     }
+
     function closeModal() {
       document.querySelectorAll('.modal').forEach(m => m.hidden = true);
       document.body.style.overflow = '';
     }
+
     $('btn-open-register')?.addEventListener('click', () => openModal('modal-register'));
     $('btn-open-rules')?.addEventListener('click', () => openModal('modal-rules'));
+
     $('btn-leaderboard')?.addEventListener('click', async () => {
       openModal('modal-leaderboard');
       await loadLeaderboard();
     });
+
     document.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', closeModal));
+
     document.querySelectorAll('.modal').forEach(modal => {
-      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      modal.addEventListener('click', e => {
+        if (e.target === modal) closeModal();
+      });
     });
 
     function showToast(text, isError = false) {
@@ -528,31 +541,40 @@ const title = "Copa Artemis 2026";
 
     $('form-register')?.addEventListener('submit', async e => {
       e.preventDefault();
+
       const nick = $('reg-nick').value.trim();
       const discord = $('reg-discord').value.trim();
       const accepted = $('reg-rules').checked;
+
       if (!nick || !discord || !accepted) {
         showToast('Completa todos los campos y acepta el reglamento', true);
         return;
       }
+
       if (!initializeSupabase()) {
         showToast('No se pudo conectar con Supabase.', true);
         return;
       }
+
       const btn = e.target.querySelector('[type="submit"]');
       btn.disabled = true;
       btn.textContent = 'Registrando...';
+
       try {
         const { data: trainer, error: trainerError } = await supabaseClient
           .from('entrenadores')
           .insert([{ nickname: nick, discord: discord }])
           .select()
           .single();
+
         if (trainerError) throw trainerError;
+
         const { error: progressError } = await supabaseClient
           .from('progreso')
           .insert([{ entrenador_id: trainer.id, capturas: 0, pokedex_total: 200 }]);
+
         if (progressError) console.error(progressError);
+
         showToast(`¡${nick} se ha inscrito correctamente!`);
         e.target.reset();
         closeModal();
@@ -568,29 +590,38 @@ const title = "Copa Artemis 2026";
 
     async function loadLeaderboard() {
       const list = $('leaderboard-list');
+
       if (!initializeSupabase()) {
         list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">No se pudo conectar con Supabase.</p>';
         return;
       }
+
       list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">Cargando...</p>';
+
       try {
         const { data, error } = await supabaseClient
           .from('entrenadores')
           .select('*, progreso(capturas, pokedex_total)')
           .order('created_at', { ascending: true });
+
         if (error) throw error;
+
         $('player-count').textContent = data.length;
         list.innerHTML = '';
+
         if (data.length === 0) {
           list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">Aún no hay entrenadores registrados</p>';
           return;
         }
+
         const sorted = [...data].sort((a, b) => (b.progreso?.[0]?.capturas || 0) - (a.progreso?.[0]?.capturas || 0));
+
         sorted.forEach((trainer, i) => {
           const progress = trainer.progreso?.[0];
           const captures = progress?.capturas || 0;
           const total = progress?.pokedex_total || 200;
           const row = document.createElement('div');
+
           row.className = 'leaderboard-row';
           row.innerHTML = `
             <span class="leaderboard-position">${i + 1}</span>
@@ -601,6 +632,7 @@ const title = "Copa Artemis 2026";
             </div>
             <span class="leaderboard-count">\( {captures}/ \){total}</span>
           `;
+
           list.appendChild(row);
         });
       } catch (err) {
@@ -610,9 +642,16 @@ const title = "Copa Artemis 2026";
     }
 
     $('btn-share')?.addEventListener('click', async () => {
-      const data = { title: 'Copa Artemis 2026', text: '¡Participa en la Copa Artemis 2026!', url: location.href };
+      const data = {
+        title: 'Copa Artemis 2026',
+        text: '¡Participa en la Copa Artemis 2026!',
+        url: location.href
+      };
+
       if (navigator.share) {
-        try { await navigator.share(data); } catch {}
+        try {
+          await navigator.share(data);
+        } catch {}
       } else {
         await navigator.clipboard.writeText(location.href);
         showToast('Enlace copiado al portapapeles');
@@ -620,6 +659,7 @@ const title = "Copa Artemis 2026";
     });
 
     let audioOn = true;
+
     $('btn-audio')?.addEventListener('click', () => {
       audioOn = !audioOn;
       $('icon-vol-on').hidden = !audioOn;
