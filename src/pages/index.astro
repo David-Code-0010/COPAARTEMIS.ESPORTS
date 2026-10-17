@@ -2,1290 +2,559 @@
 const title = "Copa Artemis 2026";
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#08090d" />
-    <meta
-      name="description"
-      content="Participa en la Copa Artemis 2026 de Moémon Ketzal."
-    />
-    <title>{title}</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08090d" />
+  <title>{title}</title>
+</head>
 
-  <body>
-    <div class="background" aria-hidden="true">
-      <div class="background-glow"></div>
-      <div class="background-grid"></div>
-      <div class="glow glow-silver"></div>
-      <div class="glow glow-gold"></div>
+<body>
+  <!-- FONDO -->
+  <div class="background" aria-hidden="true">
+    <div class="background-glow"></div>
+    <div class="background-grid"></div>
+    <div class="glow glow-silver"></div>
+    <div class="glow glow-gold"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="/" aria-label="Copa Artemis, inicio">
+        <span class="brand-icon">🏆</span>
+        <span>
+          <small>Torneo Oficial Moemon</small>
+          <strong>COPA ARTEMIS 2026</strong>
+        </span>
+      </a>
+
+      <nav class="nav-actions">
+        <button id="btn-leaderboard" class="button button-dark">
+          <span class="players-label">Jugadores</span>
+          <span id="player-count" class="count">0</span>
+        </button>
+        <button id="btn-share" class="button button-dark">Compartir</button>
+        <button id="btn-audio" class="button button-dark icon-button" aria-pressed="true">
+          <span id="icon-vol-on">🔊</span>
+          <span id="icon-vol-off" hidden>🔇</span>
+        </button>
+      </nav>
     </div>
+  </header>
 
-    <header class="navbar">
-      <div class="nav-inner">
-        <a class="brand" href="/" aria-label="Copa Artemis, inicio">
-          <span class="brand-icon">🏆</span>
-          <span>
-            <small>Torneo Oficial Moemon</small>
-            <strong>COPA ARTEMIS 2026</strong>
-          </span>
-        </a>
-
-        <nav class="nav-actions" aria-label="Acciones">
-          <button id="btn-leaderboard" class="button button-dark">
-            <span class="players-label">Jugadores</span>
-            <span id="player-count" class="count">0</span>
-          </button>
-
-          <button id="btn-share" class="button button-dark">
-            Compartir
-          </button>
-
-          <button
-            id="btn-audio"
-            class="button button-dark icon-button"
-            aria-label="Alternar icono de sonido"
-            aria-pressed="true"
-          >
-            <span id="icon-vol-on">🔊</span>
-            <span id="icon-vol-off" hidden>🔇</span>
-          </button>
-        </nav>
-      </div>
-    </header>
-
-    <div id="toast-container" class="toast-container" hidden>
-      <div id="toast-body" class="toast-body">
-        <p id="toast-text">Notificación</p>
-      </div>
+  <!-- TOAST -->
+  <div id="toast-container" class="toast-container" hidden>
+    <div id="toast-body" class="toast-body">
+      <p id="toast-text">Notificación</p>
     </div>
+  </div>
 
-    <main class="main-container">
-      <section class="outer-frame">
-        <div class="panel">
-          <div class="content">
-            <div class="text-center">
-              <span class="pill pill-gold">COPA ARTEMIS</span>
+  <main class="main-container">
+    <section class="outer-frame">
+      <div class="panel">
+        <div class="content">
+          <div class="text-center">
+            <span class="pill pill-gold">COPA ARTEMIS</span>
+          </div>
+
+          <section class="hero">
+            <h1>CONCURSO ARTEMIS</h1>
+            <p class="hero-subtitle">x CURI GAMEPLAYS</p>
+            <p class="hero-tagline">ATRÁPALOS A TODOS - CACERÍA DE POKÉMON EN MOEMON KETZAL</p>
+            <p class="hero-description">
+              Participa en el primer gran torneo de captura de Pokémon Moemon. Una carrera épica para ver quién es el maestro absoluto. El primero en completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
+            </p>
+          </section>
+
+          <!-- COUNTDOWN -->
+          <section class="countdown-card">
+            <div class="countdown-heading">
+              <span>INICIO DEL TORNEO</span>
+              <span class="date-label">10 OCT, 2026</span>
             </div>
+            <div class="countdown-grid">
+              <div class="time-box"><strong id="t-days">00</strong><span>DÍAS</span></div>
+              <div class="time-box"><strong id="t-hours">00</strong><span>HORAS</span></div>
+              <div class="time-box"><strong id="t-minutes">00</strong><span>MIN</span></div>
+              <div class="time-box"><strong id="t-seconds">00</strong><span>SEG</span></div>
+            </div>
+          </section>
 
-            <section class="hero">
-              <h1>CONCURSO ARTEMIS</h1>
-              <p class="hero-subtitle">x CURI GAMEPLAYS</p>
-              <p class="hero-tagline">
-                ATRÁPALOS A TODOS - CACERÍA DE POKÉMON EN MOEMON KETZAL
-              </p>
-              <p class="hero-description">
-                Participa en el primer gran torneo de captura de Pokémon
-                Moemon. Una carrera épica para ver quién es el maestro
-                absoluto. El primero en completar la Pokédex será el ganador
-                y se llevará la gloria y un premio masivo.
-              </p>
-            </section>
+          <!-- FEATURES -->
+          <section class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-icon">🏆</span>
+              <span class="muted">PREMIO MAYOR</span>
+              <p class="prize-text">REGALOS EXCLUSIVOS</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon">🎮</span>
+              <span class="pill pill-game">MOÉMON KETZAL</span>
+              <p>ÚNICO JUEGO OFICIAL</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon">🥇</span>
+              <p>1 GANADOR ABSOLUTO</p>
+              <span class="muted">POKÉDEX COMPLETADA</span>
+            </article>
+          </section>
 
-            <section class="countdown-card">
-              <div class="countdown-heading">
-                <span>INICIO DEL TORNEO</span>
-                <span class="date-label">10 OCT, 2026</span>
+          <!-- BOTONES -->
+          <section class="primary-actions">
+            <button id="btn-open-register" class="button button-primary">¡INSCRÍBETE AHORA!</button>
+            <button id="btn-open-rules" class="button button-secondary">REGLAMENTO OFICIAL</button>
+          </section>
+
+          <div class="section-heading">
+            <span>DETALLES DEL CONCURSO</span>
+          </div>
+
+          <section class="details-grid">
+            <article class="detail-card">
+              <h2>FECHA</h2>
+              <p class="detail-main">10-25 DE OCTUBRE, 2026</p>
+              <p class="muted small">Horario: 16:00 GMT-6 · 15 días de competición</p>
+
+              <h2 class="spaced-heading">LUGAR</h2>
+              <p class="detail-main">SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
+              <p class="muted small">Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
+
+              <div class="detail-footer">
+                <strong>MOÉMON KETZAL</strong>
+                <span>🌱 🔥 💧</span>
+              </div>
+            </article>
+
+            <article class="detail-card">
+              <div class="registration-heading">
+                <h2>INSCRIPCIONES</h2>
+                <span class="status">ABIERTAS</span>
               </div>
 
-              <div class="countdown-grid">
-                <div class="time-box">
-                  <strong id="t-days">00</strong>
-                  <span>DÍAS</span>
-                </div>
-                <div class="time-box">
-                  <strong id="t-hours">00</strong>
-                  <span>HORAS</span>
-                </div>
-                <div class="time-box">
-                  <strong id="t-minutes">00</strong>
-                  <span>MIN</span>
-                </div>
-                <div class="time-box">
-                  <strong id="t-seconds">00</strong>
-                  <span>SEG</span>
-                </div>
+              <div class="registration-info">
+                <p><strong>REGISTRO INDIVIDUAL ACTIVO</strong></p>
+                <p>• Carrera individual de velocidad</p>
+                <p>• Región Ketzal completa</p>
+                <p>• Pokédex Galar ampliada</p>
               </div>
-            </section>
 
-            <section class="feature-grid" aria-label="Características">
-              <article class="feature-card">
-                <span class="feature-icon">🏆</span>
-                <span class="muted">PREMIO MAYOR</span>
-                <p class="prize-text">REGALOS EXCLUSIVOS</p>
-              </article>
+              <p class="prize-footer">
+                <strong>🏆 Premios:</strong> Master Trophy + <span>regalos exclusivos</span>
+              </p>
 
-              <article class="feature-card">
-                <span class="feature-icon">🎮</span>
-                <span class="pill pill-game">MOÉMON KETZAL</span>
-                <p>ÚNICO JUEGO OFICIAL</p>
-              </article>
-
-              <article class="feature-card">
-                <span class="feature-icon">🥇</span>
-                <p>1 GANADOR ABSOLUTO</p>
-                <span class="muted">POKÉDEX COMPLETADA</span>
-              </article>
-            </section>
-
-            <section class="primary-actions">
-              <button id="btn-open-register" class="button button-primary">
-                ¡INSCRÍBETE AHORA!
-              </button>
-              <button id="btn-open-rules" class="button button-secondary">
-                REGLAMENTO OFICIAL
-              </button>
-            </section>
-
-            <div class="section-heading">
-              <span>DETALLES DEL CONCURSO</span>
-            </div>
-
-            <section class="details-grid">
-              <article class="detail-card">
-                <h2>FECHA</h2>
-                <p class="detail-main">10-25 DE OCTUBRE, 2026</p>
-                <p class="muted small">
-                  Horario: 16:00 GMT-6 · 15 días de competición
-                </p>
-
-                <h2 class="spaced-heading">LUGAR</h2>
-                <p class="detail-main">
-                  SERVIDOR EXCLUSIVO MOEMON KETZAL
-                </p>
-                <p class="muted small">
-                  Emisiones en vivo por Curi Gameplays y YouTube Gaming
-                </p>
-
-                <div class="detail-footer">
-                  <strong>MOÉMON KETZAL</strong>
-                  <span>🌱 🔥 💧</span>
-                </div>
-              </article>
-
-              <article class="detail-card">
-                <div class="registration-heading">
-                  <h2>INSCRIPCIONES</h2>
-                  <span class="status">ABIERTAS</span>
-                </div>
-
-                <div class="registration-info">
-                  <p><strong>REGISTRO INDIVIDUAL ACTIVO</strong></p>
-                  <p>• Carrera individual de velocidad</p>
-                  <p>• Región Ketzal completa</p>
-                  <p>• Pokédex Galar ampliada</p>
-                </div>
-
-                <p class="prize-footer">
-                  <strong>🏆 Premios:</strong>
-                  Master Trophy +
-                  <span>regalos exclusivos</span>
-                </p>
-
-                <a
-                  id="btn-community"
-                  href="https://discord.gg/3GWTVzjHS4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="discord-button"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="discord-icon"
-                    aria-hidden="true"
-                  >
-                    <path d="M19.73 5.2a18.1 18.1 0 0 0-4.46-1.38.07.07 0 0 0-.08.04c-.19.34-.4.78-.55 1.13a16.7 16.7 0 0 0-5.02 0c-.15-.36-.37-.79-.56-1.13a.08.08 0 0 0-.08-.04A18 18 0 0 0 4.52 5.2a.07.07 0 0 0-.03.03C1.66 9.43.89 13.53 1.27 17.58c0 .02.01.04.03.05a18.2 18.2 0 0 0 5.47 2.76.08.08 0 0 0 .09-.03c.42-.57.79-1.17 1.11-1.8a.08.08 0 0 0-.04-.11 12 12 0 0 1-1.71-.81.08.08 0 0 1-.01-.13l.34-.27a.08.08 0 0 1 .08-.01c3.58 1.63 7.45 1.63 10.99 0a.08.08 0 0 1 .08.01l.34.27a.08.08 0 0 1-.01.13c-.55.32-1.12.59-1.71.81a.08.08 0 0 0-.04.11c.33.63.7 1.23 1.11 1.8a.08.08 0 0 0 .09.03 18.2 18.2 0 0 0 5.48-2.76.08.08 0 0 0 .03-.05c.45-4.69-.76-8.76-3.23-12.35a.06.06 0 0 0-.03-.03ZM8.24 14.6c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Zm7.28 0c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Z" />
-                  </svg>
-
-                  <span class="discord-copy">
-                    <strong>Únete a nuestra comunidad</strong>
-                    <small>Discord oficial · Copa Artemis 2026</small>
-                  </span>
-
-                  <span class="discord-arrow" aria-hidden="true">↗</span>
-                </a>
-              </article>
-            </section>
-          </div>
+              <a id="btn-community" href="https://discord.gg/3GWTVzjHS4" target="_blank" rel="noopener noreferrer" class="discord-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="discord-icon" aria-hidden="true">
+                  <path d="M19.73 5.2a18.1 18.1 0 0 0-4.46-1.38.07.07 0 0 0-.08.04c-.19.34-.4.78-.55 1.13a16.7 16.7 0 0 0-5.02 0c-.15-.36-.37-.79-.56-1.13a.08.08 0 0 0-.08-.04A18 18 0 0 0 4.52 5.2a.07.07 0 0 0-.03.03C1.66 9.43.89 13.53 1.27 17.58c0 .02.01.04.03.05a18.2 18.2 0 0 0 5.47 2.76.08.08 0 0 0 .09-.03c.42-.57.79-1.17 1.11-1.8a.08.08 0 0 0-.04-.11 12 12 0 0 1-1.71-.81.08.08 0 0 1-.01-.13l.34-.27a.08.08 0 0 1 .08-.01c3.58 1.63 7.45 1.63 10.99 0a.08.08 0 0 1 .08.01l.34.27a.08.08 0 0 1-.01.13c-.55.32-1.12.59-1.71.81a.08.08 0 0 0-.04.11c.33.63.7 1.23 1.11 1.8a.08.08 0 0 0 .09.03 18.2 18.2 0 0 0 5.48-2.76.08.08 0 0 0 .03-.05c.45-4.69-.76-8.76-3.23-12.35a.06.06 0 0 0-.03-.03ZM8.24 14.6c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Zm7.28 0c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Z"/>
+                </svg>
+                <span class="discord-copy">
+                  <strong>Únete a nuestra comunidad</strong>
+                  <small>Discord oficial · Copa Artemis 2026</small>
+                </span>
+                <span class="discord-arrow">↗</span>
+              </a>
+            </article>
+          </section>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    <!-- MODAL DE REGISTRO -->
-    <div id="modal-register" class="modal" hidden>
-      <section class="modal-card modal-narrow" role="dialog" aria-modal="true" aria-labelledby="register-title">
-        <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
-
-        <header class="modal-header">
-          <h2 id="register-title">Registro de Entrenador</h2>
-          <p>Inscripción para la Copa Artemis Moémon</p>
-        </header>
-
-        <form id="form-register" class="register-form">
-          <div class="form-field">
-            <label for="reg-nick">Nombre de entrenador *</label>
-            <input type="text" id="reg-nick" required maxlength="40" autocomplete="nickname" />
-          </div>
-
-          <div class="form-field">
-            <label for="reg-discord">Usuario de Discord *</label>
-            <input type="text" id="reg-discord" required maxlength="80" autocomplete="off" />
-          </div>
-
-          <label class="checkbox-label">
-            <input type="checkbox" id="reg-rules" required />
-            <span>Acepto cumplir con el reglamento oficial y jugar limpio.</span>
-          </label>
-
-          <div class="modal-actions">
-            <button type="button" class="button button-dark close-modal">Cancelar</button>
-            <button type="submit" class="button button-primary">Confirmar inscripción</button>
-          </div>
-        </form>
-      </section>
-    </div>
-
-    <!-- MODAL DE REGLAMENTO -->
-    <div id="modal-rules" class="modal" hidden>
-      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="rules-title">
-        <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
-
-        <header class="modal-header modal-title-row">
-          <span class="shield-icon">🛡️</span>
-          <div>
-            <h2 id="rules-title">Reglamento Oficial</h2>
-            <p>Copa Artemis 2026 · Moémon Ketzal</p>
-          </div>
-        </header>
-
-        <div class="rules-content">
-          <p><strong>1. Registro:</strong> Solo se permiten cuentas individuales. Usa tu nickname de entrenador y tu usuario de Discord.</p>
-          <p><strong>2. Objetivo:</strong> Completar la Pokédex de la región Ketzal lo más rápido posible. El primero en completarla es el ganador.</p>
-          <p><strong>3. Juego limpio:</strong> Prohibido el uso de hacks, mods, exploits o cualquier ventaja injusta. Cualquier infracción resulta en descalificación inmediata.</p>
-          <p><strong>4. Duración:</strong> La competición va del 10 al 25 de octubre de 2026, de 16:00 GMT-6.</p>
-          <p><strong>5. Verificación:</strong> Los ganadores deberán mostrar prueba de su Pokédex completa en el servidor oficial.</p>
-          <p><strong>6. Premio:</strong> Master Trophy + regalos exclusivos para el maestro absoluto.</p>
+  <!-- MODALES (los mismos que ya tenías) -->
+  <div id="modal-register" class="modal" hidden>
+    <section class="modal-card modal-narrow" role="dialog" aria-modal="true">
+      <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
+      <header class="modal-header">
+        <h2>Registro de Entrenador</h2>
+        <p>Inscripción para la Copa Artemis Moémon</p>
+      </header>
+      <form id="form-register" class="register-form">
+        <div class="form-field">
+          <label for="reg-nick">Nombre de entrenador *</label>
+          <input type="text" id="reg-nick" required maxlength="40" />
         </div>
-
-        <footer class="modal-actions">
-          <button type="button" class="button button-dark close-modal">Cerrar</button>
-        </footer>
-      </section>
-    </div>
-
-    <!-- MODAL DE CLASIFICACIÓN -->
-    <div id="modal-leaderboard" class="modal" hidden>
-      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="leaderboard-title">
-        <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
-        <header class="modal-header">
-          <h2 id="leaderboard-title">Clasificación de entrenadores</h2>
-        </header>
-        <div id="leaderboard-list" class="leaderboard-list" aria-live="polite"></div>
-      </section>
-    </div>
-
-    <script>
-      import "../scripts/torneo.js";
-    </script>
-  </body>
-</html>
-
-<style is:global>
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    min-width: 320px;
-    scroll-behavior: smooth;
-    background: #08090d;
-  }
-
-  body {
-    position: relative;
-    min-height: 100vh;
-    margin: 0;
-    overflow-x: hidden;
-    color: #f1f5f9;
-    background: #08090d;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  button,
-  input {
-    font: inherit;
-  }
-
-  button,
-  a {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  button {
-    color: inherit;
-    cursor: pointer;
-  }
-
-  button:disabled {
-    cursor: wait;
-    opacity: .65;
-  }
-
-  button:focus-visible,
-  a:focus-visible,
-  input:focus-visible {
-    outline: 2px solid #fbbf24;
-    outline-offset: 3px;
-  }
-
-  .background {
-    position: fixed;
-    z-index: 0;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .background-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(203, 213, 225, .12), transparent);
-  }
-
-  .background-grid {
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(to right, rgba(30, 41, 59, .08) 1px, transparent 1px), linear-gradient(to bottom, rgba(30, 41, 59, .08) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
-
-  .glow {
-    position: absolute;
-    width: 24rem;
-    height: 24rem;
-    border-radius: 50%;
-    filter: blur(64px);
-    animation: pulse 6s ease-in-out infinite alternate;
-  }
-
-  .glow-silver {
-    top: 25%;
-    left: 2.5rem;
-    background: rgba(203, 213, 225, .05);
-  }
-
-  .glow-gold {
-    right: 2.5rem;
-    bottom: 33%;
-    background: rgba(245, 158, 11, .05);
-    animation-delay: 1s;
-  }
-
-  @keyframes pulse {
-    from { opacity: .45; transform: scale(.96); }
-    to { opacity: 1; transform: scale(1.04); }
-  }
-
-  .navbar {
-    position: sticky;
-    z-index: 40;
-    top: 0;
-    padding: 12px 16px;
-    border-bottom: 1px solid rgba(51, 65, 85, .8);
-    background: rgba(8, 9, 13, .82);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
-    backdrop-filter: blur(20px);
-  }
-
-  .nav-inner,
-  .brand,
-  .nav-actions,
-  .registration-heading,
-  .countdown-heading,
-  .detail-footer,
-  .modal-title-row {
-    display: flex;
-    align-items: center;
-  }
-
-  .nav-inner {
-    max-width: 1280px;
-    justify-content: space-between;
-    gap: 16px;
-    margin: 0 auto;
-  }
-
-  .brand {
-    min-width: 0;
-    gap: 12px;
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .brand-icon {
-    display: grid;
-    width: 42px;
-    height: 42px;
-    flex-shrink: 0;
-    place-items: center;
-    border: 1px solid #64748b;
-    border-radius: 12px;
-    background: linear-gradient(145deg, #1e293b, #0d0f17);
-    font-size: 23px;
-  }
-
-  .brand small,
-  .brand strong {
-    display: block;
-  }
-
-  .brand small {
-    margin-bottom: 4px;
-    color: #94a3b8;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-  }
-
-  .brand strong {
-    font-size: 13px;
-    font-weight: 900;
-    letter-spacing: .06em;
-  }
-
-  .nav-actions {
-    gap: 8px;
-  }
-
-  .button {
-    display: inline-flex;
-    min-height: 42px;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 14px;
-    border: 1px solid transparent;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 800;
-    text-align: center;
-    transition: transform .2s, border-color .2s, filter .2s;
-  }
-
-  .button:hover {
-    filter: brightness(1.13);
-  }
-
-  .button:active {
-    transform: scale(.98);
-  }
-
-  .button-dark {
-    border-color: rgba(100, 116, 139, .4);
-    background: rgba(30, 41, 59, .75);
-  }
-
-  .icon-button {
-    min-width: 42px;
-    padding: 9px;
-    font-size: 17px;
-  }
-
-  .count {
-    padding: 3px 7px;
-    border-radius: 999px;
-    background: #08090d;
-    color: #cbd5e1;
-    font-size: 10px;
-  }
-
-  .main-container {
-    position: relative;
-    z-index: 1;
-    max-width: 1152px;
-    margin: 0 auto;
-    padding: 32px 16px;
-  }
-
-  .outer-frame {
-    padding: 2px;
-    border-radius: 26px;
-    background: linear-gradient(180deg, #e2e8f0, #94a3b8 60%, #334155);
-    box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
-  }
-
-  .panel {
-    overflow: hidden;
-    border-radius: 24px;
-    background: #0b0c12;
-  }
-
-  .content {
-    padding: 48px clamp(18px, 5vw, 64px);
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 900;
-    letter-spacing: .1em;
-  }
-
-  .pill-gold {
-    border: 1px solid rgba(245, 158, 11, .4);
-    background: #1e293b;
-    color: #fcd34d;
-  }
-
-  .hero {
-    margin: 22px 0 32px;
-    text-align: center;
-  }
-
-  .hero h1 {
-    margin: 0;
-    font-size: clamp(27px, 5vw, 48px);
-    font-weight: 950;
-    line-height: 1.12;
-    letter-spacing: -.035em;
-  }
-
-  .hero-subtitle {
-    margin: 10px 0;
-    background: linear-gradient(90deg, #cbd5e1, #f8fafc, #94a3b8);
-    background-clip: text;
-    color: transparent;
-    font-size: clamp(24px, 4vw, 38px);
-    font-weight: 900;
-  }
-
-  .hero-tagline {
-    margin: 14px 0;
-    color: #fbbf24;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: .1em;
-    line-height: 1.8;
-  }
-
-  .hero-description {
-    max-width: 680px;
-    margin: 24px auto 0;
-    color: #cbd5e1;
-    font-size: 14px;
-    line-height: 1.8;
-  }
-
-  .countdown-card {
-    max-width: 680px;
-    margin: 0 auto 36px;
-    padding: 16px;
-    border: 1px solid #334155;
-    border-radius: 14px;
-    background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
-  }
-
-  .countdown-heading {
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #334155;
-    color: #cbd5e1;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: .06em;
-  }
-
-  .date-label {
-    color: #34d399;
-  }
-
-  .countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
-    text-align: center;
-  }
-
-  .time-box {
-    padding: 10px 4px;
-    border-radius: 8px;
-    background: #020617;
-  }
-
-  .time-box strong,
-  .time-box span {
-    display: block;
-  }
-
-  .time-box strong {
-    font-size: clamp(22px, 4vw, 30px);
-    font-weight: 950;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .time-box span {
-    margin-top: 3px;
-    color: #94a3b8;
-    font-size: 10px;
-  }
-
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .feature-card {
-    display: flex;
-    min-width: 0;
-    min-height: 145px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 12px;
-    border: 1px solid #334155;
-    border-radius: 14px;
-    background: #0f172a;
-    text-align: center;
-  }
-
-  .feature-icon {
-    margin-bottom: 10px;
-    font-size: 30px;
-  }
-
-  .muted {
-    color: #94a3b8;
-  }
-
-  .feature-card .muted {
-    font-size: 10px;
-  }
-
-  .feature-card p {
-    margin: 8px 0 0;
-    font-size: 13px;
-    font-weight: 900;
-  }
-
-  .prize-text,
-  .prize-footer span {
-    color: #fb7185;
-  }
-
-  .pill-game {
-    padding: 6px 10px;
-    border-radius: 6px;
-    background: rgba(245, 158, 11, .16);
-    color: #fcd34d;
-    font-size: 10px;
-    letter-spacing: 0;
-  }
-
-  .primary-actions {
-    display: grid;
-    max-width: 600px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-    margin: 0 auto 40px;
-  }
-
-  .button-primary {
-    border-color: #cbd5e1;
-    background: linear-gradient(90deg, #e2e8f0, #94a3b8);
-    color: #08090d;
-  }
-
-  .primary-actions .button {
-    min-height: 58px;
-    padding: 16px 12px;
-    font-size: 12px;
-    font-weight: 950;
-  }
-
-  .button-secondary {
-    border-color: #334155;
-    background: #0f172a;
-    color: #f8fafc;
-  }
-
-  .section-heading {
-    margin-bottom: 24px;
-    text-align: center;
-  }
-
-  .section-heading span {
-    display: inline-block;
-    padding: 10px 24px;
-    border: 1px solid rgba(245, 158, 11, .3);
-    border-radius: 999px;
-    color: #fbbf24;
-    font-size: 10px;
-    font-weight: 950;
-    letter-spacing: .12em;
-  }
-
-  .details-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-  }
-
-  .detail-card {
-    min-width: 0;
-    padding: 24px;
-    border: 1px solid #1e293b;
-    border-radius: 18px;
-    background: #0f172a;
-  }
-
-  .detail-card h2 {
-    margin: 0 0 10px;
-    color: #fbbf24;
-    font-size: 14px;
-    font-weight: 950;
-  }
-
-  .detail-main {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 950;
-    line-height: 1.5;
-  }
-
-  .small {
-    margin: 5px 0 0;
-    font-size: 11px;
-    line-height: 1.7;
-  }
-
-  .spaced-heading {
-    margin-top: 28px !important;
-  }
-
-  .detail-footer {
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid #1e293b;
-  }
-
-  .detail-footer strong {
-    color: #fbbf24;
-    font-size: 11px;
-  }
-
-  .registration-heading {
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .registration-heading h2 {
-    margin: 0;
-  }
-
-  .status {
-    padding: 6px 8px;
-    border-radius: 5px;
-    background: rgba(244, 63, 94, .15);
-    color: #fb7185;
-    font-size: 10px;
-    font-weight: 950;
-  }
-
-  .registration-info {
-    color: #cbd5e1;
-    font-size: 12px;
-    line-height: 1.8;
-  }
-
-  .registration-info p {
-    margin: 5px 0;
-  }
-
-  .prize-footer {
-    margin: 22px 0 0;
-    padding-top: 18px;
-    border-top: 1px solid #1e293b;
-    color: #cbd5e1;
-    font-size: 11px;
-    line-height: 1.8;
-  }
-
-  .prize-footer strong {
-    color: #fbbf24;
-  }
-
-  .prize-footer span {
-    font-weight: 900;
-  }
-
-  .discord-button {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    margin-top: 24px;
-    padding: 16px;
-    border: 1px solid rgba(254, 240, 138, .5);
-    border-radius: 12px;
-    background: linear-gradient(100deg, #422006, #18181b, #000);
-    color: #fef3c7;
-    text-decoration: none;
-    box-shadow: 0 10px 25px rgba(245, 158, 11, .07);
-    transition: border-color .2s, filter .2s;
-  }
-
-  .discord-button:hover {
-    border-color: #fcd34d;
-    filter: brightness(1.2);
-  }
-
-  .discord-icon {
-    width: 34px;
-    height: 34px;
-    flex-shrink: 0;
-    color: #a5b4fc;
-    transition: transform .2s;
-  }
-
-  .discord-button:hover .discord-icon {
-    transform: scale(1.1);
-  }
-
-  .discord-copy {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    gap: 5px;
-    text-align: left;
-  }
-
-  .discord-copy strong {
-    font-size: 12px;
-  }
-
-  .discord-copy small {
-    color: rgba(254, 240, 138, .7);
-    font-size: 10px;
-    line-height: 1.5;
-  }
-
-  .discord-arrow {
-    margin-left: auto;
-    font-size: 22px;
-  }
-
-  .toast-container {
-    position: fixed;
-    z-index: 100;
-    top: 80px;
-    right: 16px;
-    width: min(360px, calc(100% - 32px));
-  }
-
-  .toast-body {
-    padding: 14px 16px;
-    border: 1px solid #64748b;
-    border-radius: 12px;
-    background: #0f172a;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
-  }
-
-  .toast-body.error {
-    border-color: #f43f5e;
-  }
-
-  .toast-body p {
-    margin: 0;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.6;
-  }
-
-  .modal[hidden],
-  [hidden] {
-    display: none !important;
-  }
-
-  .modal {
-    position: fixed;
-    z-index: 50;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
-    padding: 16px;
-    background: rgba(0, 0, 0, .82);
-    backdrop-filter: blur(12px);
-  }
-
-  .modal-card {
-    position: relative;
-    display: flex;
-    width: 100%;
-    max-width: 680px;
-    max-height: 85vh;
-    flex-direction: column;
-    padding: 24px;
-    overflow: hidden;
-    border: 1px solid #475569;
-    border-radius: 18px;
-    background: #0f172a;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
-  }
-
-  .modal-narrow {
-    max-width: 480px;
-  }
-
-  .close-button {
-    position: absolute;
-    z-index: 1;
-    top: 16px;
-    right: 16px;
-    display: grid;
-    width: 34px;
-    height: 34px;
-    place-items: center;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: #94a3b8;
-    font-size: 18px;
-  }
-
-  .close-button:hover {
-    background: #1e293b;
-    color: #fff;
-  }
-
-  .modal-header {
-    flex-shrink: 0;
-    margin-bottom: 20px;
-    padding: 0 36px 16px 0;
-    border-bottom: 1px solid #1e293b;
-  }
-
-  .modal-header h2 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 950;
-    text-transform: uppercase;
-  }
-
-  .modal-header p {
-    margin: 6px 0 0;
-    color: #94a3b8;
-    font-size: 11px;
-  }
-
-  .modal-title-row {
-    gap: 12px;
-  }
-
-    .shield-icon {
-    display: grid;
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-    place-items: center;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    background: #1e293b;
-    font-size: 22px;
-  }
-
-  .register-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-
-  .form-field label {
-    color: #cbd5e1;
-    font-size: 12px;
-    font-weight: 800;
-  }
-
-  .form-field input {
-    width: 100%;
-    min-height: 46px;
-    padding: 12px 14px;
-    border: 1px solid #334155;
-    border-radius: 10px;
-    background: #020617;
-    color: #f8fafc;
-    font-size: 14px;
-  }
-
-  .checkbox-label {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    color: #94a3b8;
-    font-size: 12px;
-    line-height: 1.6;
-    cursor: pointer;
-  }
-
-  .checkbox-label input {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    accent-color: #fbbf24;
-  }
-
-  .modal-actions {
-    display: flex;
-    flex-shrink: 0;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 20px;
-  }
-
-  .rules-content,
-  .leaderboard-list {
-    overflow-y: auto;
-    padding-right: 6px;
-  }
-
-  .rules-content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    color: #cbd5e1;
-    font-size: 13px;
-    line-height: 1.8;
-  }
-
-  .rules-content p {
-    margin: 0;
-  }
-
-  .rules-content strong {
-    color: #fbbf24;
-  }
-
-  .leaderboard-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    min-height: 50px;
-    color: #cbd5e1;
-    font-size: 13px;
-  }
-
-  .leaderboard-row {
-    display: flex;
-    min-width: 0;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border: 1px solid #1e293b;
-    border-radius: 12px;
-    background: rgba(2, 6, 23, .6);
-  }
-
-  .leaderboard-position {
-    width: 28px;
-    flex-shrink: 0;
-    color: #fbbf24;
-    font-weight: 950;
-    text-align: center;
-  }
-
-  .leaderboard-avatar {
-    font-size: 20px;
-  }
-
-  .leaderboard-info {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .leaderboard-nickname {
-    overflow: hidden;
-    color: #f1f5f9;
-    font-size: 13px;
-    font-weight: 800;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .leaderboard-region {
-    margin-top: 4px;
-    color: #94a3b8;
-    font-size: 10px;
-  }
-
-  .leaderboard-count {
-    flex-shrink: 0;
-    color: #34d399;
-    font-size: 12px;
-    font-weight: 950;
-  }
-
-  @media (max-width: 700px) {
-    .main-container {
-      padding: 20px 10px;
+        <div class="form-field">
+          <label for="reg-discord">Usuario de Discord *</label>
+          <input type="text" id="reg-discord" required maxlength="80" />
+        </div>
+        <label class="checkbox-label">
+          <input type="checkbox" id="reg-rules" required />
+          <span>Acepto cumplir con el reglamento oficial y jugar limpio.</span>
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="button button-dark close-modal">Cancelar</button>
+          <button type="submit" class="button button-primary">Confirmar inscripción</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div id="modal-rules" class="modal" hidden>
+    <section class="modal-card" role="dialog" aria-modal="true">
+      <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
+      <header class="modal-header modal-title-row">
+        <span class="shield-icon">🛡️</span>
+        <div>
+          <h2>Reglamento Oficial</h2>
+          <p>Copa Artemis 2026 · Moémon Ketzal</p>
+        </div>
+      </header>
+      <div class="rules-content">
+        <p><strong>1. Registro:</strong> Solo se permiten cuentas individuales. Usa tu nickname de entrenador y tu usuario de Discord.</p>
+        <p><strong>2. Objetivo:</strong> Completar la Pokédex de la región Ketzal lo más rápido posible. El primero en completarla es el ganador.</p>
+        <p><strong>3. Juego limpio:</strong> Prohibido el uso de hacks, mods, exploits o cualquier ventaja injusta. Cualquier infracción resulta en descalificación inmediata.</p>
+        <p><strong>4. Duración:</strong> La competición va del 10 al 25 de octubre de 2026, de 16:00 GMT-6.</p>
+        <p><strong>5. Verificación:</strong> Los ganadores deberán mostrar prueba de su Pokédex completa en el servidor oficial.</p>
+        <p><strong>6. Premio:</strong> Master Trophy + regalos exclusivos para el maestro absoluto.</p>
+      </div>
+      <footer class="modal-actions">
+        <button type="button" class="button button-dark close-modal">Cerrar</button>
+      </footer>
+    </section>
+  </div>
+
+  <div id="modal-leaderboard" class="modal" hidden>
+    <section class="modal-card" role="dialog" aria-modal="true">
+      <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
+      <header class="modal-header">
+        <h2>Clasificación de entrenadores</h2>
+      </header>
+      <div id="leaderboard-list" class="leaderboard-list"></div>
+    </section>
+  </div>
+
+  <!-- CSS (todo el estilo original) -->
+  <style is:global>
+    * { box-sizing: border-box; }
+    html { min-width: 320px; scroll-behavior: smooth; background: #08090d; }
+    body {
+      position: relative; min-height: 100vh; margin: 0; overflow-x: hidden;
+      color: #f1f5f9; background: #08090d;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-
-    .content {
-      padding: 28px 16px;
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { color: inherit; cursor: pointer; }
+    button:disabled { cursor: wait; opacity: .65; }
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 2px solid #fbbf24; outline-offset: 3px;
     }
-
-    .details-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
+    .background { position: fixed; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
+    .background-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(203, 213, 225, .12), transparent); }
+    .background-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(to right, rgba(30, 41, 59, .08) 1px, transparent 1px), linear-gradient(to bottom, rgba(30, 41, 59, .08) 1px, transparent 1px);
+      background-size: 32px 32px;
     }
-
-    .feature-grid {
-      gap: 8px;
-    }
-
-    .feature-card {
-      padding: 16px 6px;
-    }
-
-    .feature-card p {
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    .detail-card {
-      padding: 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
+    .glow { position: absolute; width: 24rem; height: 24rem; border-radius: 50%; filter: blur(64px); animation: pulse 6s ease-in-out infinite alternate; }
+    .glow-silver { top: 25%; left: 2.5rem; background: rgba(203, 213, 225, .05); }
+    .glow-gold { right: 2.5rem; bottom: 33%; background: rgba(245, 158, 11, .05); animation-delay: 1s; }
+    @keyframes pulse { from { opacity: .45; transform: scale(.96); } to { opacity: 1; transform: scale(1.04); } }
     .navbar {
-      padding: 10px;
+      position: sticky; z-index: 40; top: 0; padding: 12px 16px;
+      border-bottom: 1px solid rgba(51, 65, 85, .8);
+      background: rgba(8, 9, 13, .82); box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
+      backdrop-filter: blur(20px);
     }
-
-    .nav-inner {
-      gap: 8px;
+    .nav-inner, .brand, .nav-actions, .registration-heading, .countdown-heading, .detail-footer, .modal-title-row {
+      display: flex; align-items: center;
     }
-
-    .brand {
-      gap: 8px;
-    }
-
+    .nav-inner { max-width: 1280px; justify-content: space-between; gap: 16px; margin: 0 auto; }
+    .brand { min-width: 0; gap: 12px; color: inherit; text-decoration: none; }
     .brand-icon {
-      width: 34px;
-      height: 34px;
-      font-size: 18px;
+      display: grid; width: 42px; height: 42px; flex-shrink: 0; place-items: center;
+      border: 1px solid #64748b; border-radius: 12px;
+      background: linear-gradient(145deg, #1e293b, #0d0f17); font-size: 23px;
     }
-
-    .brand small {
-      max-width: 135px;
-      font-size: 8px;
-      letter-spacing: .04em;
-    }
-
-    .brand strong {
-      font-size: 10px;
-      letter-spacing: 0;
-    }
-
-    .nav-actions {
-      gap: 5px;
-    }
-
+    .brand small, .brand strong { display: block; }
+    .brand small { margin-bottom: 4px; color: #94a3b8; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .brand strong { font-size: 13px; font-weight: 900; letter-spacing: .06em; }
+    .nav-actions { gap: 8px; }
     .button {
-      padding: 9px;
-      font-size: 10px;
+      display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 14px; border: 1px solid transparent; border-radius: 10px;
+      font-size: 12px; font-weight: 800; text-align: center;
+      transition: transform .2s, border-color .2s, filter .2s;
     }
-
-    .players-label {
-      display: none;
-    }
-
-    .icon-button {
-      min-width: 36px;
-    }
-
-    .hero-tagline {
-      font-size: 9px;
-    }
-
-    .primary-actions {
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
-    .countdown-card {
-      padding: 12px 8px;
-    }
-
-    .countdown-heading {
-      font-size: 9px;
-    }
-
-    .time-box strong {
-      font-size: 22px;
-    }
-
-    .time-box span {
-      font-size: 9px;
-    }
-
+    .button:hover { filter: brightness(1.13); }
+    .button:active { transform: scale(.98); }
+    .button-dark { border-color: rgba(100, 116, 139, .4); background: rgba(30, 41, 59, .75); }
+    .icon-button { min-width: 42px; padding: 9px; font-size: 17px; }
+    .count { padding: 3px 7px; border-radius: 999px; background: #08090d; color: #cbd5e1; font-size: 10px; }
+    .main-container { position: relative; z-index: 1; max-width: 1152px; margin: 0 auto; padding: 32px 16px; }
+    .outer-frame { padding: 2px; border-radius: 26px; background: linear-gradient(180deg, #e2e8f0, #94a3b8 60%, #334155); box-shadow: 0 24px 70px rgba(0, 0, 0, .35); }
+    .panel { overflow: hidden; border-radius: 24px; background: #0b0c12; }
+    .content { padding: 48px clamp(18px, 5vw, 64px); }
+    .text-center { text-align: center; }
+    .pill { display: inline-flex; align-items: center; justify-content: center; padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 900; letter-spacing: .1em; }
+    .pill-gold { border: 1px solid rgba(245, 158, 11, .4); background: #1e293b; color: #fcd34d; }
+    .hero { margin: 22px 0 32px; text-align: center; }
+    .hero h1 { margin: 0; font-size: clamp(27px, 5vw, 48px); font-weight: 950; line-height: 1.12; letter-spacing: -.035em; }
+    .hero-subtitle { margin: 10px 0; background: linear-gradient(90deg, #cbd5e1, #f8fafc, #94a3b8); background-clip: text; color: transparent; font-size: clamp(24px, 4vw, 38px); font-weight: 900; }
+    .hero-tagline { margin: 14px 0; color: #fbbf24; font-size: 11px; font-weight: 900; letter-spacing: .1em; line-height: 1.8; }
+    .hero-description { max-width: 680px; margin: 24px auto 0; color: #cbd5e1; font-size: 14px; line-height: 1.8; }
+    .countdown-card { max-width: 680px; margin: 0 auto 36px; padding: 16px; border: 1px solid #334155; border-radius: 14px; background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a); }
+    .countdown-heading { justify-content: space-between; gap: 12px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #334155; color: #cbd5e1; font-size: 11px; font-weight: 900; letter-spacing: .06em; }
+    .date-label { color: #34d399; }
+    .countdown-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; text-align: center; }
+    .time-box { padding: 10px 4px; border-radius: 8px; background: #020617; }
+    .time-box strong, .time-box span { display: block; }
+    .time-box strong { font-size: clamp(22px, 4vw, 30px); font-weight: 950; font-variant-numeric: tabular-nums; }
+    .time-box span { margin-top: 3px; color: #94a3b8; font-size: 10px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .feature-card { display: flex; min-width: 0; min-height: 145px; flex-direction: column; align-items: center; justify-content: center; padding: 20px 12px; border: 1px solid #334155; border-radius: 14px; background: #0f172a; text-align: center; }
+    .feature-icon { margin-bottom: 10px; font-size: 30px; }
+    .muted { color: #94a3b8; }
+    .feature-card .muted { font-size: 10px; }
+    .feature-card p { margin: 8px 0 0; font-size: 13px; font-weight: 900; }
+    .prize-text, .prize-footer span { color: #fb7185; }
+    .pill-game { padding: 6px 10px; border-radius: 6px; background: rgba(245, 158, 11, .16); color: #fcd34d; font-size: 10px; letter-spacing: 0; }
+    .primary-actions { display: grid; max-width: 600px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0 auto 40px; }
+    .button-primary { border-color: #cbd5e1; background: linear-gradient(90deg, #e2e8f0, #94a3b8); color: #08090d; }
+    .primary-actions .button { min-height: 58px; padding: 16px 12px; font-size: 12px; font-weight: 950; }
+    .button-secondary { border-color: #334155; background: #0f172a; color: #f8fafc; }
+    .section-heading { margin-bottom: 24px; text-align: center; }
+    .section-heading span { display: inline-block; padding: 10px 24px; border: 1px solid rgba(245, 158, 11, .3); border-radius: 999px; color: #fbbf24; font-size: 10px; font-weight: 950; letter-spacing: .12em; }
+    .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    .detail-card { min-width: 0; padding: 24px; border: 1px solid #1e293b; border-radius: 18px; background: #0f172a; }
+    .detail-card h2 { margin: 0 0 10px; color: #fbbf24; font-size: 14px; font-weight: 950; }
+    .detail-main { margin: 0; font-size: 15px; font-weight: 950; line-height: 1.5; }
+    .small { margin: 5px 0 0; font-size: 11px; line-height: 1.7; }
+    .spaced-heading { margin-top: 28px !important; }
+    .detail-footer { justify-content: space-between; gap: 12px; margin-top: 24px; padding-top: 18px; border-top: 1px solid #1e293b; }
+    .detail-footer strong { color: #fbbf24; font-size: 11px; }
+    .registration-heading { justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+    .registration-heading h2 { margin: 0; }
+    .status { padding: 6px 8px; border-radius: 5px; background: rgba(244, 63, 94, .15); color: #fb7185; font-size: 10px; font-weight: 950; }
+    .registration-info { color: #cbd5e1; font-size: 12px; line-height: 1.8; }
+    .registration-info p { margin: 5px 0; }
+    .prize-footer { margin: 22px 0 0; padding-top: 18px; border-top: 1px solid #1e293b; color: #cbd5e1; font-size: 11px; line-height: 1.8; }
+    .prize-footer strong { color: #fbbf24; }
+    .prize-footer span { font-weight: 900; }
     .discord-button {
-      gap: 8px;
-      padding: 12px 10px;
+      display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 24px; padding: 16px;
+      border: 1px solid rgba(254, 240, 138, .5); border-radius: 12px;
+      background: linear-gradient(100deg, #422006, #18181b, #000); color: #fef3c7;
+      text-decoration: none; box-shadow: 0 10px 25px rgba(245, 158, 11, .07);
+      transition: border-color .2s, filter .2s;
     }
-
-    .discord-copy strong {
-      font-size: 10px;
+    .discord-button:hover { border-color: #fcd34d; filter: brightness(1.2); }
+    .discord-icon { width: 34px; height: 34px; flex-shrink: 0; color: #a5b4fc; transition: transform .2s; }
+    .discord-button:hover .discord-icon { transform: scale(1.1); }
+    .discord-copy { display: flex; min-width: 0; flex-direction: column; gap: 5px; text-align: left; }
+    .discord-copy strong { font-size: 12px; }
+    .discord-copy small { color: rgba(254, 240, 138, .7); font-size: 10px; line-height: 1.5; }
+    .discord-arrow { margin-left: auto; font-size: 22px; }
+    .toast-container { position: fixed; z-index: 100; top: 80px; right: 16px; width: min(360px, calc(100% - 32px)); }
+    .toast-body { padding: 14px 16px; border: 1px solid #64748b; border-radius: 12px; background: #0f172a; box-shadow: 0 20px 40px rgba(0, 0, 0, .4); }
+    .toast-body.error { border-color: #f43f5e; }
+    .toast-body p { margin: 0; font-size: 13px; font-weight: 600; line-height: 1.6; }
+    .modal[hidden], [hidden] { display: none !important; }
+    .modal {
+      position: fixed; z-index: 50; inset: 0; display: flex; align-items: center; justify-content: center;
+      overflow-y: auto; padding: 16px; background: rgba(0, 0, 0, .82); backdrop-filter: blur(12px);
     }
-
-    .discord-copy small {
-      font-size: 9px;
-    }
-
     .modal-card {
-      padding: 20px 16px;
+      position: relative; display: flex; width: 100%; max-width: 680px; max-height: 85vh; flex-direction: column;
+      padding: 24px; overflow: hidden; border: 1px solid #475569; border-radius: 18px;
+      background: #0f172a; box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
+    }
+    .modal-narrow { max-width: 480px; }
+    .close-button {
+      position: absolute; z-index: 1; top: 16px; right: 16px; display: grid; width: 34px; height: 34px;
+      place-items: center; border: 0; border-radius: 8px; background: transparent; color: #94a3b8; font-size: 18px;
+    }
+    .close-button:hover { background: #1e293b; color: #fff; }
+    .modal-header { flex-shrink: 0; margin-bottom: 20px; padding: 0 36px 16px 0; border-bottom: 1px solid #1e293b; }
+    .modal-header h2 { margin: 0; font-size: 18px; font-weight: 950; text-transform: uppercase; }
+    .modal-header p { margin: 6px 0 0; color: #94a3b8; font-size: 11px; }
+    .modal-title-row { gap: 12px; }
+    .shield-icon {
+      display: grid; width: 44px; height: 44px; flex-shrink: 0; place-items: center;
+      border: 1px solid #334155; border-radius: 12px; background: #1e293b; font-size: 22px;
+    }
+    .register-form { display: flex; flex-direction: column; gap: 18px; }
+    .form-field { display: flex; flex-direction: column; gap: 7px; }
+    .form-field label { color: #cbd5e1; font-size: 12px; font-weight: 800; }
+    .form-field input {
+      width: 100%; min-height: 46px; padding: 12px 14px; border: 1px solid #334155; border-radius: 10px;
+      background: #020617; color: #f8fafc; font-size: 14px;
+    }
+    .checkbox-label { display: flex; align-items: flex-start; gap: 10px; color: #94a3b8; font-size: 12px; line-height: 1.6; cursor: pointer; }
+    .checkbox-label input { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: #fbbf24; }
+    .modal-actions { display: flex; flex-shrink: 0; justify-content: flex-end; gap: 12px; margin-top: 20px; }
+    .rules-content, .leaderboard-list { overflow-y: auto; padding-right: 6px; }
+    .rules-content { display: flex; flex-direction: column; gap: 16px; color: #cbd5e1; font-size: 13px; line-height: 1.8; }
+    .rules-content p { margin: 0; }
+    .rules-content strong { color: #fbbf24; }
+    .leaderboard-list { display: flex; flex-direction: column; gap: 8px; min-height: 50px; color: #cbd5e1; font-size: 13px; }
+    .leaderboard-row { display: flex; min-width: 0; align-items: center; gap: 12px; padding: 12px; border: 1px solid #1e293b; border-radius: 12px; background: rgba(2, 6, 23, .6); }
+    .leaderboard-position { width: 28px; flex-shrink: 0; color: #fbbf24; font-weight: 950; text-align: center; }
+    .leaderboard-avatar { font-size: 20px; }
+    .leaderboard-info { flex: 1; min-width: 0; }
+    .leaderboard-nickname { overflow: hidden; color: #f1f5f9; font-size: 13px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+    .leaderboard-region { margin-top: 4px; color: #94a3b8; font-size: 10px; }
+    .leaderboard-count { flex-shrink: 0; color: #34d399; font-size: 12px; font-weight: 950; }
+
+    @media (max-width: 700px) {
+      .main-container { padding: 20px 10px; }
+      .content { padding: 28px 16px; }
+      .details-grid { grid-template-columns: 1fr; gap: 16px; }
+      .feature-grid { gap: 8px; }
+      .feature-card { padding: 16px 6px; }
+      .feature-card p { font-size: 11px; line-height: 1.5; }
+      .detail-card { padding: 20px; }
+    }
+    @media (max-width: 480px) {
+      .navbar { padding: 10px; }
+      .nav-inner { gap: 8px; }
+      .brand { gap: 8px; }
+      .brand-icon { width: 34px; height: 34px; font-size: 18px; }
+      .brand small { max-width: 135px; font-size: 8px; letter-spacing: .04em; }
+      .brand strong { font-size: 10px; letter-spacing: 0; }
+      .nav-actions { gap: 5px; }
+      .button { padding: 9px; font-size: 10px; }
+      .players-label { display: none; }
+      .icon-button { min-width: 36px; }
+      .hero-tagline { font-size: 9px; }
+      .primary-actions { grid-template-columns: 1fr; gap: 10px; }
+      .countdown-card { padding: 12px 8px; }
+      .countdown-heading { font-size: 9px; }
+      .time-box strong { font-size: 22px; }
+      .time-box span { font-size: 9px; }
+      .discord-button { gap: 8px; padding: 12px 10px; }
+      .discord-copy strong { font-size: 10px; }
+      .discord-copy small { font-size: 9px; }
+      .modal-card { padding: 20px 16px; }
+      .modal-actions { flex-wrap: wrap; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+
+  <!-- JAVASCRIPT (todo el funcionamiento) -->
+  <script>
+    // Countdown
+    const targetDate = new Date("2026-10-10T16:00:00-06:00").getTime();
+    function updateCountdown() {
+      const diff = targetDate - Date.now();
+      if (diff <= 0) {
+        document.getElementById("t-days").textContent = "00";
+        document.getElementById("t-hours").textContent = "00";
+        document.getElementById("t-minutes").textContent = "00";
+        document.getElementById("t-seconds").textContent = "00";
+        return;
+      }
+      document.getElementById("t-days").textContent = String(Math.floor(diff / 86400000)).padStart(2, "0");
+      document.getElementById("t-hours").textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, "0");
+      document.getElementById("t-minutes").textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+      document.getElementById("t-seconds").textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Modales
+    function openModal(id) {
+      document.getElementById(id).hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal() {
+      document.querySelectorAll(".modal").forEach(m => m.hidden = true);
+      document.body.style.overflow = "";
+    }
+    document.getElementById("btn-open-register")?.addEventListener("click", () => openModal("modal-register"));
+    document.getElementById("btn-open-rules")?.addEventListener("click", () => openModal("modal-rules"));
+    document.getElementById("btn-leaderboard")?.addEventListener("click", () => openModal("modal-leaderboard"));
+    document.querySelectorAll(".close-modal").forEach(btn => btn.addEventListener("click", closeModal));
+    document.querySelectorAll(".modal").forEach(modal => {
+      modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+    });
+
+    // Toast
+    function showToast(text, isError = false) {
+      const container = document.getElementById("toast-container");
+      const body = document.getElementById("toast-body");
+      document.getElementById("toast-text").textContent = text;
+      body.classList.toggle("error", isError);
+      container.hidden = false;
+      setTimeout(() => container.hidden = true, 3500);
     }
 
-    .modal-actions {
-      flex-wrap: wrap;
+    // Registro + Leaderboard (localStorage)
+    let players = JSON.parse(localStorage.getItem("copa-artemis-players") || "[]");
+    function updatePlayerCount() {
+      document.getElementById("player-count").textContent = players.length;
     }
-  }
+    function renderLeaderboard() {
+      const list = document.getElementById("leaderboard-list");
+      if (players.length === 0) {
+        list.innerHTML = `<p style="text-align:center;color:#94a3b8;padding:20px;">Aún no hay entrenadores registrados</p>`;
+        return;
+      }
+      list.innerHTML = players.map((p, i) => `
+        <div class="leaderboard-row">
+          <span class="leaderboard-position">${i + 1}</span>
+          <span class="leaderboard-avatar">👤</span>
+          <div class="leaderboard-info">
+            <div class="leaderboard-nickname">${p.nick}</div>
+            <div class="leaderboard-region">Discord: ${p.discord}</div>
+          </div>
+          <span class="leaderboard-count">Inscrito</span>
+        </div>
+      `).join("");
+    }
+    updatePlayerCount();
+    renderLeaderboard();
 
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      scroll-behavior: auto !important;
-      animation-duration: .01ms !important;
-      transition-duration: .01ms !important;
-    }
-  }
-</style>
+    document.getElementById("form-register")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nick = document.getElementById("reg-nick").value.trim();
+      const discord = document.getElementById("reg-discord").value.trim();
+      const accepted = document.getElementById("reg-rules").checked;
+      if (!nick || !discord || !accepted) {
+        showToast("Completa todos los campos y acepta el reglamento", true);
+        return;
+      }
+      if (players.some(p => p.nick.toLowerCase() === nick.toLowerCase() || p.discord.toLowerCase() === discord.toLowerCase())) {
+        showToast("Este entrenador o Discord ya está registrado", true);
+        return;
+      }
+      players.push({ nick, discord, date: new Date().toISOString() });
+      localStorage.setItem("copa-artemis-players", JSON.stringify(players));
+      updatePlayerCount();
+      renderLeaderboard();
+      e.target.reset();
+      closeModal();
+      showToast(`¡${nick} se ha inscrito correctamente!`);
+    });
+
+    // Compartir
+    document.getElementById("btn-share")?.addEventListener("click", async () => {
+      const data = { title: "Copa Artemis 2026", text: "¡Participa en la Copa Artemis 2026!", url: location.href };
+      if (navigator.share) {
+        try { await navigator.share(data); } catch {}
+      } else {
+        await navigator.clipboard.writeText(location.href);
+        showToast("Enlace copiado al portapapeles");
+      }
+    });
+
+    // Audio (solo icono)
+    let audioOn = true;
+    document.getElementById("btn-audio")?.addEventListener("click", () => {
+      audioOn = !audioOn;
+      document.getElementById("icon-vol-on").hidden = !audioOn;
+      document.getElementById("icon-vol-off").hidden = audioOn;
+      document.getElementById("btn-audio").setAttribute("aria-pressed", audioOn);
+    });
+  </script>
+</body>
+</html>
