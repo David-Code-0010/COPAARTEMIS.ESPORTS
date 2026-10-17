@@ -9,6 +9,8 @@ const title = "Copa Artemis 2026";
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#08090d" />
   <title>{title}</title>
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -162,7 +164,7 @@ const title = "Copa Artemis 2026";
     </section>
   </main>
 
-  <!-- MODALES (los mismos que ya tenías) -->
+  <!-- MODALES -->
   <div id="modal-register" class="modal" hidden>
     <section class="modal-card modal-narrow" role="dialog" aria-modal="true">
       <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
@@ -225,7 +227,7 @@ const title = "Copa Artemis 2026";
     </section>
   </div>
 
-  <!-- CSS (todo el estilo original) -->
+  <!-- CSS (sin cambios) -->
   <style is:global>
     * { box-sizing: border-box; }
     html { min-width: 320px; scroll-behavior: smooth; background: #08090d; }
@@ -440,121 +442,197 @@ const title = "Copa Artemis 2026";
     }
   </style>
 
-  <!-- JAVASCRIPT (todo el funcionamiento) -->
+  <!-- JAVASCRIPT CON SUPABASE -->
   <script>
+    const SUPABASE_URL = 'https://flldgvplxxogaqdmvhkb.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsbGRndnBseHhvZ2FxdG12aGtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMTY0ODksImV4cCI6MjEwNzc5MjQ4OX0.mmBIPpVvp0pmfIZtTnEBRGN74fCYnfdPMs4Uym9Y8h30';
+
+    const $ = id => document.getElementById(id);
+    let supabaseClient = null;
+
+    function initializeSupabase() {
+      if (!window.supabase?.createClient) {
+        console.error('No se pudo cargar Supabase.');
+        return false;
+      }
+      if (!supabaseClient) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+      return true;
+    }
+
     // Countdown
     const targetDate = new Date("2026-10-10T16:00:00-06:00").getTime();
     function updateCountdown() {
       const diff = targetDate - Date.now();
       if (diff <= 0) {
-        document.getElementById("t-days").textContent = "00";
-        document.getElementById("t-hours").textContent = "00";
-        document.getElementById("t-minutes").textContent = "00";
-        document.getElementById("t-seconds").textContent = "00";
+        $('t-days').textContent = '00';
+        $('t-hours').textContent = '00';
+        $('t-minutes').textContent = '00';
+        $('t-seconds').textContent = '00';
         return;
       }
-      document.getElementById("t-days").textContent = String(Math.floor(diff / 86400000)).padStart(2, "0");
-      document.getElementById("t-hours").textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, "0");
-      document.getElementById("t-minutes").textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
-      document.getElementById("t-seconds").textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+      $('t-days').textContent = String(Math.floor(diff / 86400000)).padStart(2, '0');
+      $('t-hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+      $('t-minutes').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+      $('t-seconds').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
     // Modales
     function openModal(id) {
-      document.getElementById(id).hidden = false;
-      document.body.style.overflow = "hidden";
+      $(id).hidden = false;
+      document.body.style.overflow = 'hidden';
     }
     function closeModal() {
-      document.querySelectorAll(".modal").forEach(m => m.hidden = true);
-      document.body.style.overflow = "";
+      document.querySelectorAll('.modal').forEach(m => m.hidden = true);
+      document.body.style.overflow = '';
     }
-    document.getElementById("btn-open-register")?.addEventListener("click", () => openModal("modal-register"));
-    document.getElementById("btn-open-rules")?.addEventListener("click", () => openModal("modal-rules"));
-    document.getElementById("btn-leaderboard")?.addEventListener("click", () => openModal("modal-leaderboard"));
-    document.querySelectorAll(".close-modal").forEach(btn => btn.addEventListener("click", closeModal));
-    document.querySelectorAll(".modal").forEach(modal => {
-      modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+    $('btn-open-register')?.addEventListener('click', () => openModal('modal-register'));
+    $('btn-open-rules')?.addEventListener('click', () => openModal('modal-rules'));
+    $('btn-leaderboard')?.addEventListener('click', async () => {
+      openModal('modal-leaderboard');
+      await loadLeaderboard();
+    });
+    document.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', closeModal));
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     });
 
     // Toast
     function showToast(text, isError = false) {
-      const container = document.getElementById("toast-container");
-      const body = document.getElementById("toast-body");
-      document.getElementById("toast-text").textContent = text;
-      body.classList.toggle("error", isError);
+      const container = $('toast-container');
+      const body = $('toast-body');
+      $('toast-text').textContent = text;
+      body.classList.toggle('error', isError);
       container.hidden = false;
-      setTimeout(() => container.hidden = true, 3500);
+      clearTimeout(window.__toastT);
+      window.__toastT = setTimeout(() => container.hidden = true, 3500);
     }
 
-    // Registro + Leaderboard (localStorage)
-    let players = JSON.parse(localStorage.getItem("copa-artemis-players") || "[]");
-    function updatePlayerCount() {
-      document.getElementById("player-count").textContent = players.length;
-    }
-    function renderLeaderboard() {
-      const list = document.getElementById("leaderboard-list");
-      if (players.length === 0) {
-        list.innerHTML = `<p style="text-align:center;color:#94a3b8;padding:20px;">Aún no hay entrenadores registrados</p>`;
-        return;
-      }
-      list.innerHTML = players.map((p, i) => `
-        <div class="leaderboard-row">
-          <span class="leaderboard-position">${i + 1}</span>
-          <span class="leaderboard-avatar">👤</span>
-          <div class="leaderboard-info">
-            <div class="leaderboard-nickname">${p.nick}</div>
-            <div class="leaderboard-region">Discord: ${p.discord}</div>
-          </div>
-          <span class="leaderboard-count">Inscrito</span>
-        </div>
-      `).join("");
-    }
-    updatePlayerCount();
-    renderLeaderboard();
-
-    document.getElementById("form-register")?.addEventListener("submit", (e) => {
+    // Registro con Supabase
+    $('form-register')?.addEventListener('submit', async e => {
       e.preventDefault();
-      const nick = document.getElementById("reg-nick").value.trim();
-      const discord = document.getElementById("reg-discord").value.trim();
-      const accepted = document.getElementById("reg-rules").checked;
+      const nick = $('reg-nick').value.trim();
+      const discord = $('reg-discord').value.trim();
+      const accepted = $('reg-rules').checked;
+
       if (!nick || !discord || !accepted) {
-        showToast("Completa todos los campos y acepta el reglamento", true);
+        showToast('Completa todos los campos y acepta el reglamento', true);
         return;
       }
-      if (players.some(p => p.nick.toLowerCase() === nick.toLowerCase() || p.discord.toLowerCase() === discord.toLowerCase())) {
-        showToast("Este entrenador o Discord ya está registrado", true);
+      if (!initializeSupabase()) {
+        showToast('No se pudo conectar con Supabase.', true);
         return;
       }
-      players.push({ nick, discord, date: new Date().toISOString() });
-      localStorage.setItem("copa-artemis-players", JSON.stringify(players));
-      updatePlayerCount();
-      renderLeaderboard();
-      e.target.reset();
-      closeModal();
-      showToast(`¡${nick} se ha inscrito correctamente!`);
+
+      const btn = e.target.querySelector('[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Registrando...';
+
+      try {
+        const { data: trainer, error: trainerError } = await supabaseClient
+          .from('entrenadores')
+          .insert([{ nickname: nick, discord: discord }])
+          .select()
+          .single();
+
+        if (trainerError) throw trainerError;
+
+        const { error: progressError } = await supabaseClient
+          .from('progreso')
+          .insert([{ entrenador_id: trainer.id, capturas: 0, pokedex_total: 200 }]);
+
+        if (progressError) console.error(progressError);
+
+        showToast(`¡${nick} se ha inscrito correctamente!`);
+        e.target.reset();
+        closeModal();
+        await loadLeaderboard();
+      } catch (err) {
+        console.error(err);
+        showToast('Error al registrar. Revisa la configuración de Supabase.', true);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Confirmar inscripción';
+      }
     });
 
+    // Leaderboard con Supabase
+    async function loadLeaderboard() {
+      const list = $('leaderboard-list');
+      if (!initializeSupabase()) {
+        list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">No se pudo conectar con Supabase.</p>';
+        return;
+      }
+
+      list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">Cargando...</p>';
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('entrenadores')
+          .select('*, progreso(capturas, pokedex_total)')
+          .order('created_at', { ascending: true });
+
+        if (error) throw error;
+
+        $('player-count').textContent = data.length;
+        list.innerHTML = '';
+
+        if (data.length === 0) {
+          list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">Aún no hay entrenadores registrados</p>';
+          return;
+        }
+
+        const sorted = [...data].sort((a, b) => (b.progreso?.[0]?.capturas || 0) - (a.progreso?.[0]?.capturas || 0));
+
+        sorted.forEach((trainer, i) => {
+          const progress = trainer.progreso?.[0];
+          const captures = progress?.capturas || 0;
+          const total = progress?.pokedex_total || 200;
+
+          const row = document.createElement('div');
+          row.className = 'leaderboard-row';
+          row.innerHTML = `
+            <span class="leaderboard-position">${i + 1}</span>
+            <span class="leaderboard-avatar">🎮</span>
+            <div class="leaderboard-info">
+              <div class="leaderboard-nickname">${trainer.nickname}</div>
+              <div class="leaderboard-region">${trainer.region || 'Ketzal'}</div>
+            </div>
+            <span class="leaderboard-count">\( {captures}/ \){total}</span>
+          `;
+          list.appendChild(row);
+        });
+      } catch (err) {
+        console.error(err);
+        list.innerHTML = '<p style="text-align:center;color:#fb7185;padding:20px;">Error al cargar la clasificación.</p>';
+      }
+    }
+
     // Compartir
-    document.getElementById("btn-share")?.addEventListener("click", async () => {
-      const data = { title: "Copa Artemis 2026", text: "¡Participa en la Copa Artemis 2026!", url: location.href };
+    $('btn-share')?.addEventListener('click', async () => {
+      const data = { title: 'Copa Artemis 2026', text: '¡Participa en la Copa Artemis 2026!', url: location.href };
       if (navigator.share) {
         try { await navigator.share(data); } catch {}
       } else {
         await navigator.clipboard.writeText(location.href);
-        showToast("Enlace copiado al portapapeles");
+        showToast('Enlace copiado al portapapeles');
       }
     });
 
     // Audio (solo icono)
     let audioOn = true;
-    document.getElementById("btn-audio")?.addEventListener("click", () => {
+    $('btn-audio')?.addEventListener('click', () => {
       audioOn = !audioOn;
-      document.getElementById("icon-vol-on").hidden = !audioOn;
-      document.getElementById("icon-vol-off").hidden = audioOn;
-      document.getElementById("btn-audio").setAttribute("aria-pressed", audioOn);
+      $('icon-vol-on').hidden = !audioOn;
+      $('icon-vol-off').hidden = audioOn;
+      $('btn-audio').setAttribute('aria-pressed', audioOn);
     });
+
+    // Cargar leaderboard al inicio
+    loadLeaderboard();
   </script>
 </body>
 </html>
