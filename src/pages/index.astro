@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copa Artemis 2026</title>
 
-    <script src="https://cdn.tailwindcss.com" is:inline></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" is:inline></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         body {
@@ -30,17 +30,17 @@
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(203,213,225,0.12),rgba(255,255,255,0))]"></div>
         <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px]"></div>
         <div class="absolute top-1/4 left-10 w-96 h-96 bg-slate-300/5 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-1/3 right-10 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse" style="animation-duration: 6s;"></div>
+        <div class="absolute bottom-1/3 right-10 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse" style="animation-duration:6s"></div>
     </div>
 
-    <!-- NAVEGACIÓN SUPERIOR -->
+    <!-- NAVEGACIÓN -->
     <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#08090d]/80 border-b border-slate-800/80 px-4 py-3 shadow-2xl">
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-200 via-slate-400 to-slate-700 p-[1px] shadow-lg shadow-slate-500/20">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-200 via-slate-400 to-slate-700 p-[1px]">
                     <div class="w-full h-full bg-[#0d0f17] rounded-[11px] flex items-center justify-center">
-                        <svg class="icon-svg text-amber-400 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="icon-svg text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
                             <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
                             <path d="M4 22h16"/>
@@ -53,262 +53,196 @@
 
                 <div>
                     <span class="text-xs font-bold tracking-widest text-slate-400 uppercase block">Torneo Oficial Moemon</span>
-                    <span class="text-sm font-black tracking-wider text-slate-100 bg-gradient-to-r from-slate-100 via-slate-300 to-slate-400 bg-clip-text text-transparent">COPA ARTEMIS 2026</span>
+                    <span class="text-sm font-black tracking-wider text-slate-100">COPA ARTEMIS 2026</span>
                 </div>
             </div>
 
             <div class="flex items-center gap-2">
-                <button id="btn-leaderboard" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-xs font-semibold text-slate-200 transition-all active:scale-95">
-                    <svg class="icon-svg text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
+                <button id="btn-leaderboard" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/70 border border-slate-600/40 text-xs font-semibold">
                     <span class="hidden sm:inline">Jugadores</span>
-                    <span id="player-count" class="bg-slate-900 text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full border border-slate-700">0</span>
+                    <span id="player-count" class="bg-slate-900 text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full">0</span>
                 </button>
 
-                <button id="btn-share" aria-label="Compartir página" class="p-2 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-slate-300 transition-all hover:text-slate-100">
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="18" cy="5" r="3"/>
-                        <circle cx="6" cy="12" r="3"/>
-                        <circle cx="18" cy="19" r="3"/>
-                        <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/>
-                        <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>
-                    </svg>
+                <button id="btn-share" aria-label="Compartir" class="p-2 rounded-lg bg-slate-800/70 border border-slate-600/40">
+                    Compartir
                 </button>
 
-                <button id="btn-audio" aria-label="Alternar sonido" class="p-2 rounded-lg bg-slate-800/70 hover:bg-slate-700/80 border border-slate-600/40 text-slate-300 transition-all hover:text-slate-100">
-                    <svg id="icon-vol-on" class="icon-svg text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-                    </svg>
-                    <svg id="icon-vol-off" class="icon-svg text-rose-400 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                        <line x1="23" x2="1" y1="1" y2="23"/>
-                        <line x1="22.54" x2="16.46" y1="8.46" y2="14.54"/>
-                    </svg>
+                <button id="btn-audio" aria-label="Alternar icono de sonido" class="p-2 rounded-lg bg-slate-800/70 border border-slate-600/40">
+                    <span id="icon-vol-on">🔊</span>
+                    <span id="icon-vol-off" class="hidden">🔇</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- NOTIFICACIONES -->
-    <div id="toast-container" class="fixed top-16 right-4 z-50 transition-all duration-300 hidden pointer-events-none">
-        <div id="toast-body" class="px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl flex items-center gap-3 bg-slate-900/90 border-slate-500/50 text-slate-100">
-            <svg class="icon-svg text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
-            </svg>
+    <div id="toast-container" class="fixed top-16 right-4 z-[100] hidden">
+        <div id="toast-body" class="px-4 py-3 rounded-xl border bg-slate-900 text-slate-100 shadow-2xl">
             <p id="toast-text" class="text-sm font-medium">Notificación</p>
         </div>
     </div>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- CONTENIDO -->
     <main class="relative z-10 max-w-6xl mx-auto px-2 sm:px-4 py-6 md:py-10">
-        <div class="relative rounded-2xl md:rounded-3xl p-[2px] md:p-[3px] bg-gradient-to-b from-slate-200 via-slate-400 to-slate-700 shadow-[0_0_50px_rgba(203,213,225,0.18)]">
-            <div class="bg-[#0b0c12] rounded-[14px] md:rounded-[22px] overflow-hidden relative">
+        <div class="rounded-3xl p-[2px] bg-gradient-to-b from-slate-200 via-slate-400 to-slate-700 shadow-2xl">
+            <div class="bg-[#0b0c12] rounded-[22px] overflow-hidden">
                 <div class="p-4 sm:p-8 md:p-12 lg:px-16">
 
-                    <!-- TÍTULO -->
                     <div class="text-center mb-6">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-amber-500/40 shadow-inner">
-                            <svg class="icon-svg text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>
-                            </svg>
-                            <h2 class="text-xs sm:text-sm font-bold tracking-[0.25em] text-amber-300 uppercase">COPA ARTEMIS</h2>
-                        </div>
+                        <span class="inline-flex items-center px-4 py-2 rounded-full bg-slate-800 border border-amber-500/40 text-amber-300 text-sm font-bold tracking-widest">
+                            COPA ARTEMIS
+                        </span>
                     </div>
 
                     <div class="text-center space-y-2 mb-8">
-                        <h1 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-100 uppercase font-sans drop-shadow-md">CONCURSO ARTEMIS</h1>
-                        <div class="text-xl sm:text-3xl md:text-4xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400">x CURI GAMEPLAYS</div>
-                        <div class="pt-2">
-                            <p class="text-xs sm:text-sm md:text-base font-bold tracking-widest text-amber-400 uppercase">ATRÁPALOS A TODOS - CACERÍA DE POKÉMON EN MOEMON KETZAL</p>
+                        <h1 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-100 uppercase">CONCURSO ARTEMIS</h1>
+                        <div class="text-xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400">
+                            x CURI GAMEPLAYS
                         </div>
+                        <p class="pt-2 text-xs sm:text-sm font-bold tracking-widest text-amber-400 uppercase">
+                            ATRÁPALOS A TODOS - CACERÍA DE POKÉMON EN MOEMON KETZAL
+                        </p>
                     </div>
 
                     <div class="max-w-2xl mx-auto text-center mb-10">
-                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        <p class="text-sm text-slate-300 leading-relaxed">
                             Participa en el primer gran torneo de captura de Pokémon Moemon. Una carrera épica para ver quién es el maestro absoluto. El primero en completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
                         </p>
                     </div>
 
                     <!-- CONTADOR -->
-                    <div class="mb-10 max-w-2xl mx-auto rounded-xl bg-gradient-to-r from-slate-900 via-slate-800/90 to-slate-900 p-4 border border-slate-700/60 shadow-xl">
-                        <div class="flex items-center justify-between mb-3 border-b border-slate-700/50 pb-2">
-                            <div class="flex items-center gap-2">
-                                <svg class="icon-svg text-amber-400 animate-spin" style="animation-duration: 10s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polyline points="12 6 12 12 16 14"/>
-                                </svg>
-                                <span class="text-xs font-bold tracking-wider text-slate-300 uppercase">INICIO DEL TORNEO EN VIVO</span>
-                            </div>
-                            <span class="text-[11px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50">10 OCT, 2026</span>
+                    <div class="mb-10 max-w-2xl mx-auto rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-4 border border-slate-700">
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-700 pb-2">
+                            <span class="text-xs font-bold tracking-wider text-slate-300 uppercase">INICIO DEL TORNEO</span>
+                            <span class="text-[11px] text-emerald-400">10 OCT, 2026</span>
                         </div>
 
                         <div class="grid grid-cols-4 gap-2 text-center">
-                            <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
-                                <div id="t-days" class="text-lg sm:text-2xl font-black font-mono text-slate-100">00</div>
-                                <div class="text-[10px] text-slate-400 uppercase font-bold">Días</div>
+                            <div class="bg-slate-950 p-2 rounded-lg">
+                                <div id="t-days" class="text-2xl font-black">00</div>
+                                <div class="text-[10px] text-slate-400">DÍAS</div>
                             </div>
-                            <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
-                                <div id="t-hours" class="text-lg sm:text-2xl font-black font-mono text-slate-100">00</div>
-                                <div class="text-[10px] text-slate-400 uppercase font-bold">Horas</div>
+                            <div class="bg-slate-950 p-2 rounded-lg">
+                                <div id="t-hours" class="text-2xl font-black">00</div>
+                                <div class="text-[10px] text-slate-400">HORAS</div>
                             </div>
-                            <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
-                                <div id="t-minutes" class="text-lg sm:text-2xl font-black font-mono text-slate-100">00</div>
-                                <div class="text-[10px] text-slate-400 uppercase font-bold">Min</div>
+                            <div class="bg-slate-950 p-2 rounded-lg">
+                                <div id="t-minutes" class="text-2xl font-black">00</div>
+                                <div class="text-[10px] text-slate-400">MIN</div>
                             </div>
-                            <div class="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
-                                <div id="t-seconds" class="text-lg sm:text-2xl font-black font-mono text-slate-100">00</div>
-                                <div class="text-[10px] text-slate-400 uppercase font-bold">Seg</div>
+                            <div class="bg-slate-950 p-2 rounded-lg">
+                                <div id="t-seconds" class="text-2xl font-black">00</div>
+                                <div class="text-[10px] text-slate-400">SEG</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TARJETAS DESTACADAS -->
+                    <!-- TARJETAS -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                        <div class="group relative rounded-xl bg-slate-900/90 p-4 border border-slate-700 hover:border-slate-400 transition-all duration-300 shadow-lg flex flex-col items-center text-center justify-center">
-                            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mb-2 border border-slate-600 group-hover:scale-110 transition-transform">
-                                <svg class="icon-svg text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-                                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                                    <path d="M4 22h16"/>
-                                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-                                </svg>
-                            </div>
-                            <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase">PREMIO MAYOR</span>
-                            <p class="text-sm sm:text-base font-extrabold text-rose-500 tracking-wider uppercase mt-1">REGALOS EXCLUSIVOS</p>
+                        <div class="rounded-xl bg-slate-900 p-5 border border-slate-700 text-center">
+                            <div class="text-3xl mb-2">🏆</div>
+                            <span class="text-xs text-slate-400">PREMIO MAYOR</span>
+                            <p class="font-extrabold text-rose-400 mt-1">REGALOS EXCLUSIVOS</p>
                         </div>
 
-                        <div class="group relative rounded-xl bg-slate-900/90 p-4 border border-slate-700 hover:border-slate-400 transition-all duration-300 shadow-lg flex flex-col items-center text-center justify-center">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-md text-xs font-bold tracking-wider uppercase">MOÉMON KETZAL</span>
-                            </div>
-                            <p class="text-xs sm:text-sm font-extrabold text-slate-100 tracking-wider uppercase">ÚNICO JUEGO OFICIAL</p>
+                        <div class="rounded-xl bg-slate-900 p-5 border border-slate-700 text-center">
+                            <div class="text-3xl mb-2">🎮</div>
+                            <span class="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-md text-xs font-bold">MOÉMON KETZAL</span>
+                            <p class="text-sm font-extrabold mt-2">ÚNICO JUEGO OFICIAL</p>
                         </div>
 
-                        <div class="group relative rounded-xl bg-slate-900/90 p-4 border border-slate-700 hover:border-slate-400 transition-all duration-300 shadow-lg flex flex-col items-center text-center justify-center">
-                            <div class="w-10 h-10 rounded-full border-2 border-amber-400/80 bg-slate-950 flex flex-col items-center justify-center mb-1">
-                                <span class="text-[9px] font-bold text-amber-400 leading-none">1</span>
-                                <span class="text-[8px] text-slate-300 font-extrabold leading-none">Master</span>
-                            </div>
-                            <p class="text-xs sm:text-sm font-extrabold text-slate-100 tracking-wider uppercase">1 GANADOR ABSOLUTO</p>
-                            <span class="text-[10px] text-slate-400 font-medium">POKÉDEX COMPLETADA</span>
+                        <div class="rounded-xl bg-slate-900 p-5 border border-slate-700 text-center">
+                            <div class="text-3xl mb-2">🥇</div>
+                            <p class="text-sm font-extrabold">1 GANADOR ABSOLUTO</p>
+                            <span class="text-xs text-slate-400">POKÉDEX COMPLETADA</span>
                         </div>
                     </div>
 
-                    <!-- BOTONES PRINCIPALES -->
+                    <!-- BOTONES -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-10">
-                        <button id="btn-open-register" class="group relative overflow-hidden rounded-xl p-[2px] bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400 shadow-xl hover:shadow-slate-300/20 active:scale-95 transition-all">
-                            <div class="bg-slate-950 rounded-[10px] px-6 py-4 flex flex-col items-center justify-center group-hover:bg-slate-900/90 transition-colors">
-                                <span class="text-base font-black tracking-wider text-slate-100 uppercase flex items-center gap-2">
-                                    ¡INSCRÍBETE AHORA!
-                                    <svg class="icon-svg text-amber-400 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <polyline points="9 18 15 12 9 6"/>
-                                    </svg>
-                                </span>
-                                <span class="text-[11px] text-slate-400 font-medium">(Cupos Limitados)</span>
-                            </div>
+                        <button id="btn-open-register" class="rounded-xl p-4 bg-gradient-to-r from-slate-200 to-slate-400 text-slate-950 font-black uppercase">
+                            ¡INSCRÍBETE AHORA!
                         </button>
 
-                        <button id="btn-open-rules" class="group relative overflow-hidden rounded-xl border border-slate-700 bg-slate-900/80 hover:border-slate-400 p-4 flex flex-col items-center justify-center active:scale-95 transition-all shadow-lg">
-                            <span class="text-base font-black tracking-wider text-slate-100 uppercase flex items-center gap-2">
-                                REGLAMENTO OFICIAL
-                                <svg class="icon-svg text-slate-400 group-hover:text-amber-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" x2="8" y1="13" y2="13"/>
-                                    <line x1="16" x2="8" y1="17" y2="17"/>
-                                    <line x1="10" x2="8" y1="9" y2="9"/>
-                                </svg>
-                            </span>
-                            <span class="text-[11px] text-slate-400 font-medium">(Ver. Ketzal Ver.)</span>
+                        <button id="btn-open-rules" class="rounded-xl border border-slate-700 bg-slate-900 p-4 font-black uppercase">
+                            REGLAMENTO OFICIAL
                         </button>
                     </div>
 
-                    <!-- DETALLES DEL EVENTO -->
+                    <!-- DETALLES -->
                     <div class="text-center mb-6">
-                        <span class="inline-block px-6 py-1.5 rounded-full border border-amber-500/30 bg-slate-900/90 text-xs font-extrabold tracking-widest text-amber-400 uppercase shadow-md">DETALLES DEL CONCURSO</span>
+                        <span class="inline-block px-6 py-2 rounded-full border border-amber-500/30 text-xs font-extrabold tracking-widest text-amber-400 uppercase">
+                            DETALLES DEL CONCURSO
+                        </span>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-                        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 flex flex-col justify-between shadow-xl">
-                            <div class="space-y-6">
-                                <div>
-                                    <div class="flex items-center gap-2 text-amber-400 mb-1">
-                                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
-                                            <line x1="16" x2="16" y1="2" y2="6"/>
-                                            <line x1="8" x2="8" y1="2" y2="6"/>
-                                            <line x1="3" x2="21" y1="10" y2="10"/>
-                                        </svg>
-                                        <span class="text-xs font-black tracking-wider uppercase">FECHA:</span>
-                                    </div>
-                                    <p class="text-lg font-black text-slate-100 tracking-wide">10-25 DE OCTUBRE, 2026</p>
-                                    <p class="text-xs text-slate-400 mt-0.5">Horario: 16:00 GMT-6 · 15 días de competición</p>
-                                </div>
 
-                                <div>
-                                    <div class="flex items-center gap-2 text-amber-400 mb-1">
-                                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                                            <circle cx="12" cy="10" r="3"/>
-                                        </svg>
-                                        <span class="text-xs font-black tracking-wider uppercase">LUGAR:</span>
-                                    </div>
-                                    <p class="text-sm font-extrabold text-slate-100 uppercase tracking-wide">SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
-                                    <p class="text-xs text-slate-400 mt-0.5">Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
-                                </div>
-                            </div>
+                        <!-- INFORMACIÓN DEL TORNEO -->
+                        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6">
+                            <h2 class="text-amber-400 font-black mb-2">FECHA</h2>
+                            <p class="text-lg font-black">10-25 DE OCTUBRE, 2026</p>
+                            <p class="text-xs text-slate-400 mt-1">Horario: 16:00 GMT-6 · 15 días de competición</p>
 
-                            <div class="mt-8 pt-4 border-t border-slate-800 flex items-center justify-between">
-                                <span class="text-xs font-extrabold tracking-wider text-amber-400 uppercase">MOÉMON <span class="text-slate-100">KETZAL</span></span>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-base" title="Planta">🌱</span>
-                                    <span class="text-base" title="Fuego">🔥</span>
-                                    <span class="text-base" title="Agua">💧</span>
-                                </div>
+                            <h2 class="text-amber-400 font-black mt-6 mb-2">LUGAR</h2>
+                            <p class="text-sm font-extrabold">SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
+                            <p class="text-xs text-slate-400 mt-1">Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
+
+                            <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between">
+                                <span class="text-xs font-extrabold text-amber-400">MOÉMON KETZAL</span>
+                                <span>🌱 🔥 💧</span>
                             </div>
                         </div>
 
-                        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 flex flex-col justify-between shadow-xl">
-                            <div class="space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-2 text-amber-400">
-                                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
-                                        </svg>
-                                        <span class="text-xs font-black tracking-wider uppercase">INSCRIPCIONES:</span>
-                                    </div>
-                                    <span class="px-2.5 py-0.5 rounded text-[11px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40">ABIERTAS</span>
-                                </div>
-
-                                <div class="text-xs text-slate-300 space-y-1 font-medium">
-                                    <p class="font-bold text-slate-200">REGISTRO INDIVIDUAL ACTIVO</p>
-                                    <p>• Carrera individual de velocidad</p>
-                                    <p>• Región Ketzal (completa)</p>
-                                    <p>• Pokédex Galar Ampliada</p>
-                                </div>
-
-                                <div class="pt-2 border-t border-slate-800/80">
-                                    <p class="text-xs text-slate-300"><strong class="text-amber-400 font-bold">🏆 Premios:</strong> Master Trophy + <span class="text-rose-400 font-bold">REGALOS EXCLUSIVOS</span></p>
-                                </div>
+                        <!-- INSCRIPCIONES Y DISCORD -->
+                        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h2 class="text-amber-400 font-black">INSCRIPCIONES</h2>
+                                <span class="px-2 py-1 rounded text-xs font-black bg-rose-500/20 text-rose-400">ABIERTAS</span>
                             </div>
 
-                            <div class="mt-6">
-                                <a href="#" id="btn-community" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-slate-700 via-slate-800 to-slate-900 border border-slate-500/50 flex items-center justify-center gap-3 text-slate-100 text-xs font-black tracking-wider uppercase transition-all shadow-lg hover:shadow-slate-500/20">
-                                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                                    </svg>
-                                    UNIRSE AL CANAL DE CURI GAMEPLAYS
-                                </a>
+                            <div class="text-sm text-slate-300 space-y-2">
+                                <p class="font-bold">REGISTRO INDIVIDUAL ACTIVO</p>
+                                <p>• Carrera individual de velocidad</p>
+                                <p>• Región Ketzal completa</p>
+                                <p>• Pokédex Galar ampliada</p>
                             </div>
+
+                            <p class="text-xs text-slate-300 mt-5 pt-4 border-t border-slate-800">
+                                <strong class="text-amber-400">🏆 Premios:</strong>
+                                Master Trophy + <span class="text-rose-400 font-bold">regalos exclusivos</span>
+                            </p>
+
+                            <!-- BOTÓN DISCORD OFICIAL -->
+                            <a
+                                id="btn-community"
+                                href="https://discord.gg/3GWTVzjHS4"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="group flex w-full items-center justify-center gap-3 rounded-xl border border-yellow-200/50 bg-gradient-to-r from-yellow-950 via-zinc-900 to-black px-5 py-4 font-bold uppercase tracking-wide text-yellow-100 shadow-lg shadow-yellow-500/10 transition duration-300 hover:border-yellow-300 hover:shadow-yellow-400/20 hover:brightness-125 mt-6"
+                            >
+                                <!-- ÍCONO DE DISCORD -->
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    class="h-8 w-8 shrink-0 text-indigo-300 transition group-hover:scale-110"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M19.73 5.2a18.1 18.1 0 0 0-4.46-1.38.07.07 0 0 0-.08.04c-.19.34-.4.78-.55 1.13a16.7 16.7 0 0 0-5.02 0c-.15-.36-.37-.79-.56-1.13a.08.08 0 0 0-.08-.04A18 18 0 0 0 4.52 5.2a.07.07 0 0 0-.03.03C1.66 9.43.89 13.53 1.27 17.58c0 .02.01.04.03.05a18.2 18.2 0 0 0 5.47 2.76.08.08 0 0 0 .09-.03c.42-.57.79-1.17 1.11-1.8a.08.08 0 0 0-.04-.11 12 12 0 0 1-1.71-.81.08.08 0 0 1-.01-.13l.34-.27a.08.08 0 0 1 .08-.01c3.58 1.63 7.45 1.63 10.99 0a.08.08 0 0 1 .08.01l.34.27a.08.08 0 0 1-.01.13c-.55.32-1.12.59-1.71.81a.08.08 0 0 0-.04.11c.33.63.7 1.23 1.11 1.8a.08.08 0 0 0 .09.03 18.2 18.2 0 0 0 5.48-2.76.08.08 0 0 0 .03-.05c.45-4.69-.76-8.76-3.23-12.35a.06.06 0 0 0-.03-.03ZM8.24 14.6c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Zm7.28 0c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Z"/>
+                                </svg>
+
+                                <span class="flex flex-col text-left">
+                                    <span class="text-sm">Únete a nuestra comunidad</span>
+                                    <span class="text-xs font-normal normal-case tracking-normal text-yellow-200/70">
+                                        Discord oficial · Copa Artemis 2026
+                                    </span>
+                                </span>
+
+                                <span class="ml-auto text-xl" aria-hidden="true">↗</span>
+                            </a>
                         </div>
+
                     </div>
 
                 </div>
@@ -317,82 +251,56 @@
     </main>
 
     <!-- MODAL: REGISTRO -->
-    <div id="modal-register" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-200">
-        <div class="relative w-full max-w-lg rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 overflow-hidden">
+    <div id="modal-register" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="relative w-full max-w-lg rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6">
 
-            <button class="close-modal absolute top-4 right-4 text-slate-400 hover:text-slate-100 p-1 rounded-lg bg-slate-800 border border-slate-700" aria-label="Cerrar modal">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" x2="6" y1="6" y2="18"/>
-                    <line x1="6" x2="18" y1="6" y2="18"/>
-                </svg>
-            </button>
+            <button type="button" class="close-modal absolute top-4 right-4 text-slate-400" aria-label="Cerrar">✕</button>
 
-            <div class="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
-                <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <line x1="19" x2="19" y1="8" y2="14"/>
-                        <line x1="22" x2="16" y1="11" y2="11"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-lg font-black text-slate-100 uppercase tracking-wide">Registro de Entrenador</h3>
-                    <p class="text-xs text-slate-400">Inscripción para la Copa Artemis Moémon</p>
-                </div>
+            <div class="mb-6 border-b border-slate-800 pb-4">
+                <h3 class="text-lg font-black uppercase">Registro de Entrenador</h3>
+                <p class="text-xs text-slate-400">Inscripción para la Copa Artemis Moémon</p>
             </div>
 
             <form id="form-register" class="space-y-4">
                 <div>
-                    <label for="reg-nick" class="block text-xs font-bold text-slate-300 uppercase mb-1">Nombre de Entrenador *</label>
-                    <input type="text" id="reg-nick" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-slate-400 transition-colors">
+                    <label for="reg-nick" class="block text-xs font-bold text-slate-300 mb-1">Nombre de entrenador *</label>
+                    <input type="text" id="reg-nick" required maxlength="40" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm">
                 </div>
 
                 <div>
-                    <label for="reg-discord" class="block text-xs font-bold text-slate-300 uppercase mb-1">Usuario de Discord *</label>
-                    <input type="text" id="reg-discord" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-slate-400 transition-colors">
+                    <label for="reg-discord" class="block text-xs font-bold text-slate-300 mb-1">Usuario de Discord *</label>
+                    <input type="text" id="reg-discord" required maxlength="80" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm">
                 </div>
 
-                <div class="pt-2">
-                    <label class="flex items-start gap-2.5 cursor-pointer">
-                        <input type="checkbox" id="reg-rules" class="mt-0.5 rounded border-slate-700 bg-slate-950 text-amber-500">
-                        <span class="text-xs text-slate-400 leading-snug">Acepto cumplir con el reglamento oficial y juego limpio.</span>
-                    </label>
-                </div>
+                <label class="flex items-start gap-2 cursor-pointer">
+                    <input type="checkbox" id="reg-rules" class="mt-1">
+                    <span class="text-xs text-slate-400">Acepto cumplir con el reglamento oficial y jugar limpio.</span>
+                </label>
 
                 <div class="pt-4 flex justify-end gap-3">
-                    <button type="button" class="close-modal px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700 transition-colors">Cancelar</button>
-                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400 text-slate-950 text-xs font-black uppercase tracking-wider hover:opacity-90 transition-opacity shadow-lg">Confirmar Inscripción</button>
+                    <button type="button" class="close-modal px-4 py-2 rounded-xl bg-slate-800 text-xs font-bold">Cancelar</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-slate-200 text-slate-950 text-xs font-black uppercase">
+                        Confirmar inscripción
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL: REGLAMENTO CORREGIDO -->
-    <div id="modal-rules" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-200">
-        <div class="relative w-full max-w-2xl rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 overflow-hidden max-h-[85vh] flex flex-col">
+    <!-- MODAL: REGLAMENTO -->
+    <div id="modal-rules" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="relative w-full max-w-2xl rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 max-h-[85vh] flex flex-col">
 
-            <button class="close-modal absolute top-4 right-4 text-slate-400 hover:text-slate-100 p-1 rounded-lg bg-slate-800 border border-slate-700" aria-label="Cerrar reglamento">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" x2="6" y1="6" y2="18"/>
-                    <line x1="6" x2="18" y1="6" y2="18"/>
-                </svg>
-            </button>
+            <button type="button" class="close-modal absolute top-4 right-4 text-slate-400" aria-label="Cerrar">✕</button>
 
-            <!-- ENCABEZADO: UN SOLO DIV, SIN DUPLICADOS -->
             <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-4 shrink-0">
-                <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 6.5 2a1 1 0 0 1 1 1z"/>
-                    </svg>
-                </div>
+                <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">🛡️</div>
                 <div>
-                    <h3 class="text-lg font-black text-slate-100 uppercase tracking-wide">Reglamento Oficial</h3>
+                    <h3 class="text-lg font-black uppercase">Reglamento Oficial</h3>
                     <p class="text-xs text-slate-400">Copa Artemis 2026 · Moémon Ketzal</p>
                 </div>
             </div>
 
-            <!-- REGLAS -->
             <div class="overflow-y-auto pr-2 space-y-3 text-sm text-slate-300 leading-relaxed">
                 <p><strong class="text-amber-400">1. Registro:</strong> Solo se permiten cuentas individuales. Usa tu nickname de entrenador y tu usuario de Discord.</p>
                 <p><strong class="text-amber-400">2. Objetivo:</strong> Completar la Pokédex de la región Ketzal lo más rápido posible. El primero en completarla es el ganador.</p>
@@ -402,35 +310,20 @@
                 <p><strong class="text-amber-400">6. Premio:</strong> Master Trophy + regalos exclusivos para el maestro absoluto.</p>
             </div>
 
-            <!-- CERRAR -->
             <div class="pt-4 flex justify-end shrink-0">
-                <button type="button" class="close-modal px-5 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700 transition-colors">Cerrar</button>
+                <button type="button" class="close-modal px-5 py-2 rounded-xl bg-slate-800 text-xs font-bold">Cerrar</button>
             </div>
-
         </div>
     </div>
 
     <!-- MODAL: LEADERBOARD -->
-    <div id="modal-leaderboard" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-200">
-        <div class="relative w-full max-w-2xl rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 overflow-hidden max-h-[85vh] flex flex-col">
+    <div id="modal-leaderboard" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="relative w-full max-w-2xl rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 max-h-[85vh] flex flex-col">
 
-            <button class="close-modal absolute top-4 right-4 text-slate-400 hover:text-slate-100 p-1 rounded-lg bg-slate-800 border border-slate-700" aria-label="Cerrar leaderboard">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" x2="6" y1="6" y2="18"/>
-                    <line x1="6" x2="18" y1="6" y2="18"/>
-                </svg>
-            </button>
+            <button type="button" class="close-modal absolute top-4 right-4 text-slate-400" aria-label="Cerrar">✕</button>
 
-            <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-4 shrink-0">
-                <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-black text-slate-100 uppercase tracking-wide">Leaderboard</h3>
+            <div class="mb-4 border-b border-slate-800 pb-4 shrink-0">
+                <h3 class="text-lg font-black uppercase">Leaderboard</h3>
             </div>
 
             <div id="leaderboard-list" class="overflow-y-auto pr-2 space-y-2"></div>
@@ -440,124 +333,91 @@
     <!-- JAVASCRIPT -->
     <script>
         // ========== CONFIGURACIÓN SUPABASE ==========
-        // Sustituye estos valores por los de Project Settings > API.
-        const SUPABASE_URL = 'TU_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'TU_ANON_PUBLIC_KEY';
+        const SUPABASE_URL = 'https://flldgvplxxogaqdmvhkb.supabase.co';
 
-        const $ = (id) => document.getElementById(id);
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsbGRndnBseHhvZ2FxZG12aGtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMTY0ODksImV4cCI6MjEwNzc5MjQ4OX0.mmBIPpVvp0pmfIZTnEBRGN74fCYnfdPMs4Uym9Y8h30';
+
+        const $ = id => document.getElementById(id);
 
         let supabaseClient = null;
 
         function initializeSupabase() {
             if (!window.supabase || !window.supabase.createClient) {
-                console.error('No se pudo cargar la biblioteca de Supabase.');
-                toast('No se pudo cargar Supabase.', 'error');
+                console.error('No se pudo cargar Supabase.');
                 return false;
             }
 
-            if (
-                SUPABASE_URL === 'TU_SUPABASE_URL' ||
-                SUPABASE_ANON_KEY === 'TU_ANON_PUBLIC_KEY'
-            ) {
-                console.warn('Configura las credenciales de Supabase.');
-                return false;
+            if (!supabaseClient) {
+                supabaseClient = window.supabase.createClient(
+                    SUPABASE_URL,
+                    SUPABASE_ANON_KEY
+                );
             }
-
-            supabaseClient = window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_ANON_KEY
-            );
 
             return true;
         }
 
         // ========== NOTIFICACIONES ==========
-        const toast = (msg, type = 'success') => {
-            const t = $('toast-text');
-            const body = $('toast-body');
-            const container = $('toast-container');
+        function toast(message, type = 'success') {
+            $('toast-text').textContent = message;
 
-            t.textContent = msg;
+            $('toast-body').className =
+                'px-4 py-3 rounded-xl border bg-slate-900 text-slate-100 shadow-2xl ' +
+                (type === 'error' ? 'border-rose-500' : 'border-slate-500');
 
-            body.className =
-                'px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl flex items-center gap-3 bg-slate-900/90 text-slate-100 ' +
-                (type === 'error'
-                    ? 'border-rose-500/50'
-                    : 'border-slate-500/50');
-
-            container.classList.remove('hidden');
+            $('toast-container').classList.remove('hidden');
 
             clearTimeout(window.__toastT);
 
             window.__toastT = setTimeout(() => {
-                container.classList.add('hidden');
+                $('toast-container').classList.add('hidden');
             }, 3500);
-        };
+        }
 
         // ========== MODALES ==========
-        const openModal = (id) => {
-            const modal = $(id);
+        function openModal(id) {
+            $(id).classList.remove('hidden');
+            $(id).classList.add('flex');
+        }
 
-            if (!modal) return;
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        };
-
-        const closeModal = (id) => {
-            const modal = $(id);
-
-            if (!modal) return;
-
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        };
+        function closeModal(id) {
+            $(id).classList.add('hidden');
+            $(id).classList.remove('flex');
+        }
 
         document.querySelectorAll('.close-modal').forEach(button => {
             button.addEventListener('click', () => {
-                closeModal('modal-register');
-                closeModal('modal-rules');
-                closeModal('modal-leaderboard');
+                ['modal-register', 'modal-rules', 'modal-leaderboard']
+                    .forEach(closeModal);
             });
         });
 
-        // Cerrar al pulsar fuera de la ventana del modal.
         ['modal-register', 'modal-rules', 'modal-leaderboard'].forEach(id => {
-            $(id).addEventListener('click', (event) => {
-                if (event.target.id === id) {
-                    closeModal(id);
-                }
+            $(id).addEventListener('click', event => {
+                if (event.target.id === id) closeModal(id);
             });
         });
 
-        // Cerrar con Escape.
-        document.addEventListener('keydown', (event) => {
+        document.addEventListener('keydown', event => {
             if (event.key === 'Escape') {
-                closeModal('modal-register');
-                closeModal('modal-rules');
-                closeModal('modal-leaderboard');
+                ['modal-register', 'modal-rules', 'modal-leaderboard']
+                    .forEach(closeModal);
             }
         });
 
-        $('btn-open-register').addEventListener('click', () => {
-            openModal('modal-register');
-        });
-
-        $('btn-open-rules').addEventListener('click', () => {
-            openModal('modal-rules');
-        });
+        $('btn-open-register').addEventListener('click', () => openModal('modal-register'));
+        $('btn-open-rules').addEventListener('click', () => openModal('modal-rules'));
 
         $('btn-leaderboard').addEventListener('click', async () => {
             openModal('modal-leaderboard');
             await loadLeaderboard();
         });
 
-        // ========== CONTADOR DE TIEMPO ==========
+        // ========== CONTADOR ==========
         const target = new Date('2026-10-10T16:00:00-06:00').getTime();
 
         function updateCountdown() {
-            const now = Date.now();
-            const diff = target - now;
+            const diff = target - Date.now();
 
             if (diff <= 0) {
                 $('t-days').textContent = '00';
@@ -567,27 +427,21 @@
                 return;
             }
 
-            const days = Math.floor(diff / 86400000);
-            const hours = Math.floor((diff % 86400000) / 3600000);
-            const minutes = Math.floor((diff % 3600000) / 60000);
-            const seconds = Math.floor((diff % 60000) / 1000);
-
-            $('t-days').textContent = String(days).padStart(2, '0');
-            $('t-hours').textContent = String(hours).padStart(2, '0');
-            $('t-minutes').textContent = String(minutes).padStart(2, '0');
-            $('t-seconds').textContent = String(seconds).padStart(2, '0');
+            $('t-days').textContent = String(Math.floor(diff / 86400000)).padStart(2, '0');
+            $('t-hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+            $('t-minutes').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+            $('t-seconds').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
         }
 
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // ========== AUDIO ==========
-        // Este botón solo alterna los iconos; no existe audio configurado.
+        // ========== BOTÓN DE AUDIO ==========
+        // Solo alterna iconos; todavía no hay música conectada.
         let audioOn = true;
 
         $('btn-audio').addEventListener('click', () => {
             audioOn = !audioOn;
-
             $('icon-vol-on').classList.toggle('hidden', !audioOn);
             $('icon-vol-off').classList.toggle('hidden', audioOn);
         });
@@ -602,7 +456,7 @@
                     });
                 } else {
                     await navigator.clipboard.writeText(location.href);
-                    toast('¡Enlace copiado! Comparte la Copa Artemis.');
+                    toast('¡Enlace copiado!');
                 }
             } catch (error) {
                 if (error.name !== 'AbortError') {
@@ -611,51 +465,43 @@
             }
         });
 
-        // ========== REGISTRO DE ENTRENADOR ==========
-        $('form-register').addEventListener('submit', async (event) => {
+        // ========== REGISTRO ==========
+        $('form-register').addEventListener('submit', async event => {
             event.preventDefault();
 
             const nick = $('reg-nick').value.trim();
             const discord = $('reg-discord').value.trim();
-            const rulesAccepted = $('reg-rules').checked;
+            const accepted = $('reg-rules').checked;
 
             if (!nick || !discord) {
                 toast('Completa todos los campos.', 'error');
                 return;
             }
 
-            if (!rulesAccepted) {
+            if (!accepted) {
                 toast('Debes aceptar el reglamento.', 'error');
                 return;
             }
 
             if (!initializeSupabase()) {
-                toast('Configura Supabase antes de registrarte.', 'error');
+                toast('No se pudo inicializar Supabase.', 'error');
                 return;
             }
 
-            const submitButton = $('form-register').querySelector(
-                'button[type="submit"]'
-            );
-
-            submitButton.disabled = true;
-            submitButton.textContent = 'Registrando...';
+            const button = $('form-register').querySelector('[type="submit"]');
+            button.disabled = true;
+            button.textContent = 'Registrando...';
 
             try {
-                // Registrar entrenador.
                 const { data: trainer, error: trainerError } =
                     await supabaseClient
                         .from('entrenadores')
-                        .insert([{
-                            nickname: nick,
-                            discord: discord
-                        }])
+                        .insert([{ nickname: nick, discord: discord }])
                         .select()
                         .single();
 
                 if (trainerError) throw trainerError;
 
-                // Crear progreso inicial.
                 const { error: progressError } =
                     await supabaseClient
                         .from('progreso')
@@ -666,37 +512,24 @@
                         }]);
 
                 if (progressError) {
-                    console.error(
-                        'Error al crear el progreso:',
-                        progressError
-                    );
-
-                    toast(
-                        'El entrenador se registró, pero falló el progreso inicial.',
-                        'error'
-                    );
-
+                    console.error(progressError);
+                    toast('Entrenador creado, pero falló su progreso inicial.', 'error');
                     await loadLeaderboard();
                     return;
                 }
 
                 toast('¡Inscripción confirmada! Bienvenido, ' + nick + ' 🏆');
-
                 $('form-register').reset();
                 closeModal('modal-register');
 
                 await loadLeaderboard();
 
             } catch (error) {
-                console.error('Error de registro:', error);
-
-                toast(
-                    'Error al registrarte. Revisa Supabase e inténtalo de nuevo.',
-                    'error'
-                );
+                console.error('Error al registrar:', error);
+                toast('Error al registrar. Revisa la configuración de Supabase.', 'error');
             } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Confirmar Inscripción';
+                button.disabled = false;
+                button.textContent = 'Confirmar inscripción';
             }
         });
 
@@ -705,14 +538,11 @@
             const list = $('leaderboard-list');
 
             if (!initializeSupabase()) {
-                $('player-count').textContent = '0';
-                list.innerHTML =
-                    '<p class="text-sm text-slate-400 text-center py-6">Configura Supabase para cargar los entrenadores.</p>';
+                list.textContent = 'No se pudo conectar con Supabase.';
                 return;
             }
 
-            list.innerHTML =
-                '<p class="text-sm text-slate-400 text-center py-6">Cargando entrenadores...</p>';
+            list.textContent = 'Cargando entrenadores...';
 
             try {
                 const { data, error } = await supabaseClient
@@ -723,22 +553,17 @@
                 if (error) throw error;
 
                 $('player-count').textContent = data.length;
+                list.replaceChildren();
 
-                if (!data.length) {
-                    list.innerHTML =
-                        '<p class="text-sm text-slate-400 text-center py-6">Aún no hay entrenadores registrados.</p>';
+                if (data.length === 0) {
+                    list.textContent = 'Aún no hay entrenadores registrados.';
                     return;
                 }
 
-                // Ordenar por capturas, de mayor a menor.
-                const sorted = [...data].sort((a, b) => {
-                    const capturesA = a.progreso?.[0]?.capturas || 0;
-                    const capturesB = b.progreso?.[0]?.capturas || 0;
-
-                    return capturesB - capturesA;
-                });
-
-                list.replaceChildren();
+                const sorted = [...data].sort((a, b) =>
+                    (b.progreso?.[0]?.capturas || 0) -
+                    (a.progreso?.[0]?.capturas || 0)
+                );
 
                 sorted.forEach((trainer, index) => {
                     const progress = trainer.progreso?.[0];
@@ -746,13 +571,11 @@
                     const total = progress?.pokedex_total || 200;
 
                     const row = document.createElement('div');
-                    row.className =
-                        'flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 border border-slate-800';
+                    row.className = 'flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 border border-slate-800';
 
                     const position = document.createElement('span');
-                    position.className =
-                        'w-7 text-center font-black text-amber-400';
-                    position.textContent = index + 1;
+                    position.className = 'w-7 text-center font-black text-amber-400';
+                    position.textContent = String(index + 1);
 
                     const avatar = document.createElement('span');
                     avatar.className = 'text-lg';
@@ -762,8 +585,7 @@
                     info.className = 'flex-1 min-w-0';
 
                     const nickname = document.createElement('p');
-                    nickname.className =
-                        'text-sm font-bold text-slate-100 truncate';
+                    nickname.className = 'text-sm font-bold text-slate-100 truncate';
                     nickname.textContent = trainer.nickname;
 
                     const region = document.createElement('p');
@@ -771,8 +593,7 @@
                     region.textContent = trainer.region || 'Ketzal Alpha';
 
                     const count = document.createElement('span');
-                    count.className =
-                        'text-xs font-black text-emerald-400';
+                    count.className = 'text-xs font-black text-emerald-400';
                     count.textContent = `${captures}/${total}`;
 
                     info.append(nickname, region);
@@ -781,21 +602,13 @@
                 });
 
             } catch (error) {
-                console.error('Error al cargar el leaderboard:', error);
-
-                list.innerHTML =
-                    '<p class="text-sm text-rose-400 text-center py-6">No se pudo cargar el leaderboard.</p>';
+                console.error('Error al cargar leaderboard:', error);
+                list.textContent = 'No se pudo cargar el leaderboard. Revisa las tablas y las políticas RLS.';
             }
         }
 
-        // ========== INICIALIZACIÓN ==========
-        // No se realiza ninguna consulta hasta configurar las credenciales.
-        if (
-            SUPABASE_URL !== 'TU_SUPABASE_URL' &&
-            SUPABASE_ANON_KEY !== 'TU_ANON_PUBLIC_KEY'
-        ) {
-            loadLeaderboard();
-        }
+        // ========== INICIO ==========
+        loadLeaderboard();
     </script>
 </body>
 </html>
