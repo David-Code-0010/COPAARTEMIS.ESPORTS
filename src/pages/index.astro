@@ -1,6 +1,8 @@
 
 ---
-const title = "Copa Artemis 2026";
+import "../scripts/torneo.js";
+
+const discordUrl = "https://discord.gg/3GWTVzjHS4";
 ---
 
 <!doctype html>
@@ -8,919 +10,1115 @@ const title = "Copa Artemis 2026";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#08090d" />
     <meta
       name="description"
-      content="Participa en la Copa Artemis 2026 de Moémon Ketzal."
+      content="Copa Artemis 2026: participa en el concurso Pokémon de Artemis x Curi Gameplays."
     />
-    <title>{title}</title>
+    <meta name="theme-color" content="#080b14" />
+    <title>Copa Artemis 2026 | Artemis x Curi Gameplays</title>
   </head>
 
   <body>
-    <div class="background" aria-hidden="true">
-      <div class="background-glow"></div>
-      <div class="background-grid"></div>
-      <div class="glow glow-silver"></div>
-      <div class="glow glow-gold"></div>
+    <div id="toast-container" class="toast-container" hidden>
+      <div id="toast-body" class="toast-body">
+        <span id="toast-message">Mensaje</span>
+      </div>
     </div>
 
     <header class="navbar">
-      <div class="nav-inner">
-        <a class="brand" href="/" aria-label="Copa Artemis, inicio">
-          <span class="brand-icon">🏆</span>
-          <span>
-            <small>Torneo Oficial Moemon</small>
-            <strong>COPA ARTEMIS 2026</strong>
-          </span>
-        </a>
+      <a class="brand" href="#inicio" aria-label="Copa Artemis, inicio">
+        <span class="brand-icon">A</span>
+        <span class="brand-text">
+          <strong>COPA ARTEMIS</strong>
+          <small>EDICIÓN 2026</small>
+        </span>
+      </a>
 
-        <nav class="nav-actions" aria-label="Acciones">
-          <button id="btn-leaderboard" class="button button-dark">
-            <span class="players-label">Jugadores</span>
-            <span id="player-count" class="count">0</span>
-          </button>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#informacion">Información</a>
+        <button id="btn-rules" class="nav-button" type="button">
+          Reglamento
+        </button>
+      </nav>
 
-          <button id="btn-share" class="button button-dark">
-            Compartir
-          </button>
+      <div class="nav-actions">
+        <span class="online-indicator">
+          <span class="status-dot"></span>
+          <span id="player-count">ARTEMIS 2026</span>
+        </span>
 
-          <button
-            id="btn-audio"
-            class="button button-dark icon-button"
-            aria-label="Alternar icono de sonido"
-            aria-pressed="true"
-          >
-            <span id="icon-vol-on">🔊</span>
-            <span id="icon-vol-off" hidden>🔇</span>
-          </button>
-        </nav>
+        <button
+          id="btn-share"
+          class="icon-button"
+          type="button"
+          aria-label="Compartir torneo"
+          title="Compartir"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <path d="m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4"></path>
+          </svg>
+        </button>
+
+        <button
+          id="btn-sound"
+          class="icon-button"
+          type="button"
+          aria-label="Activar o desactivar sonido"
+          title="Sonido"
+        >
+          <svg id="icon-vol-on" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4z"></path>
+            <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"></path>
+          </svg>
+          <svg id="icon-vol-off" viewBox="0 0 24 24" aria-hidden="true" hidden>
+            <path d="M11 5 6 9H3v6h3l5 4z"></path>
+            <path d="m16 9 5 6m0-6-5 6"></path>
+          </svg>
+        </button>
       </div>
     </header>
 
-    <div id="toast-container" class="toast-container" hidden>
-      <div id="toast-body" class="toast-body">
-        <p id="toast-text">Notificación</p>
-      </div>
-    </div>
-
-    <main class="main-container">
-      <section class="outer-frame">
-        <div class="panel">
-          <div class="content">
-            <div class="text-center">
-              <span class="pill pill-gold">COPA ARTEMIS</span>
-            </div>
-
-            <section class="hero">
-              <h1>CONCURSO ARTEMIS</h1>
-              <p class="hero-subtitle">x CURI GAMEPLAYS</p>
-              <p class="hero-tagline">
-                ATRÁPALOS A TODOS - CACERÍA DE POKÉMON EN MOEMON KETZAL
-              </p>
-              <p class="hero-description">
-                Participa en el primer gran torneo de captura de Pokémon
-                Moemon. Una carrera épica para ver quién es el maestro
-                absoluto. El primero en completar la Pokédex será el ganador
-                y se llevará la gloria y un premio masivo.
-              </p>
-            </section>
-
-            <section class="countdown-card">
-              <div class="countdown-heading">
-                <span>INICIO DEL TORNEO</span>
-                <span class="date-label">10 OCT, 2026</span>
-              </div>
-
-              <div class="countdown-grid">
-                <div class="time-box">
-                  <strong id="t-days">00</strong>
-                  <span>DÍAS</span>
-                </div>
-                <div class="time-box">
-                  <strong id="t-hours">00</strong>
-                  <span>HORAS</span>
-                </div>
-                <div class="time-box">
-                  <strong id="t-minutes">00</strong>
-                  <span>MIN</span>
-                </div>
-                <div class="time-box">
-                  <strong id="t-seconds">00</strong>
-                  <span>SEG</span>
-                </div>
-              </div>
-            </section>
-
-            <section class="feature-grid" aria-label="Características">
-              <article class="feature-card">
-                <span class="feature-icon">🏆</span>
-                <span class="muted">PREMIO MAYOR</span>
-                <p class="prize-text">REGALOS EXCLUSIVOS</p>
-              </article>
-
-              <article class="feature-card">
-                <span class="feature-icon">🎮</span>
-                <span class="pill pill-game">MOÉMON KETZAL</span>
-                <p>ÚNICO JUEGO OFICIAL</p>
-              </article>
-
-              <article class="feature-card">
-                <span class="feature-icon">🥇</span>
-                <p>1 GANADOR ABSOLUTO</p>
-                <span class="muted">POKÉDEX COMPLETADA</span>
-              </article>
-            </section>
-
-            <section class="primary-actions">
-              <button id="btn-open-register" class="button button-primary">
-                ¡INSCRÍBETE AHORA!
-              </button>
-              <button id="btn-open-rules" class="button button-secondary">
-                REGLAMENTO OFICIAL
-              </button>
-            </section>
-
-            <div class="section-heading">
-              <span>DETALLES DEL CONCURSO</span>
-            </div>
-
-            <section class="details-grid">
-              <article class="detail-card">
-                <h2>FECHA</h2>
-                <p class="detail-main">10-25 DE OCTUBRE, 2026</p>
-                <p class="muted small">
-                  Horario: 16:00 GMT-6 · 15 días de competición
-                </p>
-
-                <h2 class="spaced-heading">LUGAR</h2>
-                <p class="detail-main">
-                  SERVIDOR EXCLUSIVO MOEMON KETZAL
-                </p>
-                <p class="muted small">
-                  Emisiones en vivo por Curi Gameplays y YouTube Gaming
-                </p>
-
-                <div class="detail-footer">
-                  <strong>MOÉMON KETZAL</strong>
-                  <span>🌱 🔥 💧</span>
-                </div>
-              </article>
-
-              <article class="detail-card">
-                <div class="registration-heading">
-                  <h2>INSCRIPCIONES</h2>
-                  <span class="status">ABIERTAS</span>
-                </div>
-
-                <div class="registration-info">
-                  <p><strong>REGISTRO INDIVIDUAL ACTIVO</strong></p>
-                  <p>• Carrera individual de velocidad</p>
-                  <p>• Región Ketzal completa</p>
-                  <p>• Pokédex Galar ampliada</p>
-                </div>
-
-                <p class="prize-footer">
-                  <strong>🏆 Premios:</strong>
-                  Master Trophy +
-                  <span>regalos exclusivos</span>
-                </p>
-
-                <a
-                  id="btn-community"
-                  href="https://discord.gg/3GWTVzjHS4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="discord-button"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="discord-icon"
-                    aria-hidden="true"
-                  >
-                    <path d="M19.73 5.2a18.1 18.1 0 0 0-4.46-1.38.07.07 0 0 0-.08.04c-.19.34-.4.78-.55 1.13a16.7 16.7 0 0 0-5.02 0c-.15-.36-.37-.79-.56-1.13a.08.08 0 0 0-.08-.04A18 18 0 0 0 4.52 5.2a.07.07 0 0 0-.03.03C1.66 9.43.89 13.53 1.27 17.58c0 .02.01.04.03.05a18.2 18.2 0 0 0 5.47 2.76.08.08 0 0 0 .09-.03c.42-.57.79-1.17 1.11-1.8a.08.08 0 0 0-.04-.11 12 12 0 0 1-1.71-.81.08.08 0 0 1-.01-.13l.34-.27a.08.08 0 0 1 .08-.01c3.58 1.63 7.45 1.63 10.99 0a.08.08 0 0 1 .08.01l.34.27a.08.08 0 0 1-.01.13c-.55.32-1.12.59-1.71.81a.08.08 0 0 0-.04.11c.33.63.7 1.23 1.11 1.8a.08.08 0 0 0 .09.03 18.2 18.2 0 0 0 5.48-2.76.08.08 0 0 0 .03-.05c.45-4.69-.76-8.76-3.23-12.35a.06.06 0 0 0-.03-.03ZM8.24 14.6c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Zm7.28 0c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Z" />
-                  </svg>
-
-                  <span class="discord-copy">
-                    <strong>Únete a nuestra comunidad</strong>
-                    <small>Discord oficial · Copa Artemis 2026</small>
-                  </span>
-
-                  <span class="discord-arrow" aria-hidden="true">↗</span>
-                </a>
-              </article>
-            </section>
+    <main id="inicio">
+      <section class="hero section-container">
+        <div class="hero-content">
+          <div class="eyebrow">
+            <span class="status-dot"></span>
+            EVENTO ESPECIAL · 2026
           </div>
+
+          <h1>
+            CONCURSO
+            <span class="gradient-text">ARTEMIS</span>
+            <span class="title-small">X CURI GAMEPLAYS</span>
+          </h1>
+
+          <p class="hero-description">
+            Prepárate para demostrar tus habilidades, completar tu Pokédex
+            y competir con otros entrenadores en la Copa Artemis.
+          </p>
+
+          <div class="hero-tags">
+            <span class="tag">POKÉMON</span>
+            <span class="tag">COMPETENCIA</span>
+            <span class="tag">COMUNIDAD</span>
+          </div>
+
+          <div class="hero-buttons">
+            <button id="btn-register" class="button button-primary" type="button">
+              Inscribirme
+              <span aria-hidden="true">↗</span>
+            </button>
+
+            <button
+              id="btn-leaderboard"
+              class="button button-secondary"
+              type="button"
+            >
+              Ver clasificación
+            </button>
+          </div>
+
+          <p class="hero-note">
+            Únete a la comunidad y demuestra de qué eres capaz.
+          </p>
+        </div>
+
+        <div class="hero-art" aria-label="Emblema de la Copa Artemis">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="art-glow"></div>
+
+          <div class="art-card">
+            <div class="art-topline">ARTEMIS PROJECT</div>
+            <div class="art-symbol">A</div>
+            <div class="art-divider"></div>
+            <div class="art-name">COPA ARTEMIS</div>
+            <div class="art-year">2026</div>
+            <div class="art-footer">TRAINER COMPETITION</div>
+          </div>
+
+          <span class="floating-label label-top">#ARTEMIS2026</span>
+          <span class="floating-label label-bottom">EVENTO ESPECIAL</span>
+        </div>
+      </section>
+
+      <section class="countdown-section section-container">
+        <div class="section-heading">
+          <span class="section-kicker">CUENTA REGRESIVA</span>
+          <h2>El evento te espera</h2>
+        </div>
+
+        <div class="countdown" aria-label="Cuenta regresiva del evento">
+          <div class="time-card">
+            <span id="t-days">00</span>
+            <small>DÍAS</small>
+          </div>
+          <div class="time-card">
+            <span id="t-hours">00</span>
+            <small>HORAS</small>
+          </div>
+          <div class="time-card">
+            <span id="t-minutes">00</span>
+            <small>MINUTOS</small>
+          </div>
+          <div class="time-card">
+            <span id="t-seconds">00</span>
+            <small>SEGUNDOS</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="features section-container">
+        <article class="feature-card">
+          <div class="feature-icon">✦</div>
+          <span class="feature-number">01 / PARTICIPA</span>
+          <h3>Inscripción abierta</h3>
+          <p>
+            Registra tu nombre de entrenador y tu usuario de Discord para
+            participar en el evento.
+          </p>
+          <button class="text-button" data-open-register type="button">
+            Registrarme <span aria-hidden="true">→</span>
+          </button>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">◈</div>
+          <span class="feature-number">02 / COMPITE</span>
+          <h3>Completa tu Pokédex</h3>
+          <p>
+            Avanza en el desafío y consulta la clasificación de los
+            participantes para seguir tu progreso.
+          </p>
+          <button id="btn-leaderboard-card" class="text-button" type="button">
+            Ver clasificación <span aria-hidden="true">→</span>
+          </button>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">⌘</div>
+          <span class="feature-number">03 / CONECTA</span>
+          <h3>Únete a Discord</h3>
+          <p>
+            Forma parte de la comunidad, consulta novedades y mantente
+            informado sobre el concurso.
+          </p>
+          <a
+            class="text-button"
+            href={discordUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Entrar al servidor <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+      </section>
+
+      <section id="informacion" class="details-section">
+        <div class="section-container details-grid">
+          <div>
+            <span class="section-kicker">INFORMACIÓN OFICIAL</span>
+            <h2>Tu próxima aventura comienza aquí.</h2>
+            <p class="details-description">
+              Revisa las fechas, sigue el reglamento y prepara tu inscripción
+              para la Copa Artemis 2026.
+            </p>
+
+            <button id="btn-rules-details" class="button button-secondary" type="button">
+              Consultar reglamento
+            </button>
+          </div>
+
+          <div class="details-list">
+            <div class="detail-item">
+              <span class="detail-icon">▦</span>
+              <div>
+                <small>FECHAS DEL EVENTO</small>
+                <strong>10 al 25 de octubre de 2026</strong>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-icon">◎</span>
+              <div>
+                <small>COMUNIDAD</small>
+                <strong>Artemis x Curi Gameplays</strong>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-icon">⌘</span>
+              <div>
+                <small>SERVIDOR OFICIAL</small>
+                <a href={discordUrl} target="_blank" rel="noopener noreferrer">
+                  Discord de la comunidad ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="discord-section section-container">
+        <div class="discord-panel">
+          <div>
+            <span class="section-kicker">NO TE QUEDES FUERA</span>
+            <h2>La comunidad te está esperando.</h2>
+            <p>
+              Entra al servidor oficial para conocer a los participantes y
+              recibir información del concurso.
+            </p>
+          </div>
+
+          <a
+            class="button button-discord"
+            href={discordUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19.7 5.1a18 18 0 0 0-4.4-1.4l-.6 1.2a16 16 0 0 0-5.4 0l-.6-1.2a18 18 0 0 0-4.4 1.4C1.5 9.2.8 13.2 1.2 17.2a18 18 0 0 0 5.4 2.7l1.2-2a11 11 0 0 1-1.9-.9l.5-.4a13 13 0 0 0 11.2 0l.5.4a11 11 0 0 1-1.9.9l1.2 2a18 18 0 0 0 5.4-2.7c.5-4.7-.8-8.7-3.1-12.1ZM8.8 14.4c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.4 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"></path>
+            </svg>
+            Unirme a Discord
+          </a>
         </div>
       </section>
     </main>
 
-    <!-- MODAL DE REGISTRO -->
+    <footer class="footer">
+      <a class="brand footer-brand" href="#inicio">
+        <span class="brand-icon">A</span>
+        <span class="brand-text">
+          <strong>COPA ARTEMIS</strong>
+          <small>EDICIÓN 2026</small>
+        </span>
+      </a>
+
+      <p>© 2026 Copa Artemis · Artemis x Curi Gameplays</p>
+      <a href="#inicio">Volver arriba ↑</a>
+    </footer>
+
+    <!-- Modal de inscripción -->
     <div id="modal-register" class="modal" hidden>
-      <section class="modal-card modal-narrow" role="dialog" aria-modal="true" aria-labelledby="register-title">
-        <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
+      <div class="modal-backdrop" data-close-modal></div>
 
-        <header class="modal-header">
-          <h2 id="register-title">Registro de Entrenador</h2>
-          <p>Inscripción para la Copa Artemis Moémon</p>
-        </header>
+      <section
+        class="modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="register-title"
+      >
+        <button class="modal-close" type="button" data-close-modal aria-label="Cerrar">
+          ×
+        </button>
 
-        <form id="form-register" class="register-form">
-          <div class="form-field">
-            <label for="reg-nick">Nombre de entrenador *</label>
-            <input type="text" id="reg-nick" required maxlength="40" autocomplete="nickname" />
-          </div>
+        <span class="section-kicker">COPA ARTEMIS 2026</span>
+        <h2 id="register-title">Inscripción de entrenador</h2>
+        <p class="modal-description">
+          Completa tus datos para registrarte en el concurso.
+        </p>
 
-          <div class="form-field">
-            <label for="reg-discord">Usuario de Discord *</label>
-            <input type="text" id="reg-discord" required maxlength="80" autocomplete="off" />
-          </div>
+        <form id="register-form">
+          <label for="nickname">Nombre de entrenador</label>
+          <input
+            id="nickname"
+            name="nickname"
+            type="text"
+            maxlength="32"
+            placeholder="Tu nombre de entrenador"
+            required
+          />
 
-          <label class="checkbox-label">
-            <input type="checkbox" id="reg-rules" required />
-            <span>Acepto cumplir con el reglamento oficial y jugar limpio.</span>
+          <label for="discord">Usuario de Discord</label>
+          <input
+            id="discord"
+            name="discord"
+            type="text"
+            maxlength="80"
+            placeholder="Tu usuario de Discord"
+            required
+          />
+
+          <label class="checkbox-label" for="accept-rules">
+            <input id="accept-rules" name="accept-rules" type="checkbox" required />
+            <span>He leído y acepto el reglamento del concurso.</span>
           </label>
 
-          <div class="modal-actions">
-            <button type="button" class="button button-dark close-modal">Cancelar</button>
-            <button type="submit" class="button button-primary">Confirmar inscripción</button>
-          </div>
+          <button id="submit-register" class="button button-primary button-full" type="submit">
+            Confirmar inscripción
+          </button>
         </form>
       </section>
     </div>
 
-    <!-- MODAL DE REGLAMENTO -->
+    <!-- Modal del reglamento -->
     <div id="modal-rules" class="modal" hidden>
-      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="rules-title">
-        <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
+      <div class="modal-backdrop" data-close-modal></div>
 
-        <header class="modal-header modal-title-row">
-          <span class="shield-icon">🛡️</span>
-          <div>
-            <h2 id="rules-title">Reglamento Oficial</h2>
-            <p>Copa Artemis 2026 · Moémon Ketzal</p>
-          </div>
-        </header>
+      <section
+        class="modal-dialog modal-dialog-wide"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rules-title"
+      >
+        <button class="modal-close" type="button" data-close-modal aria-label="Cerrar">
+          ×
+        </button>
+
+        <span class="section-kicker">NORMAS DEL EVENTO</span>
+        <h2 id="rules-title">Reglamento</h2>
 
         <div class="rules-content">
-          <p><strong>1. Registro:</strong> Solo se permiten cuentas individuales. Usa tu nickname de entrenador y tu usuario de Discord.</p>
-          <p><strong>2. Objetivo:</strong> Completar la Pokédex de la región Ketzal lo más rápido posible. El primero en completarla es el ganador.</p>
-          <p><strong>3. Juego limpio:</strong> Prohibido el uso de hacks, mods, exploits o cualquier ventaja injusta. Cualquier infracción resulta en descalificación inmediata.</p>
-          <p><strong>4. Duración:</strong> La competición va del 10 al 25 de octubre de 2026, de 16:00 GMT-6.</p>
-          <p><strong>5. Verificación:</strong> Los ganadores deberán mostrar prueba de su Pokédex completa en el servidor oficial.</p>
-          <p><strong>6. Premio:</strong> Master Trophy + regalos exclusivos para el maestro absoluto.</p>
+          <h3>1. Inscripción</h3>
+          <p>
+            Cada participante debe proporcionar un nombre de entrenador y
+            un usuario de Discord válidos.
+          </p>
+
+          <h3>2. Participación</h3>
+          <p>
+            Los participantes deben respetar las instrucciones y los
+            procedimientos que anuncien los organizadores.
+          </p>
+
+          <h3>3. Juego limpio</h3>
+          <p>
+            No se permite hacer trampa, manipular resultados ni perjudicar
+            deliberadamente a otros participantes.
+          </p>
+
+          <h3>4. Comunidad</h3>
+          <p>
+            Mantén un trato respetuoso con los organizadores y los demás
+            entrenadores.
+          </p>
+
+          <h3>5. Actualizaciones</h3>
+          <p>
+            Consulta el servidor oficial de Discord para conocer cualquier
+            cambio o aclaración de las reglas.
+          </p>
         </div>
 
-        <footer class="modal-actions">
-          <button type="button" class="button button-dark close-modal">Cerrar</button>
-        </footer>
+        <a
+          class="button button-discord button-full"
+          href={discordUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Consultar Discord
+        </a>
       </section>
     </div>
 
-    <!-- MODAL DE CLASIFICACIÓN -->
+    <!-- Modal de clasificación -->
     <div id="modal-leaderboard" class="modal" hidden>
-      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="leaderboard-title">
-        <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
-        <header class="modal-header">
-          <h2 id="leaderboard-title">Clasificación de entrenadores</h2>
-        </header>
-        <div id="leaderboard-list" class="leaderboard-list" aria-live="polite"></div>
+      <div class="modal-backdrop" data-close-modal></div>
+
+      <section
+        class="modal-dialog modal-dialog-wide"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="leaderboard-title"
+      >
+        <button class="modal-close" type="button" data-close-modal aria-label="Cerrar">
+          ×
+        </button>
+
+        <span class="section-kicker">RANKING DE PARTICIPANTES</span>
+        <h2 id="leaderboard-title">Clasificación</h2>
+        <p class="modal-description">
+          Consulta el progreso registrado de los entrenadores.
+        </p>
+
+        <div class="leaderboard-header">
+          <span>ENTRENADOR</span>
+          <span>CAPTURAS</span>
+        </div>
+
+        <div id="leaderboard-list" class="leaderboard-list">
+          <p class="empty-message">Cargando clasificación...</p>
+        </div>
       </section>
     </div>
-
-    <script>
-      import "../scripts/torneo.js";
-    </script>
   </body>
 </html>
 
 <style>
-  :global(*) {
+  :root {
+    color-scheme: dark;
+    --bg: #080b14;
+    --panel: #101626;
+    --panel-light: #151d30;
+    --text: #edf2ff;
+    --muted: #9ba8c1;
+    --accent: #a78bfa;
+    --accent-bright: #c4b5fd;
+    --border: rgba(167, 139, 250, 0.2);
+    --cyan: #67e8f9;
+  }
+
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 
-  :global(html) {
-    min-width: 320px;
+  html {
     scroll-behavior: smooth;
-    background: #08090d;
+    scroll-padding-top: 90px;
   }
 
-  :global(body) {
-    position: relative;
-    min-height: 100vh;
+  body {
     margin: 0;
-    overflow-x: hidden;
-    color: #f1f5f9;
-    background: #08090d;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(91, 65, 170, 0.14), transparent 45%),
+      var(--bg);
+    color: var(--text);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    line-height: 1.6;
   }
 
-  :global(button),
-  :global(input) {
+  body:has(.modal:not([hidden])) {
+    overflow: hidden;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input {
     font: inherit;
   }
 
-  :global(button),
-  :global(a) {
+  button,
+  a {
     -webkit-tap-highlight-color: transparent;
   }
 
-  :global(button) {
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 4px;
+  }
+
+  button {
     color: inherit;
-    cursor: pointer;
   }
 
-  :global(button:disabled) {
-    cursor: wait;
-    opacity: .65;
-  }
-
-  :global(button:focus-visible),
-  :global(a:focus-visible),
-  :global(input:focus-visible) {
-    outline: 2px solid #fbbf24;
-    outline-offset: 3px;
-  }
-
-  .background {
-    position: fixed;
-    z-index: 0;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .background-glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(203, 213, 225, .12), transparent);
-  }
-
-  .background-grid {
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(to right, rgba(30, 41, 59, .08) 1px, transparent 1px), linear-gradient(to bottom, rgba(30, 41, 59, .08) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
-
-  .glow {
-    position: absolute;
-    width: 24rem;
-    height: 24rem;
-    border-radius: 50%;
-    filter: blur(64px);
-    animation: pulse 6s ease-in-out infinite alternate;
-  }
-
-  .glow-silver {
-    top: 25%;
-    left: 2.5rem;
-    background: rgba(203, 213, 225, .05);
-  }
-
-  .glow-gold {
-    right: 2.5rem;
-    bottom: 33%;
-    background: rgba(245, 158, 11, .05);
-    animation-delay: 1s;
-  }
-
-  @keyframes pulse {
-    from { opacity: .45; transform: scale(.96); }
-    to { opacity: 1; transform: scale(1.04); }
+  .section-container {
+    width: min(1120px, calc(100% - 40px));
+    margin-inline: auto;
   }
 
   .navbar {
     position: sticky;
-    z-index: 40;
+    z-index: 20;
     top: 0;
-    padding: 12px 16px;
-    border-bottom: 1px solid rgba(51, 65, 85, .8);
-    background: rgba(8, 9, 13, .82);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
-    backdrop-filter: blur(20px);
-  }
-
-  .nav-inner,
-  .brand,
-  .nav-actions,
-  .registration-heading,
-  .countdown-heading,
-  .detail-footer,
-  .modal-title-row {
     display: flex;
     align-items: center;
-  }
-
-  .nav-inner {
-    max-width: 1280px;
     justify-content: space-between;
-    gap: 16px;
-    margin: 0 auto;
+    gap: 24px;
+    min-height: 76px;
+    padding: 12px max(20px, calc((100% - 1120px) / 2));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(8, 11, 20, 0.88);
+    backdrop-filter: blur(18px);
   }
 
   .brand {
-    min-width: 0;
-    gap: 12px;
-    color: inherit;
-    text-decoration: none;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 11px;
   }
 
   .brand-icon {
     display: grid;
     width: 42px;
     height: 42px;
-    flex-shrink: 0;
     place-items: center;
-    border: 1px solid #64748b;
+    border: 1px solid var(--accent);
     border-radius: 12px;
-    background: linear-gradient(145deg, #1e293b, #0d0f17);
-    font-size: 23px;
-  }
-
-  .brand small,
-  .brand strong {
-    display: block;
-  }
-
-  .brand small {
-    margin-bottom: 4px;
-    color: #94a3b8;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-  }
-
-  .brand strong {
-    font-size: 13px;
+    background: linear-gradient(145deg, #30245b, #101626);
+    color: var(--accent-bright);
+    font-size: 25px;
     font-weight: 900;
-    letter-spacing: .06em;
+  }
+
+  .brand-text {
+    display: grid;
+    line-height: 1.3;
+  }
+
+  .brand-text strong {
+    font-size: 12px;
+    letter-spacing: 1.4px;
+  }
+
+  .brand-text small {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .nav-links,
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 23px;
+  }
+
+  .nav-links a,
+  .nav-button {
+    border: 0;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover,
+  .nav-button:hover {
+    color: var(--accent-bright);
   }
 
   .nav-actions {
+    gap: 10px;
+  }
+
+  .online-indicator {
+    display: flex;
+    align-items: center;
     gap: 8px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+
+  .status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.6);
+  }
+
+  .icon-button {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel);
+    cursor: pointer;
+  }
+
+  .icon-button svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .hero {
+    display: grid;
+    min-height: 530px;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+    padding-block: 70px 50px;
+  }
+
+  .eyebrow,
+  .section-kicker {
+    color: var(--accent-bright);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 13px;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    background: rgba(167, 139, 250, 0.06);
+  }
+
+  h1 {
+    margin: 24px 0 18px;
+    font-size: clamp(40px, 6vw, 70px);
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 0.99;
+  }
+
+  .gradient-text {
+    display: block;
+    background: linear-gradient(90deg, #c4b5fd, #818cf8, #67e8f9);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .title-small {
+    display: block;
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: clamp(13px, 1.7vw, 19px);
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+
+  .hero-description,
+  .details-description {
+    max-width: 520px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .tag {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: #cbd5e1;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
   }
 
   .button {
     display: inline-flex;
-    min-height: 42px;
+    min-height: 45px;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 10px 14px;
+    gap: 12px;
+    padding: 11px 18px;
     border: 1px solid transparent;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 800;
-    text-align: center;
-    transition: transform .2s, border-color .2s, filter .2s;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 750;
+    transition:
+      transform 0.2s,
+      background 0.2s,
+      border-color 0.2s;
   }
 
   .button:hover {
-    filter: brightness(1.13);
-  }
-
-  .button:active {
-    transform: scale(.98);
-  }
-
-  .button-dark {
-    border-color: rgba(100, 116, 139, .4);
-    background: rgba(30, 41, 59, .75);
-  }
-
-  .icon-button {
-    min-width: 42px;
-    padding: 9px;
-    font-size: 17px;
-  }
-
-  .count {
-    padding: 3px 7px;
-    border-radius: 999px;
-    background: #08090d;
-    color: #cbd5e1;
-    font-size: 10px;
-  }
-
-  .main-container {
-    position: relative;
-    z-index: 1;
-    max-width: 1152px;
-    margin: 0 auto;
-    padding: 32px 16px;
-  }
-
-  .outer-frame {
-    padding: 2px;
-    border-radius: 26px;
-    background: linear-gradient(180deg, #e2e8f0, #94a3b8 60%, #334155);
-    box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
-  }
-
-  .panel {
-    overflow: hidden;
-    border-radius: 24px;
-    background: #0b0c12;
-  }
-
-  .content {
-    padding: 48px clamp(18px, 5vw, 64px);
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 900;
-    letter-spacing: .1em;
-  }
-
-  .pill-gold {
-    border: 1px solid rgba(245, 158, 11, .4);
-    background: #1e293b;
-    color: #fcd34d;
-  }
-
-  .hero {
-    margin: 22px 0 32px;
-    text-align: center;
-  }
-
-  .hero h1 {
-    margin: 0;
-    font-size: clamp(27px, 5vw, 48px);
-    font-weight: 950;
-    line-height: 1.12;
-    letter-spacing: -.035em;
-  }
-
-  .hero-subtitle {
-    margin: 10px 0;
-    background: linear-gradient(90deg, #cbd5e1, #f8fafc, #94a3b8);
-    background-clip: text;
-    color: transparent;
-    font-size: clamp(24px, 4vw, 38px);
-    font-weight: 900;
-  }
-
-  .hero-tagline {
-    margin: 14px 0;
-    color: #fbbf24;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: .1em;
-    line-height: 1.8;
-  }
-
-  .hero-description {
-    max-width: 680px;
-    margin: 24px auto 0;
-    color: #cbd5e1;
-    font-size: 14px;
-    line-height: 1.8;
-  }
-
-  .countdown-card {
-    max-width: 680px;
-    margin: 0 auto 36px;
-    padding: 16px;
-    border: 1px solid #334155;
-    border-radius: 14px;
-    background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
-  }
-
-  .countdown-heading {
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #334155;
-    color: #cbd5e1;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: .06em;
-  }
-
-  .date-label {
-    color: #34d399;
-  }
-
-  .countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
-    text-align: center;
-  }
-
-  .time-box {
-    padding: 10px 4px;
-    border-radius: 8px;
-    background: #020617;
-  }
-
-  .time-box strong,
-  .time-box span {
-    display: block;
-  }
-
-  .time-box strong {
-    font-size: clamp(22px, 4vw, 30px);
-    font-weight: 950;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .time-box span {
-    margin-top: 3px;
-    color: #94a3b8;
-    font-size: 10px;
-  }
-
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .feature-card {
-    display: flex;
-    min-width: 0;
-    min-height: 145px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 12px;
-    border: 1px solid #334155;
-    border-radius: 14px;
-    background: #0f172a;
-    text-align: center;
-  }
-
-  .feature-icon {
-    margin-bottom: 10px;
-    font-size: 30px;
-  }
-
-  .muted {
-    color: #94a3b8;
-  }
-
-  .feature-card .muted {
-    font-size: 10px;
-  }
-
-  .feature-card p {
-    margin: 8px 0 0;
-    font-size: 13px;
-    font-weight: 900;
-  }
-
-  .prize-text,
-  .prize-footer span {
-    color: #fb7185;
-  }
-
-  .pill-game {
-    padding: 6px 10px;
-    border-radius: 6px;
-    background: rgba(245, 158, 11, .16);
-    color: #fcd34d;
-    font-size: 10px;
-    letter-spacing: 0;
-  }
-
-  .primary-actions {
-    display: grid;
-    max-width: 600px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-    margin: 0 auto 40px;
+    transform: translateY(-2px);
   }
 
   .button-primary {
-    border-color: #cbd5e1;
-    background: linear-gradient(90deg, #e2e8f0, #94a3b8);
-    color: #08090d;
+    background: linear-gradient(110deg, #a78bfa, #818cf8);
+    color: #101020;
+    box-shadow: 0 8px 25px rgba(129, 140, 248, 0.17);
   }
 
-  .primary-actions .button {
-    min-height: 58px;
-    padding: 16px 12px;
-    font-size: 12px;
-    font-weight: 950;
+  .button-primary:hover {
+    background: linear-gradient(110deg, #c4b5fd, #a5b4fc);
   }
 
   .button-secondary {
-    border-color: #334155;
-    background: #0f172a;
-    color: #f8fafc;
+    border-color: var(--border);
+    background: rgba(255, 255, 255, 0.025);
+    color: var(--text);
   }
 
-  .section-heading {
-    margin-bottom: 24px;
+  .button-secondary:hover {
+    border-color: var(--accent);
+    background: rgba(167, 139, 250, 0.08);
+  }
+
+  .hero-note {
+    margin-top: 19px;
+    color: #76839c;
+    font-size: 11px;
+  }
+
+  .hero-art {
+    position: relative;
+    display: grid;
+    min-height: 370px;
+    place-items: center;
+    isolation: isolate;
+  }
+
+  .art-glow {
+    position: absolute;
+    z-index: -1;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: #7861dd;
+    filter: blur(100px);
+    opacity: 0.24;
+  }
+
+  .orbit {
+    position: absolute;
+    width: 310px;
+    height: 310px;
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 50%;
+    transform: rotate(-25deg) scaleY(0.5);
+  }
+
+  .orbit-two {
+    width: 360px;
+    height: 360px;
+    transform: rotate(35deg) scaleY(0.45);
+  }
+
+  .art-card {
+    display: flex;
+    width: 235px;
+    min-height: 295px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(196, 181, 253, 0.5);
+    border-radius: 18px;
+    background: linear-gradient(145deg, #1b2040, #0c1120 70%);
+    box-shadow:
+      0 0 0 8px rgba(167, 139, 250, 0.025),
+      0 25px 70px rgba(0, 0, 0, 0.4);
+    transform: rotate(-5deg);
+  }
+
+  .art-topline,
+  .art-footer {
+    color: #a5b4fc;
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+
+  .art-symbol {
+    display: grid;
+    width: 115px;
+    height: 135px;
+    place-items: center;
+    margin: 12px 0;
+    background: linear-gradient(145deg, #c4b5fd, #818cf8 60%, #67e8f9);
+    background-clip: text;
+    color: transparent;
+    font-size: 120px;
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 0 35px rgba(167, 139, 250, 0.1);
+  }
+
+  .art-divider {
+    width: 70%;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .art-name {
+    margin-top: 13px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+
+  .art-year {
+    color: var(--accent-bright);
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 5px;
+  }
+
+  .art-footer {
+    margin-top: 10px;
+    font-size: 7px;
+  }
+
+  .floating-label {
+    position: absolute;
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #101626;
+    color: var(--accent-bright);
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .label-top {
+    top: 52px;
+    right: 0;
+  }
+
+  .label-bottom {
+    bottom: 50px;
+    left: 0;
+  }
+
+  .countdown-section {
+    padding-block: 30px 75px;
     text-align: center;
   }
 
-  .section-heading span {
-    display: inline-block;
-    padding: 10px 24px;
-    border: 1px solid rgba(245, 158, 11, .3);
-    border-radius: 999px;
-    color: #fbbf24;
-    font-size: 10px;
-    font-weight: 950;
-    letter-spacing: .12em;
+  .section-heading h2,
+  .details-grid h2,
+  .discord-panel h2 {
+    margin: 10px 0;
+    font-size: clamp(26px, 4vw, 36px);
+    letter-spacing: -1px;
+    line-height: 1.2;
+  }
+
+  .countdown {
+    display: grid;
+    max-width: 600px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 30px auto 0;
+  }
+
+  .time-card {
+    padding: 20px 8px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(21, 29, 48, 0.8), rgba(16, 22, 38, 0.5));
+  }
+
+  .time-card span {
+    display: block;
+    color: var(--accent-bright);
+    font-size: clamp(27px, 4vw, 40px);
+    font-weight: 850;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+  }
+
+  .time-card small {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    padding-bottom: 90px;
+  }
+
+  .feature-card {
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    background: linear-gradient(145deg, rgba(21, 29, 48, 0.85), rgba(16, 22, 38, 0.55));
+    transition:
+      border-color 0.2s,
+      transform 0.2s;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border);
+  }
+
+  .feature-icon {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(167, 139, 250, 0.08);
+    color: var(--accent-bright);
+    font-size: 24px;
+  }
+
+  .feature-number {
+    display: block;
+    margin-top: 20px;
+    color: #8b9bb7;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  .feature-card h3 {
+    margin: 7px 0;
+    font-size: 19px;
+  }
+
+  .feature-card p {
+    min-height: 72px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .text-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--accent-bright);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 750;
+  }
+
+  .text-button:hover {
+    color: var(--cyan);
+  }
+
+  .details-section {
+    padding-block: 75px;
+    border-block: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(16, 22, 38, 0.48);
   }
 
   .details-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    grid-template-columns: 1fr 0.9fr;
+    align-items: center;
+    gap: 70px;
   }
 
-  .detail-card {
-    min-width: 0;
-    padding: 24px;
-    border: 1px solid #1e293b;
-    border-radius: 18px;
-    background: #0f172a;
+  .details-description {
+    margin-bottom: 25px;
   }
 
-  .detail-card h2 {
-    margin: 0 0 10px;
-    color: #fbbf24;
-    font-size: 14px;
-    font-weight: 950;
-  }
-
-  .detail-main {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 950;
-    line-height: 1.5;
-  }
-
-  .small {
-    margin: 5px 0 0;
-    font-size: 11px;
-    line-height: 1.7;
-  }
-
-  .spaced-heading {
-    margin-top: 28px !important;
-  }
-
-  .detail-footer {
-    justify-content: space-between;
+  .details-list {
+    display: grid;
     gap: 12px;
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid #1e293b;
   }
 
-  .detail-footer strong {
-    color: #fbbf24;
-    font-size: 11px;
-  }
-
-  .registration-heading {
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .registration-heading h2 {
-    margin: 0;
-  }
-
-  .status {
-    padding: 6px 8px;
-    border-radius: 5px;
-    background: rgba(244, 63, 94, .15);
-    color: #fb7185;
-    font-size: 10px;
-    font-weight: 950;
-  }
-
-  .registration-info {
-    color: #cbd5e1;
-    font-size: 12px;
-    line-height: 1.8;
-  }
-
-  .registration-info p {
-    margin: 5px 0;
-  }
-
-  .prize-footer {
-    margin: 22px 0 0;
-    padding-top: 18px;
-    border-top: 1px solid #1e293b;
-    color: #cbd5e1;
-    font-size: 11px;
-    line-height: 1.8;
-  }
-
-  .prize-footer strong {
-    color: #fbbf24;
-  }
-
-  .prize-footer span {
-    font-weight: 900;
-  }
-
-  .discord-button {
+  .detail-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    width: 100%;
-    margin-top: 24px;
-    padding: 16px;
-    border: 1px solid rgba(254, 240, 138, .5);
-    border-radius: 12px;
-    background: linear-gradient(100deg, #422006, #18181b, #000);
-    color: #fef3c7;
-    text-decoration: none;
-    box-shadow: 0 10px 25px rgba(245, 158, 11, .07);
-    transition: border-color .2s, filter .2s;
+    gap: 15px;
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    background: rgba(8, 11, 20, 0.4);
   }
 
-  .discord-button:hover {
-    border-color: #fcd34d;
-    filter: brightness(1.2);
-  }
-
-  .discord-icon {
-    width: 34px;
-    height: 34px;
+  .detail-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
     flex-shrink: 0;
-    color: #a5b4fc;
-    transition: transform .2s;
-  }
-
-  .discord-button:hover .discord-icon {
-    transform: scale(1.1);
-  }
-
-  .discord-copy {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    gap: 5px;
-    text-align: left;
-  }
-
-  .discord-copy strong {
-    font-size: 12px;
-  }
-
-  .discord-copy small {
-    color: rgba(254, 240, 138, .7);
-    font-size: 10px;
-    line-height: 1.5;
-  }
-
-  .discord-arrow {
-    margin-left: auto;
+    place-items: center;
+    border-radius: 10px;
+    background: rgba(167, 139, 250, 0.1);
+    color: var(--accent-bright);
     font-size: 22px;
   }
 
-  .toast-container {
-    position: fixed;
-    z-index: 100;
-    top: 80px;
-    right: 16px;
-    width: min(360px, calc(100% - 32px));
+  .detail-item div {
+    display: grid;
+    gap: 3px;
   }
 
-  .toast-body {
-    padding: 14px 16px;
-    border: 1px solid #64748b;
-    border-radius: 12px;
-    background: #0f172a;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
+  .detail-item small {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1px;
   }
 
-  .toast-body.error {
-    border-color: #f43f5e;
-  }
-
-  .toast-body p {
-    margin: 0;
+  .detail-item strong,
+  .detail-item a {
     font-size: 13px;
-    font-weight: 600;
-    line-height: 1.6;
+  }
+
+  .detail-item a {
+    color: var(--accent-bright);
+  }
+
+  .discord-section {
+    padding-block: 75px;
+  }
+
+  .discord-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 38px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background:
+      radial-gradient(ellipse at 0% 100%, rgba(129, 140, 248, 0.15), transparent 55%),
+      var(--panel);
+  }
+
+  .discord-panel p {
+    max-width: 570px;
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .button-discord {
+    flex-shrink: 0;
+    background: #5865f2;
+    color: white;
+  }
+
+  .button-discord:hover {
+    background: #4752c4;
+  }
+
+  .button-discord svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 25px max(20px, calc((100% - 1120px) / 2));
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .footer p,
+  .footer > a:last-child {
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .footer > a:last-child:hover {
+    color: var(--accent-bright);
   }
 
   .modal[hidden],
@@ -928,355 +1126,379 @@ const title = "Copa Artemis 2026";
     display: none !important;
   }
 
+  .toast-container {
+    position: fixed;
+    z-index: 100;
+    top: 90px;
+    right: 20px;
+    width: min(360px, calc(100% - 40px));
+  }
+
+  .toast-body {
+    padding: 15px 18px;
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    border-radius: 10px;
+    background: #12251f;
+    color: #bbf7d0;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    font-size: 13px;
+  }
+
+  .toast-body.error {
+    border-color: rgba(248, 113, 113, 0.4);
+    background: #2b151c;
+    color: #fecaca;
+  }
+
   .modal {
     position: fixed;
     z-index: 50;
     inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
     overflow-y: auto;
-    padding: 16px;
-    background: rgba(0, 0, 0, .82);
-    backdrop-filter: blur(12px);
+    place-items: center;
+    padding: 20px;
   }
 
-  .modal-card {
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 5, 12, 0.82);
+    backdrop-filter: blur(7px);
+  }
+
+  .modal-dialog {
     position: relative;
-    display: flex;
-    width: 100%;
-    max-width: 680px;
-    max-height: 85vh;
-    flex-direction: column;
-    padding: 24px;
-    overflow: hidden;
-    border: 1px solid #475569;
-    border-radius: 18px;
-    background: #0f172a;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
+    width: min(460px, 100%);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #101626;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
   }
 
-  .modal-narrow {
-    max-width: 480px;
+  .modal-dialog-wide {
+    width: min(600px, 100%);
   }
 
-  .close-button {
+  .modal-close {
     position: absolute;
-    z-index: 1;
-    top: 16px;
+    top: 13px;
     right: 16px;
     display: grid;
     width: 34px;
     height: 34px;
     place-items: center;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    color: #94a3b8;
-    font-size: 18px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #151d30;
+    cursor: pointer;
+    font-size: 23px;
   }
 
-  .close-button:hover {
-    background: #1e293b;
-    color: #fff;
+  .modal-dialog h2 {
+    margin: 8px 0;
+    font-size: 26px;
+    line-height: 1.25;
   }
 
-  .modal-header {
-    flex-shrink: 0;
-    margin-bottom: 20px;
-    padding: 0 36px 16px 0;
-    border-bottom: 1px solid #1e293b;
+  .modal-description {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
   }
 
-  .modal-header h2 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 950;
-    text-transform: uppercase;
-  }
-
-  .modal-header p {
-    margin: 6px 0 0;
-    color: #94a3b8;
-    font-size: 11px;
-  }
-
-  .modal-title-row {
-    gap: 12px;
-  }
-
-  .shield-icon {
+  #register-form {
     display: grid;
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-    place-items: center;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    background: #1e293b;
-    font-size: 22px;
+    gap: 10px;
+    margin-top: 22px;
   }
 
-  .register-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-
-  .form-field label {
-    color: #cbd5e1;
+  #register-form > label:not(.checkbox-label) {
+    margin-top: 8px;
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 700;
   }
 
-  .form-field input {
+  #register-form input[type="text"] {
     width: 100%;
-    min-height: 46px;
-    padding: 12px 14px;
-    border: 1px solid #334155;
-    border-radius: 10px;
-    background: #020617;
-    color: #f8fafc;
-    font-size: 14px;
+    min-height: 45px;
+    padding: 11px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    background: #090e1a;
+    color: var(--text);
+  }
+
+  #register-form input::placeholder {
+    color: #65718a;
   }
 
   .checkbox-label {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    color: #94a3b8;
+    margin: 12px 0;
+    color: var(--muted);
     font-size: 12px;
-    line-height: 1.6;
-    cursor: pointer;
   }
 
   .checkbox-label input {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    accent-color: #fbbf24;
+    margin-top: 5px;
+    accent-color: var(--accent);
   }
 
-  .modal-actions {
-    display: flex;
-    flex-shrink: 0;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 20px;
-  }
-
-  .rules-content,
-  .leaderboard-list {
-    overflow-y: auto;
-    padding-right: 6px;
+  .button-full {
+    width: 100%;
   }
 
   .rules-content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    color: #cbd5e1;
-    font-size: 13px;
-    line-height: 1.8;
+    margin-block: 22px;
+  }
+
+  .rules-content h3 {
+    margin-bottom: 3px;
+    font-size: 14px;
   }
 
   .rules-content p {
-    margin: 0;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 13px;
   }
 
-  .rules-content strong {
-    color: #fbbf24;
+  .leaderboard-header,
+  .leaderboard-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .leaderboard-header {
+    margin-top: 25px;
+    padding: 10px 13px;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1px;
   }
 
   .leaderboard-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 8px;
-    min-height: 50px;
-    color: #cbd5e1;
-    font-size: 13px;
   }
 
   .leaderboard-row {
-    display: flex;
-    min-width: 0;
-    align-items: center;
-    gap: 12px;
     padding: 12px;
-    border: 1px solid #1e293b;
-    border-radius: 12px;
-    background: rgba(2, 6, 23, .6);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 9px;
+    background: rgba(8, 11, 20, 0.55);
   }
 
   .leaderboard-position {
-    width: 28px;
-    flex-shrink: 0;
-    color: #fbbf24;
-    font-weight: 950;
-    text-align: center;
+    color: var(--accent-bright);
+    font-size: 12px;
+    font-weight: 800;
   }
 
   .leaderboard-avatar {
-    font-size: 20px;
+    display: grid;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 10px;
+    background: rgba(167, 139, 250, 0.13);
+    color: var(--accent-bright);
+    font-weight: 800;
   }
 
   .leaderboard-info {
-    flex: 1;
+    display: flex;
     min-width: 0;
+    align-items: center;
+    gap: 11px;
   }
 
   .leaderboard-nickname {
-    overflow: hidden;
-    color: #f1f5f9;
+    overflow-wrap: anywhere;
     font-size: 13px;
-    font-weight: 800;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-weight: 750;
   }
 
   .leaderboard-region {
-    margin-top: 4px;
-    color: #94a3b8;
+    color: var(--muted);
     font-size: 10px;
   }
 
   .leaderboard-count {
-    flex-shrink: 0;
-    color: #34d399;
-    font-size: 12px;
-    font-weight: 950;
+    color: var(--cyan);
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
   }
 
-  @media (max-width: 700px) {
-    .main-container {
-      padding: 20px 10px;
+  .empty-message {
+    padding: 20px 10px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 13px;
+  }
+
+  @media (max-width: 850px) {
+    .navbar {
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .content {
-      padding: 28px 16px;
+    .nav-links {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 8px;
+    }
+
+    .nav-actions {
+      margin-left: auto;
+    }
+
+    .hero {
+      grid-template-columns: 1fr 0.8fr;
+      gap: 15px;
+    }
+
+    .hero-art {
+      transform: scale(0.85);
+    }
+
+    .features {
+      gap: 10px;
+    }
+
+    .feature-card {
+      padding: 18px;
+    }
+
+    .details-grid {
+      gap: 30px;
+    }
+
+    .discord-panel {
+      padding: 28px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .section-container {
+      width: min(100% - 30px, 480px);
+    }
+
+    .navbar {
+      padding: 12px 15px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .online-indicator {
+      display: none;
+    }
+
+    .nav-links {
+      gap: 16px;
+    }
+
+    .nav-links a,
+    .nav-button {
+      font-size: 12px;
+    }
+
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding-top: 55px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: clamp(42px, 12vw, 64px);
+    }
+
+    .hero-art {
+      min-height: 330px;
+      margin-top: 10px;
+      transform: scale(0.9);
+    }
+
+    .countdown-section {
+      padding-bottom: 55px;
+    }
+
+    .countdown {
+      gap: 7px;
+    }
+
+    .time-card {
+      padding: 15px 3px;
+    }
+
+    .time-card small {
+      font-size: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .features {
+      grid-template-columns: 1fr;
+      padding-bottom: 55px;
+    }
+
+    .feature-card p {
+      min-height: auto;
+    }
+
+    .details-section,
+    .discord-section {
+      padding-block: 55px;
     }
 
     .details-grid {
       grid-template-columns: 1fr;
-      gap: 16px;
+      gap: 28px;
     }
 
-    .feature-grid {
-      gap: 8px;
+    .discord-panel {
+      align-items: flex-start;
+      flex-direction: column;
+      padding: 24px;
     }
 
-    .feature-card {
-      padding: 16px 6px;
+    .footer {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 12px;
+      padding: 25px 20px;
     }
 
-    .feature-card p {
-      font-size: 11px;
-      line-height: 1.5;
+    .footer p {
+      margin: 0;
     }
 
-    .detail-card {
-      padding: 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .navbar {
-      padding: 10px;
+    .modal {
+      padding: 12px;
     }
 
-    .nav-inner {
-      gap: 8px;
-    }
-
-    .brand {
-      gap: 8px;
-    }
-
-    .brand-icon {
-      width: 34px;
-      height: 34px;
-      font-size: 18px;
-    }
-
-    .brand small {
-      max-width: 135px;
-      font-size: 8px;
-      letter-spacing: .04em;
-    }
-
-    .brand strong {
-      font-size: 10px;
-      letter-spacing: 0;
-    }
-
-    .nav-actions {
-      gap: 5px;
-    }
-
-    .button {
-      padding: 9px;
-      font-size: 10px;
-    }
-
-    .players-label {
-      display: none;
-    }
-
-    .icon-button {
-      min-width: 36px;
-    }
-
-    .hero-tagline {
-      font-size: 9px;
-    }
-
-    .primary-actions {
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
-    .countdown-card {
-      padding: 12px 8px;
-    }
-
-    .countdown-heading {
-      font-size: 9px;
-    }
-
-    .time-box strong {
-      font-size: 22px;
-    }
-
-    .time-box span {
-      font-size: 9px;
-    }
-
-    .discord-button {
-      gap: 8px;
-      padding: 12px 10px;
-    }
-
-    .discord-copy strong {
-      font-size: 10px;
-    }
-
-    .discord-copy small {
-      font-size: 9px;
-    }
-
-    .modal-card {
-      padding: 20px 16px;
-    }
-
-    .modal-actions {
-      flex-wrap: wrap;
+    .modal-dialog {
+      max-height: calc(100vh - 24px);
+      padding: 25px 20px;
     }
   }
 
@@ -1285,8 +1507,8 @@ const title = "Copa Artemis 2026";
     *::before,
     *::after {
       scroll-behavior: auto !important;
-      animation-duration: .01ms !important;
-      transition-duration: .01ms !important;
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
     }
   }
 </style>
