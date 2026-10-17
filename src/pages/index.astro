@@ -396,6 +396,7 @@ const title = "Copa Artemis 2026";
             id="reg-nick"
             required
             maxlength="40"
+            autocomplete="nickname"
           />
 
         </div>
@@ -411,6 +412,7 @@ const title = "Copa Artemis 2026";
             id="reg-discord"
             required
             maxlength="80"
+            autocomplete="off"
           />
 
         </div>
@@ -1799,10 +1801,6 @@ function updateCountdown() {
   let diff;
 
 
-  /*
-    ANTES DEL TORNEO
-  */
-
   if (now < tournamentStart) {
 
     diff =
@@ -1816,11 +1814,6 @@ function updateCountdown() {
 
   }
 
-
-  /*
-    TORNEO EN CURSO
-  */
-
   else if (now < tournamentEnd) {
 
     diff =
@@ -1833,11 +1826,6 @@ function updateCountdown() {
       '25 OCT, 2026 · 16:00 GMT-6';
 
   }
-
-
-  /*
-    TORNEO TERMINADO
-  */
 
   else {
 
@@ -1928,26 +1916,24 @@ function closeModal() {
 
 
 /* =========================================================
-   BOTONES
+   BOTÓN DE REGISTRO
    ========================================================= */
 
 $('btn-open-register')?.addEventListener(
   'click',
   () => {
 
-    /*
-      Esta página ya NO registra entrenadores.
-      Los entrenadores se administran directamente
-      desde la base de datos.
-    */
-
-    showToast(
-      'Las inscripciones se gestionan desde el servidor oficial de Copa Artemis.'
+    openModal(
+      'modal-register'
     );
 
   }
 );
 
+
+/* =========================================================
+   REGLAMENTO
+   ========================================================= */
 
 $('btn-open-rules')?.addEventListener(
   'click',
@@ -1960,6 +1946,10 @@ $('btn-open-rules')?.addEventListener(
   }
 );
 
+
+/* =========================================================
+   CLASIFICACIÓN
+   ========================================================= */
 
 $('btn-leaderboard')?.addEventListener(
   'click',
@@ -1974,6 +1964,10 @@ $('btn-leaderboard')?.addEventListener(
   }
 );
 
+
+/* =========================================================
+   CERRAR MODALES
+   ========================================================= */
 
 document
   .querySelectorAll('.close-modal')
@@ -2010,38 +2004,337 @@ document
 
 
 /* =========================================================
-   REGISTRO
+   REGISTRO DE ENTRENADOR
    ========================================================= */
-
-/*
-  IMPORTANTE:
-
-  Esta página NO crea entrenadores.
-
-  No hacemos:
-
-  .insert()
-  .from('entrenadores')
-
-  ni:
-
-  .insert()
-  .from('progreso')
-
-  El leaderboard solamente muestra
-  los entrenadores que ya existen
-  en Supabase.
-*/
 
 $('form-register')?.addEventListener(
   'submit',
-  event => {
+  async event => {
 
     event.preventDefault();
 
-    showToast(
-      'Las inscripciones se gestionan desde el servidor oficial de Copa Artemis.'
-    );
+
+    /*
+      Evitar doble envío mientras
+      se está registrando.
+    */
+
+    const submitButton =
+      event.target.querySelector(
+        'button[type="submit"]'
+      );
+
+
+    if (
+      submitButton?.disabled
+    ) {
+
+      return;
+
+    }
+
+
+    /*
+      Inicializar Supabase.
+    */
+
+    if (
+      !initializeSupabase()
+    ) {
+
+      showToast(
+        'No se pudo conectar con Supabase.',
+        true
+      );
+
+      return;
+
+    }
+
+
+    /*
+      Obtener datos del formulario.
+    */
+
+    const nick =
+      $('reg-nick')?.value.trim();
+
+    const discord =
+      $('reg-discord')?.value.trim();
+
+    const accepted =
+      $('reg-rules')?.checked;
+
+
+    /*
+      Validación.
+    */
+
+    if (
+      !nick ||
+      !discord ||
+      !accepted
+    ) {
+
+      showToast(
+        'Completa todos los campos y acepta el reglamento.',
+        true
+      );
+
+      return;
+
+    }
+
+
+    /*
+      Desactivar botón para evitar
+      registros duplicados por doble click.
+    */
+
+    if (submitButton) {
+
+      submitButton.disabled = true;
+
+      submitButton.textContent =
+        'Registrando...';
+
+    }
+
+
+    try {
+
+      /*
+        =====================================================
+        COMPROBAR SI YA EXISTE EL ENTRENADOR
+        =====================================================
+
+        Buscamos por nickname.
+
+        Esto evita crear dos veces al mismo entrenador.
+      */
+
+      const {
+        data: existingTrainer,
+        error: existingError
+      } = await supabaseClient
+
+        .from('entrenadores')
+
+        .select(
+          'id,nickname,discord_user'
+        )
+
+        .ilike(
+          'nickname',
+          nick
+        )
+
+        .limit(1);
+
+
+      if (existingError) {
+
+        throw existingError;
+
+      }
+
+
+      if (
+        existingTrainer &&
+        existingTrainer.length > 0
+      ) {
+
+        showToast(
+          'Ese nombre de entrenador ya está registrado.',
+          true
+        );
+
+        return;
+
+      }
+
+
+      /*
+        =====================================================
+        CREAR ENTRENADOR
+        =====================================================
+
+        IMPORTANTE:
+
+        El status correcto es:
+
+        "Inscrito"
+
+        NO:
+
+        "registered"
+
+        porque tu restricción de Supabase
+        solamente permite:
+
+        Inscrito
+        En Carrera
+        Descalificado
+      */
+
+      const {
+        data: newTrainer,
+        error: insertError
+      } = await supabaseClient
+
+        .from('entrenadores')
+
+        .insert([
+          {
+            nickname: nick,
+            discord_user: discord,
+            region: 'Ketzal',
+            status: 'Inscrito',
+            accepted_rules: accepted,
+            created_at:
+              new Date().toISOString()
+          }
+        ])
+
+        .select(
+          'id,nickname,discord_user,region,status,accepted_rules,created_at'
+        );
+
+
+      if (insertError) {
+
+        throw insertError;
+
+      }
+
+
+      /*
+        Confirmar que Supabase realmente
+        creó el entrenador.
+      */
+
+      if (
+        !newTrainer ||
+        newTrainer.length === 0
+      ) {
+
+        throw new Error(
+          'Supabase no devolvió el entrenador creado.'
+        );
+
+      }
+
+
+      /*
+        Limpiar formulario.
+      */
+
+      event.target.reset();
+
+
+      /*
+        Cerrar modal.
+      */
+
+      closeModal();
+
+
+      /*
+        Actualizar clasificación
+        inmediatamente.
+      */
+
+      await loadLeaderboard();
+
+
+      /*
+        Mensaje de éxito.
+      */
+
+      showToast(
+        `¡Inscripción completada! Bienvenido, ${nick}.`
+      );
+
+    }
+
+    catch (error) {
+
+      console.error(
+        'Error registrando entrenador:',
+        error
+      );
+
+
+      let message =
+        error?.message ||
+        'No se pudo completar la inscripción.';
+
+
+      /*
+        Mensajes más claros para errores
+        conocidos de Supabase.
+      */
+
+      if (
+        message.includes(
+          'entrenadores_status_check'
+        )
+      ) {
+
+        message =
+          'El estado "Inscrito" no está permitido por la configuración actual de Supabase.';
+
+      }
+
+      else if (
+        message.includes(
+          'duplicate key'
+        )
+      ) {
+
+        message =
+          'Ese entrenador ya está registrado.';
+
+      }
+
+      else if (
+        message.includes(
+          'row-level security'
+        ) ||
+        message.includes(
+          'RLS'
+        )
+      ) {
+
+        message =
+          'Supabase está bloqueando el registro por las políticas de seguridad de la tabla entrenadores.';
+
+      }
+
+
+      showToast(
+        message,
+        true
+      );
+
+    }
+
+    finally {
+
+      /*
+        Reactivar botón.
+      */
+
+      if (submitButton) {
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+          'Confirmar inscripción';
+
+      }
+
+    }
 
   }
 );
@@ -2091,12 +2384,12 @@ async function loadLeaderboard() {
 
     /*
       =====================================================
-      1. OBTENER ENTRENADORES EXISTENTES
+      1. OBTENER ENTRENADORES
       =====================================================
 
-      SOLO SELECT.
+      Aquí solamente hacemos SELECT.
 
-      NO se crea ningún entrenador.
+      La clasificación NO crea entrenadores.
     */
 
     const {
@@ -2108,6 +2401,15 @@ async function loadLeaderboard() {
 
       .select(
         'id,nickname,region,status,created_at'
+      )
+
+      .in(
+        'status',
+        [
+          'Inscrito',
+          'En Carrera',
+          'Descalificado'
+        ]
       )
 
       .order(
@@ -2138,8 +2440,7 @@ async function loadLeaderboard() {
 
 
     /*
-      Si no existen entrenadores,
-      mostrar mensaje.
+      Si no hay entrenadores.
     */
 
     if (
@@ -2157,15 +2458,14 @@ async function loadLeaderboard() {
       `;
 
       return;
+
     }
 
 
     /*
       =====================================================
-      2. OBTENER PROGRESO EXISTENTE
+      2. OBTENER PROGRESO
       =====================================================
-
-      También es SOLO SELECT.
     */
 
     const trainerIds =
@@ -2225,9 +2525,6 @@ async function loadLeaderboard() {
       =====================================================
       3. ORDENAR CLASIFICACIÓN
       =====================================================
-
-      Mayor cantidad de Pokémon capturados
-      aparece primero.
     */
 
     const sorted =
@@ -2270,8 +2567,8 @@ async function loadLeaderboard() {
 
 
           /*
-            Si tienen la misma cantidad,
-            conservar orden de registro.
+            En empate, gana la posición
+            según fecha de registro.
           */
 
           return (
@@ -2550,7 +2847,7 @@ window.addEventListener(
 
     /*
       Cargar únicamente los entrenadores
-      que YA existen.
+      que ya existen en Supabase.
     */
 
     await loadLeaderboard();
