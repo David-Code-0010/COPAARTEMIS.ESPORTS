@@ -9,12 +9,10 @@ const title = "Copa Artemis 2026";
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#08090d" />
   <title>{title}</title>
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
-  <!-- FONDO -->
   <div class="background" aria-hidden="true">
     <div class="background-glow"></div>
     <div class="background-grid"></div>
@@ -22,7 +20,6 @@ const title = "Copa Artemis 2026";
     <div class="glow glow-gold"></div>
   </div>
 
-  <!-- NAVBAR -->
   <header class="navbar">
     <div class="nav-inner">
       <a class="brand" href="/" aria-label="Copa Artemis, inicio">
@@ -32,7 +29,6 @@ const title = "Copa Artemis 2026";
           <strong>COPA ARTEMIS 2026</strong>
         </span>
       </a>
-
       <nav class="nav-actions">
         <button id="btn-leaderboard" class="button button-dark">
           <span class="players-label">Jugadores</span>
@@ -47,7 +43,6 @@ const title = "Copa Artemis 2026";
     </div>
   </header>
 
-  <!-- TOAST -->
   <div id="toast-container" class="toast-container" hidden>
     <div id="toast-body" class="toast-body">
       <p id="toast-text">Notificación</p>
@@ -71,7 +66,6 @@ const title = "Copa Artemis 2026";
             </p>
           </section>
 
-          <!-- COUNTDOWN -->
           <section class="countdown-card">
             <div class="countdown-heading">
               <span>INICIO DEL TORNEO</span>
@@ -85,26 +79,27 @@ const title = "Copa Artemis 2026";
             </div>
           </section>
 
-          <!-- FEATURES -->
           <section class="feature-grid">
             <article class="feature-card">
+              <img src="https://files.catbox.moe/ptoku8.jpg" class="card-deco deco-premio" alt="">
               <span class="feature-icon">🏆</span>
               <span class="muted">PREMIO MAYOR</span>
               <p class="prize-text">REGALOS EXCLUSIVOS</p>
             </article>
             <article class="feature-card">
+              <img src="https://files.catbox.moe/1iilzg.jpg" class="card-deco deco-juego" alt="">
               <span class="feature-icon">🎮</span>
               <span class="pill pill-game">MOÉMON KETZAL</span>
               <p>ÚNICO JUEGO OFICIAL</p>
             </article>
             <article class="feature-card">
+              <img src="https://files.catbox.moe/an6jpo.jpg" class="card-deco deco-ganador" alt="">
               <span class="feature-icon">🥇</span>
               <p>1 GANADOR ABSOLUTO</p>
               <span class="muted">POKÉDEX COMPLETADA</span>
             </article>
           </section>
 
-          <!-- BOTONES -->
           <section class="primary-actions">
             <button id="btn-open-register" class="button button-primary">¡INSCRÍBETE AHORA!</button>
             <button id="btn-open-rules" class="button button-secondary">REGLAMENTO OFICIAL</button>
@@ -116,14 +111,13 @@ const title = "Copa Artemis 2026";
 
           <section class="details-grid">
             <article class="detail-card">
+              <img src="https://files.catbox.moe/omht9x.jpg" class="card-deco deco-fecha" alt="">
               <h2>FECHA</h2>
               <p class="detail-main">10-25 DE OCTUBRE, 2026</p>
               <p class="muted small">Horario: 16:00 GMT-6 · 15 días de competición</p>
-
               <h2 class="spaced-heading">LUGAR</h2>
               <p class="detail-main">SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
               <p class="muted small">Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
-
               <div class="detail-footer">
                 <strong>MOÉMON KETZAL</strong>
                 <span>🌱 🔥 💧</span>
@@ -131,22 +125,20 @@ const title = "Copa Artemis 2026";
             </article>
 
             <article class="detail-card">
+              <img src="https://files.catbox.moe/lniiri.jpg" class="card-deco deco-lugar" alt="">
               <div class="registration-heading">
                 <h2>INSCRIPCIONES</h2>
                 <span class="status">ABIERTAS</span>
               </div>
-
               <div class="registration-info">
                 <p><strong>REGISTRO INDIVIDUAL ACTIVO</strong></p>
                 <p>• Carrera individual de velocidad</p>
                 <p>• Región Ketzal completa</p>
                 <p>• Pokédex Galar ampliada</p>
               </div>
-
               <p class="prize-footer">
                 <strong>🏆 Premios:</strong> Master Trophy + <span>regalos exclusivos</span>
               </p>
-
               <a id="btn-community" href="https://discord.gg/3GWTVzjHS4" target="_blank" rel="noopener noreferrer" class="discord-button">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="discord-icon" aria-hidden="true">
                   <path d="M19.73 5.2a18.1 18.1 0 0 0-4.46-1.38.07.07 0 0 0-.08.04c-.19.34-.4.78-.55 1.13a16.7 16.7 0 0 0-5.02 0c-.15-.36-.37-.79-.56-1.13a.08.08 0 0 0-.08-.04A18 18 0 0 0 4.52 5.2a.07.07 0 0 0-.03.03C1.66 9.43.89 13.53 1.27 17.58c0 .02.01.04.03.05a18.2 18.2 0 0 0 5.47 2.76.08.08 0 0 0 .09-.03c.42-.57.79-1.17 1.11-1.8a.08.08 0 0 0-.04-.11 12 12 0 0 1-1.71-.81.08.08 0 0 1-.01-.13l.34-.27a.08.08 0 0 1 .08-.01c3.58 1.63 7.45 1.63 10.99 0a.08.08 0 0 1 .08.01l.34.27a.08.08 0 0 1-.01.13c-.55.32-1.12.59-1.71.81a.08.08 0 0 0-.04.11c.33.63.7 1.23 1.11 1.8a.08.08 0 0 0 .09.03 18.2 18.2 0 0 0 5.48-2.76.08.08 0 0 0 .03-.05c.45-4.69-.76-8.76-3.23-12.35a.06.06 0 0 0-.03-.03ZM8.24 14.6c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Zm7.28 0c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Z"/>
@@ -227,7 +219,6 @@ const title = "Copa Artemis 2026";
     </section>
   </div>
 
-  <!-- CSS (sin cambios) -->
   <style is:global>
     * { box-sizing: border-box; }
     html { min-width: 320px; scroll-behavior: smooth; background: #08090d; }
@@ -307,7 +298,11 @@ const title = "Copa Artemis 2026";
     .time-box strong { font-size: clamp(22px, 4vw, 30px); font-weight: 950; font-variant-numeric: tabular-nums; }
     .time-box span { margin-top: 3px; color: #94a3b8; font-size: 10px; }
     .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .feature-card { display: flex; min-width: 0; min-height: 145px; flex-direction: column; align-items: center; justify-content: center; padding: 20px 12px; border: 1px solid #334155; border-radius: 14px; background: #0f172a; text-align: center; }
+    .feature-card {
+      display: flex; min-width: 0; min-height: 145px; flex-direction: column; align-items: center; justify-content: center;
+      padding: 20px 12px; border: 1px solid #334155; border-radius: 14px; background: #0f172a; text-align: center;
+      position: relative; overflow: hidden;
+    }
     .feature-icon { margin-bottom: 10px; font-size: 30px; }
     .muted { color: #94a3b8; }
     .feature-card .muted { font-size: 10px; }
@@ -321,7 +316,10 @@ const title = "Copa Artemis 2026";
     .section-heading { margin-bottom: 24px; text-align: center; }
     .section-heading span { display: inline-block; padding: 10px 24px; border: 1px solid rgba(245, 158, 11, .3); border-radius: 999px; color: #fbbf24; font-size: 10px; font-weight: 950; letter-spacing: .12em; }
     .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-    .detail-card { min-width: 0; padding: 24px; border: 1px solid #1e293b; border-radius: 18px; background: #0f172a; }
+    .detail-card {
+      min-width: 0; padding: 24px; border: 1px solid #1e293b; border-radius: 18px; background: #0f172a;
+      position: relative; overflow: hidden;
+    }
     .detail-card h2 { margin: 0 0 10px; color: #fbbf24; font-size: 14px; font-weight: 950; }
     .detail-main { margin: 0; font-size: 15px; font-weight: 950; line-height: 1.5; }
     .small { margin: 5px 0 0; font-size: 11px; line-height: 1.7; }
@@ -401,6 +399,31 @@ const title = "Copa Artemis 2026";
     .leaderboard-region { margin-top: 4px; color: #94a3b8; font-size: 10px; }
     .leaderboard-count { flex-shrink: 0; color: #34d399; font-size: 12px; font-weight: 950; }
 
+    /* Decoraciones Pokémon */
+    .card-deco {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.9;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .feature-card:hover .card-deco,
+    .detail-card:hover .card-deco {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    .deco-premio { top: 8px; right: 8px; }
+    .deco-juego { top: 8px; left: 8px; }
+    .deco-ganador { bottom: 8px; right: 8px; }
+    .deco-fecha { top: 12px; right: 12px; }
+    .deco-lugar { top: 12px; right: 12px; }
+
     @media (max-width: 700px) {
       .main-container { padding: 20px 10px; }
       .content { padding: 28px 16px; }
@@ -409,6 +432,7 @@ const title = "Copa Artemis 2026";
       .feature-card { padding: 16px 6px; }
       .feature-card p { font-size: 11px; line-height: 1.5; }
       .detail-card { padding: 20px; }
+      .card-deco { width: 56px; height: 56px; }
     }
     @media (max-width: 480px) {
       .navbar { padding: 10px; }
@@ -442,7 +466,6 @@ const title = "Copa Artemis 2026";
     }
   </style>
 
-  <!-- JAVASCRIPT CON SUPABASE -->
   <script>
     const SUPABASE_URL = 'https://flldgvplxxogaqdmvhkb.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsbGRndnBseHhvZ2FxdG12aGtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMTY0ODksImV4cCI6MjEwNzc5MjQ4OX0.mmBIPpVvp0pmfIZtTnEBRGN74fCYnfdPMs4Uym9Y8h30';
@@ -461,7 +484,6 @@ const title = "Copa Artemis 2026";
       return true;
     }
 
-    // Countdown
     const targetDate = new Date("2026-10-10T16:00:00-06:00").getTime();
     function updateCountdown() {
       const diff = targetDate - Date.now();
@@ -480,7 +502,6 @@ const title = "Copa Artemis 2026";
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // Modales
     function openModal(id) {
       $(id).hidden = false;
       document.body.style.overflow = 'hidden';
@@ -500,7 +521,6 @@ const title = "Copa Artemis 2026";
       modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     });
 
-    // Toast
     function showToast(text, isError = false) {
       const container = $('toast-container');
       const body = $('toast-body');
@@ -511,13 +531,11 @@ const title = "Copa Artemis 2026";
       window.__toastT = setTimeout(() => container.hidden = true, 3500);
     }
 
-    // Registro con Supabase
     $('form-register')?.addEventListener('submit', async e => {
       e.preventDefault();
       const nick = $('reg-nick').value.trim();
       const discord = $('reg-discord').value.trim();
       const accepted = $('reg-rules').checked;
-
       if (!nick || !discord || !accepted) {
         showToast('Completa todos los campos y acepta el reglamento', true);
         return;
@@ -526,26 +544,20 @@ const title = "Copa Artemis 2026";
         showToast('No se pudo conectar con Supabase.', true);
         return;
       }
-
       const btn = e.target.querySelector('[type="submit"]');
       btn.disabled = true;
       btn.textContent = 'Registrando...';
-
       try {
         const { data: trainer, error: trainerError } = await supabaseClient
           .from('entrenadores')
           .insert([{ nickname: nick, discord: discord }])
           .select()
           .single();
-
         if (trainerError) throw trainerError;
-
         const { error: progressError } = await supabaseClient
           .from('progreso')
           .insert([{ entrenador_id: trainer.id, capturas: 0, pokedex_total: 200 }]);
-
         if (progressError) console.error(progressError);
-
         showToast(`¡${nick} se ha inscrito correctamente!`);
         e.target.reset();
         closeModal();
@@ -559,39 +571,30 @@ const title = "Copa Artemis 2026";
       }
     });
 
-    // Leaderboard con Supabase
     async function loadLeaderboard() {
       const list = $('leaderboard-list');
       if (!initializeSupabase()) {
         list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">No se pudo conectar con Supabase.</p>';
         return;
       }
-
       list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">Cargando...</p>';
-
       try {
         const { data, error } = await supabaseClient
           .from('entrenadores')
           .select('*, progreso(capturas, pokedex_total)')
           .order('created_at', { ascending: true });
-
         if (error) throw error;
-
         $('player-count').textContent = data.length;
         list.innerHTML = '';
-
         if (data.length === 0) {
           list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">Aún no hay entrenadores registrados</p>';
           return;
         }
-
         const sorted = [...data].sort((a, b) => (b.progreso?.[0]?.capturas || 0) - (a.progreso?.[0]?.capturas || 0));
-
         sorted.forEach((trainer, i) => {
           const progress = trainer.progreso?.[0];
           const captures = progress?.capturas || 0;
           const total = progress?.pokedex_total || 200;
-
           const row = document.createElement('div');
           row.className = 'leaderboard-row';
           row.innerHTML = `
@@ -611,7 +614,6 @@ const title = "Copa Artemis 2026";
       }
     }
 
-    // Compartir
     $('btn-share')?.addEventListener('click', async () => {
       const data = { title: 'Copa Artemis 2026', text: '¡Participa en la Copa Artemis 2026!', url: location.href };
       if (navigator.share) {
@@ -622,7 +624,6 @@ const title = "Copa Artemis 2026";
       }
     });
 
-    // Audio (solo icono)
     let audioOn = true;
     $('btn-audio')?.addEventListener('click', () => {
       audioOn = !audioOn;
@@ -631,7 +632,6 @@ const title = "Copa Artemis 2026";
       $('btn-audio').setAttribute('aria-pressed', audioOn);
     });
 
-    // Cargar leaderboard al inicio
     loadLeaderboard();
   </script>
 </body>
