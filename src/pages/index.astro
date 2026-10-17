@@ -1,823 +1,1292 @@
-<!DOCTYPE html>
+
+---
+const title = "Copa Artemis 2026";
+---
+
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copa Artemis 2026</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08090d" />
+    <meta
+      name="description"
+      content="Participa en la Copa Artemis 2026 de Moémon Ketzal."
+    />
+    <title>{title}</title>
+  </head>
 
-    <!-- TAILWIND CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- SUPABASE -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-        body {
-            background-color: #08090d;
-            color: #f1f5f9;
-            font-family: system-ui, sans-serif;
-        }
-
-        .icon-svg {
-            width: 1.25rem;
-            height: 1.25rem;
-        }
-    </style>
-</head>
-
-<body class="min-h-screen bg-[#08090d] text-slate-100 antialiased relative overflow-x-hidden selection:bg-slate-300 selection:text-slate-900">
-
-    <!-- FONDO CYBERPUNK -->
-    <div class="fixed inset-0 pointer-events-none z-0">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(203,213,225,0.12),rgba(255,255,255,0))]"></div>
-
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-
-        <div class="absolute top-1/4 left-10 w-96 h-96 bg-slate-300/5 rounded-full blur-3xl animate-pulse"></div>
-
-        <div class="absolute bottom-1/3 right-10 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse" style="animation-duration:6s"></div>
+  <body>
+    <div class="background" aria-hidden="true">
+      <div class="background-glow"></div>
+      <div class="background-grid"></div>
+      <div class="glow glow-silver"></div>
+      <div class="glow glow-gold"></div>
     </div>
 
-    <!-- NAVEGACIÓN -->
-    <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#08090d]/80 border-b border-slate-800/80 px-4 py-3 shadow-2xl">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+    <header class="navbar">
+      <div class="nav-inner">
+        <a class="brand" href="/" aria-label="Copa Artemis, inicio">
+          <span class="brand-icon">🏆</span>
+          <span>
+            <small>Torneo Oficial Moemon</small>
+            <strong>COPA ARTEMIS 2026</strong>
+          </span>
+        </a>
 
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-200 via-slate-400 to-slate-700 p-[1px]">
-                    <div class="w-full h-full bg-[#0d0f17] rounded-[11px] flex items-center justify-center">
+        <nav class="nav-actions" aria-label="Acciones">
+          <button id="btn-leaderboard" class="button button-dark">
+            <span class="players-label">Jugadores</span>
+            <span id="player-count" class="count">0</span>
+          </button>
 
-                        <svg class="icon-svg text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                            <path d="M4 22h16"/>
-                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-                        </svg>
+          <button id="btn-share" class="button button-dark">
+            Compartir
+          </button>
 
-                    </div>
-                </div>
-
-                <div>
-                    <span class="text-xs font-bold tracking-widest text-slate-400 uppercase block">
-                        Torneo Oficial Moemon
-                    </span>
-
-                    <span class="text-sm font-black tracking-wider text-slate-100">
-                        COPA ARTEMIS 2026
-                    </span>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-2">
-
-                <button id="btn-leaderboard" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/70 border border-slate-600/40 text-xs font-semibold">
-                    <span class="hidden sm:inline">Jugadores</span>
-                    <span id="player-count" class="bg-slate-900 text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full">0</span>
-                </button>
-
-                <button id="btn-share" aria-label="Compartir" class="p-2 rounded-lg bg-slate-800/70 border border-slate-600/40">
-                    Compartir
-                </button>
-
-                <button id="btn-audio" aria-label="Alternar icono de sonido" class="p-2 rounded-lg bg-slate-800/70 border border-slate-600/40">
-                    <span id="icon-vol-on">🔊</span>
-                    <span id="icon-vol-off" class="hidden">🔇</span>
-                </button>
-
-            </div>
-        </div>
+          <button
+            id="btn-audio"
+            class="button button-dark icon-button"
+            aria-label="Alternar icono de sonido"
+            aria-pressed="true"
+          >
+            <span id="icon-vol-on">🔊</span>
+            <span id="icon-vol-off" hidden>🔇</span>
+          </button>
+        </nav>
+      </div>
     </header>
 
-    <!-- NOTIFICACIONES -->
-    <div id="toast-container" class="fixed top-16 right-4 z-[100] hidden">
-        <div id="toast-body" class="px-4 py-3 rounded-xl border bg-slate-900 text-slate-100 shadow-2xl">
-            <p id="toast-text" class="text-sm font-medium">Notificación</p>
-        </div>
+    <div id="toast-container" class="toast-container" hidden>
+      <div id="toast-body" class="toast-body">
+        <p id="toast-text">Notificación</p>
+      </div>
     </div>
 
-    <!-- CONTENIDO -->
-    <main class="relative z-10 max-w-6xl mx-auto px-2 sm:px-4 py-6 md:py-10">
-
-        <div class="rounded-3xl p-[2px] bg-gradient-to-b from-slate-200 via-slate-400 to-slate-700 shadow-2xl">
-
-            <div class="bg-[#0b0c12] rounded-[22px] overflow-hidden">
-
-                <div class="p-4 sm:p-8 md:p-12 lg:px-16">
-
-                    <!-- ENCABEZADO -->
-                    <div class="text-center mb-6">
-                        <span class="inline-flex items-center px-4 py-2 rounded-full bg-slate-800 border border-amber-500/40 text-amber-300 text-sm font-bold tracking-widest">
-                            COPA ARTEMIS
-                        </span>
-                    </div>
-
-                    <div class="text-center space-y-2 mb-8">
-
-                        <h1 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-100 uppercase">
-                            CONCURSO ARTEMIS
-                        </h1>
-
-                        <div class="text-xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400">
-                            x CURI GAMEPLAYS
-                        </div>
-
-                        <p class="pt-2 text-xs sm:text-sm font-bold tracking-widest text-amber-400 uppercase">
-                            ATRÁPALOS A TODOS - CACERÍA DE POKÉMON EN MOEMON KETZAL
-                        </p>
-
-                    </div>
-
-                    <div class="max-w-2xl mx-auto text-center mb-10">
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            Participa en el primer gran torneo de captura de Pokémon Moemon. Una carrera épica para ver quién es el maestro absoluto. El primero en completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
-                        </p>
-                    </div>
-
-                    <!-- CONTADOR -->
-                    <div class="mb-10 max-w-2xl mx-auto rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-4 border border-slate-700">
-
-                        <div class="flex items-center justify-between mb-3 border-b border-slate-700 pb-2">
-                            <span class="text-xs font-bold tracking-wider text-slate-300 uppercase">
-                                INICIO DEL TORNEO
-                            </span>
-
-                            <span class="text-[11px] text-emerald-400">
-                                10 OCT, 2026
-                            </span>
-                        </div>
-
-                        <div class="grid grid-cols-4 gap-2 text-center">
-
-                            <div class="bg-slate-950 p-2 rounded-lg">
-                                <div id="t-days" class="text-2xl font-black">00</div>
-                                <div class="text-[10px] text-slate-400">DÍAS</div>
-                            </div>
-
-                            <div class="bg-slate-950 p-2 rounded-lg">
-                                <div id="t-hours" class="text-2xl font-black">00</div>
-                                <div class="text-[10px] text-slate-400">HORAS</div>
-                            </div>
-
-                            <div class="bg-slate-950 p-2 rounded-lg">
-                                <div id="t-minutes" class="text-2xl font-black">00</div>
-                                <div class="text-[10px] text-slate-400">MIN</div>
-                            </div>
-
-                            <div class="bg-slate-950 p-2 rounded-lg">
-                                <div id="t-seconds" class="text-2xl font-black">00</div>
-                                <div class="text-[10px] text-slate-400">SEG</div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- TARJETAS -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-
-                        <div class="rounded-xl bg-slate-900 p-5 border border-slate-700 text-center">
-                            <div class="text-3xl mb-2">🏆</div>
-                            <span class="text-xs text-slate-400">PREMIO MAYOR</span>
-                            <p class="font-extrabold text-rose-400 mt-1">REGALOS EXCLUSIVOS</p>
-                        </div>
-
-                        <div class="rounded-xl bg-slate-900 p-5 border border-slate-700 text-center">
-                            <div class="text-3xl mb-2">🎮</div>
-                            <span class="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-md text-xs font-bold">
-                                MOÉMON KETZAL
-                            </span>
-                            <p class="text-sm font-extrabold mt-2">ÚNICO JUEGO OFICIAL</p>
-                        </div>
-
-                        <div class="rounded-xl bg-slate-900 p-5 border border-slate-700 text-center">
-                            <div class="text-3xl mb-2">🥇</div>
-                            <p class="text-sm font-extrabold">1 GANADOR ABSOLUTO</p>
-                            <span class="text-xs text-slate-400">POKÉDEX COMPLETADA</span>
-                        </div>
-
-                    </div>
-
-                    <!-- BOTONES PRINCIPALES -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-10">
-
-                        <button id="btn-open-register" class="rounded-xl p-4 bg-gradient-to-r from-slate-200 to-slate-400 text-slate-950 font-black uppercase">
-                            ¡INSCRÍBETE AHORA!
-                        </button>
-
-                        <button id="btn-open-rules" class="rounded-xl border border-slate-700 bg-slate-900 p-4 font-black uppercase">
-                            REGLAMENTO OFICIAL
-                        </button>
-
-                    </div>
-
-                    <!-- DETALLES -->
-                    <div class="text-center mb-6">
-                        <span class="inline-block px-6 py-2 rounded-full border border-amber-500/30 text-xs font-extrabold tracking-widest text-amber-400 uppercase">
-                            DETALLES DEL CONCURSO
-                        </span>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-
-                        <!-- INFORMACIÓN DEL TORNEO -->
-                        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6">
-
-                            <h2 class="text-amber-400 font-black mb-2">FECHA</h2>
-
-                            <p class="text-lg font-black">
-                                10-25 DE OCTUBRE, 2026
-                            </p>
-
-                            <p class="text-xs text-slate-400 mt-1">
-                                Horario: 16:00 GMT-6 · 15 días de competición
-                            </p>
-
-                            <h2 class="text-amber-400 font-black mt-6 mb-2">LUGAR</h2>
-
-                            <p class="text-sm font-extrabold">
-                                SERVIDOR EXCLUSIVO MOEMON KETZAL
-                            </p>
-
-                            <p class="text-xs text-slate-400 mt-1">
-                                Emisiones en vivo por Curi Gameplays y YouTube Gaming
-                            </p>
-
-                            <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between">
-                                <span class="text-xs font-extrabold text-amber-400">
-                                    MOÉMON KETZAL
-                                </span>
-                                <span>🌱 🔥 💧</span>
-                            </div>
-
-                        </div>
-
-                        <!-- INSCRIPCIONES -->
-                        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-6">
-
-                            <div class="flex items-center justify-between mb-4">
-                                <h2 class="text-amber-400 font-black">
-                                    INSCRIPCIONES
-                                </h2>
-
-                                <span class="px-2 py-1 rounded text-xs font-black bg-rose-500/20 text-rose-400">
-                                    ABIERTAS
-                                </span>
-                            </div>
-
-                            <div class="text-sm text-slate-300 space-y-2">
-                                <p class="font-bold">REGISTRO INDIVIDUAL ACTIVO</p>
-                                <p>• Carrera individual de velocidad</p>
-                                <p>• Región Ketzal completa</p>
-                                <p>• Pokédex Galar ampliada</p>
-                            </div>
-
-                            <p class="text-xs text-slate-300 mt-5 pt-4 border-t border-slate-800">
-                                <strong class="text-amber-400">🏆 Premios:</strong>
-                                Master Trophy +
-                                <span class="text-rose-400 font-bold">regalos exclusivos</span>
-                            </p>
-
-                            <!-- BOTÓN DISCORD OFICIAL -->
-                            <a
-                                id="btn-community"
-                                href="https://discord.gg/3GWTVzjHS4"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="group mt-6 flex w-full items-center justify-center gap-3 rounded-xl border border-yellow-200/50 bg-gradient-to-r from-yellow-950 via-zinc-900 to-black px-5 py-4 font-bold uppercase tracking-wide text-yellow-100 shadow-lg shadow-yellow-500/10 transition duration-300 hover:border-yellow-300 hover:shadow-yellow-400/20 hover:brightness-125"
-                            >
-
-                                <!-- ICONO DE DISCORD -->
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    class="h-8 w-8 shrink-0 text-indigo-300 transition group-hover:scale-110"
-                                    aria-hidden="true"
-                                >
-                                    <path d="M19.73 5.2a18.1 18.1 0 0 0-4.46-1.38.07.07 0 0 0-.08.04c-.19.34-.4.78-.55 1.13a16.7 16.7 0 0 0-5.02 0c-.15-.36-.37-.79-.56-1.13a.08.08 0 0 0-.08-.04A18 18 0 0 0 4.52 5.2a.07.07 0 0 0-.03.03C1.66 9.43.89 13.53 1.27 17.58c0 .02.01.04.03.05a18.2 18.2 0 0 0 5.47 2.76.08.08 0 0 0 .09-.03c.42-.57.79-1.17 1.11-1.8a.08.08 0 0 0-.04-.11 12 12 0 0 1-1.71-.81.08.08 0 0 1-.01-.13l.34-.27a.08.08 0 0 1 .08-.01c3.58 1.63 7.45 1.63 10.99 0a.08.08 0 0 1 .08.01l.34.27a.08.08 0 0 1-.01.13c-.55.32-1.12.59-1.71.81a.08.08 0 0 0-.04.11c.33.63.7 1.23 1.11 1.8a.08.08 0 0 0 .09.03 18.2 18.2 0 0 0 5.48-2.76.08.08 0 0 0 .03-.05c.45-4.69-.76-8.76-3.23-12.35a.06.06 0 0 0-.03-.03ZM8.24 14.6c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Zm7.28 0c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Z"/>
-                                </svg>
-
-                                <span class="flex flex-col text-left">
-                                    <span class="text-sm">
-                                        Únete a nuestra comunidad
-                                    </span>
-
-                                    <span class="text-xs font-normal normal-case tracking-normal text-yellow-200/70">
-                                        Discord oficial · Copa Artemis 2026
-                                    </span>
-                                </span>
-
-                                <span class="ml-auto text-xl" aria-hidden="true">↗</span>
-
-                            </a>
-
-                        </div>
-                    </div>
-
-                </div>
+    <main class="main-container">
+      <section class="outer-frame">
+        <div class="panel">
+          <div class="content">
+            <div class="text-center">
+              <span class="pill pill-gold">COPA ARTEMIS</span>
             </div>
+
+            <section class="hero">
+              <h1>CONCURSO ARTEMIS</h1>
+              <p class="hero-subtitle">x CURI GAMEPLAYS</p>
+              <p class="hero-tagline">
+                ATRÁPALOS A TODOS - CACERÍA DE POKÉMON EN MOEMON KETZAL
+              </p>
+              <p class="hero-description">
+                Participa en el primer gran torneo de captura de Pokémon
+                Moemon. Una carrera épica para ver quién es el maestro
+                absoluto. El primero en completar la Pokédex será el ganador
+                y se llevará la gloria y un premio masivo.
+              </p>
+            </section>
+
+            <section class="countdown-card">
+              <div class="countdown-heading">
+                <span>INICIO DEL TORNEO</span>
+                <span class="date-label">10 OCT, 2026</span>
+              </div>
+
+              <div class="countdown-grid">
+                <div class="time-box">
+                  <strong id="t-days">00</strong>
+                  <span>DÍAS</span>
+                </div>
+                <div class="time-box">
+                  <strong id="t-hours">00</strong>
+                  <span>HORAS</span>
+                </div>
+                <div class="time-box">
+                  <strong id="t-minutes">00</strong>
+                  <span>MIN</span>
+                </div>
+                <div class="time-box">
+                  <strong id="t-seconds">00</strong>
+                  <span>SEG</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="feature-grid" aria-label="Características">
+              <article class="feature-card">
+                <span class="feature-icon">🏆</span>
+                <span class="muted">PREMIO MAYOR</span>
+                <p class="prize-text">REGALOS EXCLUSIVOS</p>
+              </article>
+
+              <article class="feature-card">
+                <span class="feature-icon">🎮</span>
+                <span class="pill pill-game">MOÉMON KETZAL</span>
+                <p>ÚNICO JUEGO OFICIAL</p>
+              </article>
+
+              <article class="feature-card">
+                <span class="feature-icon">🥇</span>
+                <p>1 GANADOR ABSOLUTO</p>
+                <span class="muted">POKÉDEX COMPLETADA</span>
+              </article>
+            </section>
+
+            <section class="primary-actions">
+              <button id="btn-open-register" class="button button-primary">
+                ¡INSCRÍBETE AHORA!
+              </button>
+              <button id="btn-open-rules" class="button button-secondary">
+                REGLAMENTO OFICIAL
+              </button>
+            </section>
+
+            <div class="section-heading">
+              <span>DETALLES DEL CONCURSO</span>
+            </div>
+
+            <section class="details-grid">
+              <article class="detail-card">
+                <h2>FECHA</h2>
+                <p class="detail-main">10-25 DE OCTUBRE, 2026</p>
+                <p class="muted small">
+                  Horario: 16:00 GMT-6 · 15 días de competición
+                </p>
+
+                <h2 class="spaced-heading">LUGAR</h2>
+                <p class="detail-main">
+                  SERVIDOR EXCLUSIVO MOEMON KETZAL
+                </p>
+                <p class="muted small">
+                  Emisiones en vivo por Curi Gameplays y YouTube Gaming
+                </p>
+
+                <div class="detail-footer">
+                  <strong>MOÉMON KETZAL</strong>
+                  <span>🌱 🔥 💧</span>
+                </div>
+              </article>
+
+              <article class="detail-card">
+                <div class="registration-heading">
+                  <h2>INSCRIPCIONES</h2>
+                  <span class="status">ABIERTAS</span>
+                </div>
+
+                <div class="registration-info">
+                  <p><strong>REGISTRO INDIVIDUAL ACTIVO</strong></p>
+                  <p>• Carrera individual de velocidad</p>
+                  <p>• Región Ketzal completa</p>
+                  <p>• Pokédex Galar ampliada</p>
+                </div>
+
+                <p class="prize-footer">
+                  <strong>🏆 Premios:</strong>
+                  Master Trophy +
+                  <span>regalos exclusivos</span>
+                </p>
+
+                <a
+                  id="btn-community"
+                  href="https://discord.gg/3GWTVzjHS4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="discord-button"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="discord-icon"
+                    aria-hidden="true"
+                  >
+                    <path d="M19.73 5.2a18.1 18.1 0 0 0-4.46-1.38.07.07 0 0 0-.08.04c-.19.34-.4.78-.55 1.13a16.7 16.7 0 0 0-5.02 0c-.15-.36-.37-.79-.56-1.13a.08.08 0 0 0-.08-.04A18 18 0 0 0 4.52 5.2a.07.07 0 0 0-.03.03C1.66 9.43.89 13.53 1.27 17.58c0 .02.01.04.03.05a18.2 18.2 0 0 0 5.47 2.76.08.08 0 0 0 .09-.03c.42-.57.79-1.17 1.11-1.8a.08.08 0 0 0-.04-.11 12 12 0 0 1-1.71-.81.08.08 0 0 1-.01-.13l.34-.27a.08.08 0 0 1 .08-.01c3.58 1.63 7.45 1.63 10.99 0a.08.08 0 0 1 .08.01l.34.27a.08.08 0 0 1-.01.13c-.55.32-1.12.59-1.71.81a.08.08 0 0 0-.04.11c.33.63.7 1.23 1.11 1.8a.08.08 0 0 0 .09.03 18.2 18.2 0 0 0 5.48-2.76.08.08 0 0 0 .03-.05c.45-4.69-.76-8.76-3.23-12.35a.06.06 0 0 0-.03-.03ZM8.24 14.6c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Zm7.28 0c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Z" />
+                  </svg>
+
+                  <span class="discord-copy">
+                    <strong>Únete a nuestra comunidad</strong>
+                    <small>Discord oficial · Copa Artemis 2026</small>
+                  </span>
+
+                  <span class="discord-arrow" aria-hidden="true">↗</span>
+                </a>
+              </article>
+            </section>
+          </div>
         </div>
+      </section>
     </main>
 
-    <!-- MODAL: REGISTRO -->
-    <div id="modal-register" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <!-- MODAL DE REGISTRO -->
+    <div id="modal-register" class="modal" hidden>
+      <section class="modal-card modal-narrow" role="dialog" aria-modal="true" aria-labelledby="register-title">
+        <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
 
-        <div class="relative w-full max-w-lg rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6">
+        <header class="modal-header">
+          <h2 id="register-title">Registro de Entrenador</h2>
+          <p>Inscripción para la Copa Artemis Moémon</p>
+        </header>
 
-            <button type="button" class="close-modal absolute top-4 right-4 text-slate-400" aria-label="Cerrar">
-                ✕
-            </button>
+        <form id="form-register" class="register-form">
+          <div class="form-field">
+            <label for="reg-nick">Nombre de entrenador *</label>
+            <input type="text" id="reg-nick" required maxlength="40" autocomplete="nickname" />
+          </div>
 
-            <div class="mb-6 border-b border-slate-800 pb-4">
-                <h3 class="text-lg font-black uppercase">Registro de Entrenador</h3>
-                <p class="text-xs text-slate-400">Inscripción para la Copa Artemis Moémon</p>
-            </div>
+          <div class="form-field">
+            <label for="reg-discord">Usuario de Discord *</label>
+            <input type="text" id="reg-discord" required maxlength="80" autocomplete="off" />
+          </div>
 
-            <form id="form-register" class="space-y-4">
+          <label class="checkbox-label">
+            <input type="checkbox" id="reg-rules" required />
+            <span>Acepto cumplir con el reglamento oficial y jugar limpio.</span>
+          </label>
 
-                <div>
-                    <label for="reg-nick" class="block text-xs font-bold text-slate-300 mb-1">
-                        Nombre de entrenador *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="reg-nick"
-                        required
-                        maxlength="40"
-                        class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm"
-                    >
-                </div>
-
-                <div>
-                    <label for="reg-discord" class="block text-xs font-bold text-slate-300 mb-1">
-                        Usuario de Discord *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="reg-discord"
-                        required
-                        maxlength="80"
-                        class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm"
-                    >
-                </div>
-
-                <label class="flex items-start gap-2 cursor-pointer">
-                    <input type="checkbox" id="reg-rules" class="mt-1">
-
-                    <span class="text-xs text-slate-400">
-                        Acepto cumplir con el reglamento oficial y jugar limpio.
-                    </span>
-                </label>
-
-                <div class="pt-4 flex justify-end gap-3">
-
-                    <button type="button" class="close-modal px-4 py-2 rounded-xl bg-slate-800 text-xs font-bold">
-                        Cancelar
-                    </button>
-
-                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-slate-200 text-slate-950 text-xs font-black uppercase">
-                        Confirmar inscripción
-                    </button>
-
-                </div>
-            </form>
-        </div>
+          <div class="modal-actions">
+            <button type="button" class="button button-dark close-modal">Cancelar</button>
+            <button type="submit" class="button button-primary">Confirmar inscripción</button>
+          </div>
+        </form>
+      </section>
     </div>
 
-    <!-- MODAL: REGLAMENTO -->
-    <div id="modal-rules" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <!-- MODAL DE REGLAMENTO -->
+    <div id="modal-rules" class="modal" hidden>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="rules-title">
+        <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
 
-        <div class="relative w-full max-w-2xl rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 max-h-[85vh] flex flex-col">
+        <header class="modal-header modal-title-row">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <h2 id="rules-title">Reglamento Oficial</h2>
+            <p>Copa Artemis 2026 · Moémon Ketzal</p>
+          </div>
+        </header>
 
-            <button type="button" class="close-modal absolute top-4 right-4 text-slate-400" aria-label="Cerrar">
-                ✕
-            </button>
-
-            <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-4 shrink-0">
-
-                <div class="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-amber-400">
-                    🛡️
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-black uppercase">Reglamento Oficial</h3>
-                    <p class="text-xs text-slate-400">Copa Artemis 2026 · Moémon Ketzal</p>
-                </div>
-
-            </div>
-
-            <div class="overflow-y-auto pr-2 space-y-3 text-sm text-slate-300 leading-relaxed">
-
-                <p>
-                    <strong class="text-amber-400">1. Registro:</strong>
-                    Solo se permiten cuentas individuales. Usa tu nickname de entrenador y tu usuario de Discord.
-                </p>
-
-                <p>
-                    <strong class="text-amber-400">2. Objetivo:</strong>
-                    Completar la Pokédex de la región Ketzal lo más rápido posible. El primero en completarla es el ganador.
-                </p>
-
-                <p>
-                    <strong class="text-amber-400">3. Juego limpio:</strong>
-                    Prohibido el uso de hacks, mods, exploits o cualquier ventaja injusta. Cualquier infracción resulta en descalificación inmediata.
-                </p>
-
-                <p>
-                    <strong class="text-amber-400">4. Duración:</strong>
-                    La competición va del 10 al 25 de octubre de 2026, de 16:00 GMT-6.
-                </p>
-
-                <p>
-                    <strong class="text-amber-400">5. Verificación:</strong>
-                    Los ganadores deberán mostrar prueba de su Pokédex completa en el servidor oficial.
-                </p>
-
-                <p>
-                    <strong class="text-amber-400">6. Premio:</strong>
-                    Master Trophy + regalos exclusivos para el maestro absoluto.
-                </p>
-
-            </div>
-
-            <div class="pt-4 flex justify-end shrink-0">
-                <button type="button" class="close-modal px-5 py-2 rounded-xl bg-slate-800 text-xs font-bold">
-                    Cerrar
-                </button>
-            </div>
-
+        <div class="rules-content">
+          <p><strong>1. Registro:</strong> Solo se permiten cuentas individuales. Usa tu nickname de entrenador y tu usuario de Discord.</p>
+          <p><strong>2. Objetivo:</strong> Completar la Pokédex de la región Ketzal lo más rápido posible. El primero en completarla es el ganador.</p>
+          <p><strong>3. Juego limpio:</strong> Prohibido el uso de hacks, mods, exploits o cualquier ventaja injusta. Cualquier infracción resulta en descalificación inmediata.</p>
+          <p><strong>4. Duración:</strong> La competición va del 10 al 25 de octubre de 2026, de 16:00 GMT-6.</p>
+          <p><strong>5. Verificación:</strong> Los ganadores deberán mostrar prueba de su Pokédex completa en el servidor oficial.</p>
+          <p><strong>6. Premio:</strong> Master Trophy + regalos exclusivos para el maestro absoluto.</p>
         </div>
+
+        <footer class="modal-actions">
+          <button type="button" class="button button-dark close-modal">Cerrar</button>
+        </footer>
+      </section>
     </div>
 
-    <!-- MODAL: LEADERBOARD -->
-    <div id="modal-leaderboard" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-
-        <div class="relative w-full max-w-2xl rounded-2xl bg-slate-900 border border-slate-600 shadow-2xl p-6 max-h-[85vh] flex flex-col">
-
-            <button type="button" class="close-modal absolute top-4 right-4 text-slate-400" aria-label="Cerrar">
-                ✕
-            </button>
-
-            <div class="mb-4 border-b border-slate-800 pb-4 shrink-0">
-                <h3 class="text-lg font-black uppercase">Leaderboard</h3>
-            </div>
-
-            <div id="leaderboard-list" class="overflow-y-auto pr-2 space-y-2"></div>
-
-        </div>
+    <!-- MODAL DE CLASIFICACIÓN -->
+    <div id="modal-leaderboard" class="modal" hidden>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="leaderboard-title">
+        <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
+        <header class="modal-header">
+          <h2 id="leaderboard-title">Clasificación de entrenadores</h2>
+        </header>
+        <div id="leaderboard-list" class="leaderboard-list" aria-live="polite"></div>
+      </section>
     </div>
 
-    <!-- JAVASCRIPT -->
     <script>
-        // ========== CONFIGURACIÓN SUPABASE ==========
-
-        const SUPABASE_URL = 'https://flldgvplxxogaqdmvhkb.supabase.co';
-
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsbGRndnBseHhvZ2FxdG12aGtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMTY0ODksImV4cCI6MjEwNzc5MjQ4OX0.mmBIPpVvp0pmfIZtTnEBRGN74fCYnfdPMs4Uym9Y8h30';
-
-        const $ = id => document.getElementById(id);
-
-        let supabaseClient = null;
-
-        function initializeSupabase() {
-            if (!window.supabase || !window.supabase.createClient) {
-                console.error('No se pudo cargar Supabase.');
-                return false;
-            }
-
-            if (!supabaseClient) {
-                supabaseClient = window.supabase.createClient(
-                    SUPABASE_URL,
-                    SUPABASE_ANON_KEY
-                );
-            }
-
-            return true;
-        }
-
-        // ========== NOTIFICACIONES ==========
-
-        function toast(message, type = 'success') {
-            $('toast-text').textContent = message;
-
-            $('toast-body').className =
-                'px-4 py-3 rounded-xl border bg-slate-900 text-slate-100 shadow-2xl ' +
-                (type === 'error' ? 'border-rose-500' : 'border-slate-500');
-
-            $('toast-container').classList.remove('hidden');
-
-            clearTimeout(window.__toastT);
-
-            window.__toastT = setTimeout(() => {
-                $('toast-container').classList.add('hidden');
-            }, 3500);
-        }
-
-        // ========== MODALES ==========
-
-        function openModal(id) {
-            $(id).classList.remove('hidden');
-            $(id).classList.add('flex');
-        }
-
-        function closeModal(id) {
-            $(id).classList.add('hidden');
-            $(id).classList.remove('flex');
-        }
-
-        document.querySelectorAll('.close-modal').forEach(button => {
-            button.addEventListener('click', () => {
-                [
-                    'modal-register',
-                    'modal-rules',
-                    'modal-leaderboard'
-                ].forEach(closeModal);
-            });
-        });
-
-        [
-            'modal-register',
-            'modal-rules',
-            'modal-leaderboard'
-        ].forEach(id => {
-            $(id).addEventListener('click', event => {
-                if (event.target.id === id) {
-                    closeModal(id);
-                }
-            });
-        });
-
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape') {
-                [
-                    'modal-register',
-                    'modal-rules',
-                    'modal-leaderboard'
-                ].forEach(closeModal);
-            }
-        });
-
-        $('btn-open-register').addEventListener('click', () => {
-            openModal('modal-register');
-        });
-
-        $('btn-open-rules').addEventListener('click', () => {
-            openModal('modal-rules');
-        });
-
-        $('btn-leaderboard').addEventListener('click', async () => {
-            openModal('modal-leaderboard');
-            await loadLeaderboard();
-        });
-
-        // ========== CONTADOR ==========
-
-        const target = new Date('2026-10-10T16:00:00-06:00').getTime();
-
-        function updateCountdown() {
-            const diff = target - Date.now();
-
-            if (diff <= 0) {
-                $('t-days').textContent = '00';
-                $('t-hours').textContent = '00';
-                $('t-minutes').textContent = '00';
-                $('t-seconds').textContent = '00';
-                return;
-            }
-
-            $('t-days').textContent =
-                String(Math.floor(diff / 86400000)).padStart(2, '0');
-
-            $('t-hours').textContent =
-                String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
-
-            $('t-minutes').textContent =
-                String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-
-            $('t-seconds').textContent =
-                String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        // ========== BOTÓN DE AUDIO ==========
-        // Alterna iconos; no hay música conectada.
-
-        let audioOn = true;
-
-        $('btn-audio').addEventListener('click', () => {
-            audioOn = !audioOn;
-
-            $('icon-vol-on').classList.toggle('hidden', !audioOn);
-            $('icon-vol-off').classList.toggle('hidden', audioOn);
-        });
-
-        // ========== COMPARTIR ==========
-
-        $('btn-share').addEventListener('click', async () => {
-            try {
-                if (navigator.share) {
-                    await navigator.share({
-                        title: document.title,
-                        url: location.href
-                    });
-                } else {
-                    await navigator.clipboard.writeText(location.href);
-                    toast('¡Enlace copiado!');
-                }
-            } catch (error) {
-                if (error.name !== 'AbortError') {
-                    toast('No se pudo compartir el enlace.', 'error');
-                }
-            }
-        });
-
-        // ========== REGISTRO ==========
-
-        $('form-register').addEventListener('submit', async event => {
-            event.preventDefault();
-
-            const nick = $('reg-nick').value.trim();
-            const discord = $('reg-discord').value.trim();
-            const accepted = $('reg-rules').checked;
-
-            if (!nick || !discord) {
-                toast('Completa todos los campos.', 'error');
-                return;
-            }
-
-            if (!accepted) {
-                toast('Debes aceptar el reglamento.', 'error');
-                return;
-            }
-
-            if (!initializeSupabase()) {
-                toast('No se pudo inicializar Supabase.', 'error');
-                return;
-            }
-
-            const button = $('form-register').querySelector('[type="submit"]');
-
-            button.disabled = true;
-            button.textContent = 'Registrando...';
-
-            try {
-                const { data: trainer, error: trainerError } =
-                    await supabaseClient
-                        .from('entrenadores')
-                        .insert([{
-                            nickname: nick,
-                            discord: discord
-                        }])
-                        .select()
-                        .single();
-
-                if (trainerError) {
-                    throw trainerError;
-                }
-
-                const { error: progressError } =
-                    await supabaseClient
-                        .from('progreso')
-                        .insert([{
-                            entrenador_id: trainer.id,
-                            capturas: 0,
-                            pokedex_total: 200
-                        }]);
-
-                if (progressError) {
-                    console.error(progressError);
-
-                    toast(
-                        'Entrenador creado, pero falló su progreso inicial.',
-                        'error'
-                    );
-
-                    await loadLeaderboard();
-                    return;
-                }
-
-                toast('¡Inscripción confirmada! Bienvenido, ' + nick + ' 🏆');
-
-                $('form-register').reset();
-                closeModal('modal-register');
-
-                await loadLeaderboard();
-
-            } catch (error) {
-                console.error('Error al registrar:', error);
-
-                toast(
-                    'Error al registrar. Revisa la configuración de Supabase.',
-                    'error'
-                );
-
-            } finally {
-                button.disabled = false;
-                button.textContent = 'Confirmar inscripción';
-            }
-        });
-
-        // ========== LEADERBOARD ==========
-
-        async function loadLeaderboard() {
-            const list = $('leaderboard-list');
-
-            if (!initializeSupabase()) {
-                list.textContent = 'No se pudo conectar con Supabase.';
-                return;
-            }
-
-            list.textContent = 'Cargando entrenadores...';
-
-            try {
-                const { data, error } = await supabaseClient
-                    .from('entrenadores')
-                    .select('*, progreso(capturas, pokedex_total)')
-                    .order('created_at', { ascending: true });
-
-                if (error) {
-                    throw error;
-                }
-
-                $('player-count').textContent = data.length;
-                list.replaceChildren();
-
-                if (data.length === 0) {
-                    list.textContent = 'Aún no hay entrenadores registrados.';
-                    return;
-                }
-
-                const sorted = [...data].sort((a, b) =>
-                    (b.progreso?.[0]?.capturas || 0) -
-                    (a.progreso?.[0]?.capturas || 0)
-                );
-
-                sorted.forEach((trainer, index) => {
-                    const progress = trainer.progreso?.[0];
-
-                    const captures = progress?.capturas || 0;
-                    const total = progress?.pokedex_total || 200;
-
-                    const row = document.createElement('div');
-
-                    row.className =
-                        'flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 border border-slate-800';
-
-                    const position = document.createElement('span');
-
-                    position.className =
-                        'w-7 text-center font-black text-amber-400';
-
-                    position.textContent = String(index + 1);
-
-                    const avatar = document.createElement('span');
-
-                    avatar.className = 'text-lg';
-                    avatar.textContent = trainer.avatar || '🎮';
-
-                    const info = document.createElement('div');
-
-                    info.className = 'flex-1 min-w-0';
-
-                    const nickname = document.createElement('p');
-
-                    nickname.className =
-                        'text-sm font-bold text-slate-100 truncate';
-
-                    nickname.textContent = trainer.nickname;
-
-                    const region = document.createElement('p');
-
-                    region.className = 'text-[11px] text-slate-400';
-                    region.textContent = trainer.region || 'Ketzal Alpha';
-
-                    const count = document.createElement('span');
-
-                    count.className = 'text-xs font-black text-emerald-400';
-                    count.textContent = `${captures}/${total}`;
-
-                    info.append(nickname, region);
-                    row.append(position, avatar, info, count);
-
-                    list.appendChild(row);
-                });
-
-            } catch (error) {
-                console.error('Error al cargar leaderboard:', error);
-
-                list.textContent =
-                    'No se pudo cargar el leaderboard. Revisa las tablas y las políticas RLS.';
-            }
-        }
-
-        // ========== INICIO ==========
-
-        loadLeaderboard();
+      import "../scripts/torneo.js";
     </script>
-
-</body>
+  </body>
 </html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(html) {
+    min-width: 320px;
+    scroll-behavior: smooth;
+    background: #08090d;
+  }
+
+  :global(body) {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    color: #f1f5f9;
+    background: #08090d;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :global(button),
+  :global(input) {
+    font: inherit;
+  }
+
+  :global(button),
+  :global(a) {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :global(button) {
+    color: inherit;
+    cursor: pointer;
+  }
+
+  :global(button:disabled) {
+    cursor: wait;
+    opacity: .65;
+  }
+
+  :global(button:focus-visible),
+  :global(a:focus-visible),
+  :global(input:focus-visible) {
+    outline: 2px solid #fbbf24;
+    outline-offset: 3px;
+  }
+
+  .background {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .background-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(203, 213, 225, .12), transparent);
+  }
+
+  .background-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(30, 41, 59, .08) 1px, transparent 1px), linear-gradient(to bottom, rgba(30, 41, 59, .08) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .glow {
+    position: absolute;
+    width: 24rem;
+    height: 24rem;
+    border-radius: 50%;
+    filter: blur(64px);
+    animation: pulse 6s ease-in-out infinite alternate;
+  }
+
+  .glow-silver {
+    top: 25%;
+    left: 2.5rem;
+    background: rgba(203, 213, 225, .05);
+  }
+
+  .glow-gold {
+    right: 2.5rem;
+    bottom: 33%;
+    background: rgba(245, 158, 11, .05);
+    animation-delay: 1s;
+  }
+
+  @keyframes pulse {
+    from { opacity: .45; transform: scale(.96); }
+    to { opacity: 1; transform: scale(1.04); }
+  }
+
+  .navbar {
+    position: sticky;
+    z-index: 40;
+    top: 0;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(51, 65, 85, .8);
+    background: rgba(8, 9, 13, .82);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
+    backdrop-filter: blur(20px);
+  }
+
+  .nav-inner,
+  .brand,
+  .nav-actions,
+  .registration-heading,
+  .countdown-heading,
+  .detail-footer,
+  .modal-title-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-inner {
+    max-width: 1280px;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 auto;
+  }
+
+  .brand {
+    min-width: 0;
+    gap: 12px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .brand-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    place-items: center;
+    border: 1px solid #64748b;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #1e293b, #0d0f17);
+    font-size: 23px;
+  }
+
+  .brand small,
+  .brand strong {
+    display: block;
+  }
+
+  .brand small {
+    margin-bottom: 4px;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .brand strong {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .06em;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    text-align: center;
+    transition: transform .2s, border-color .2s, filter .2s;
+  }
+
+  .button:hover {
+    filter: brightness(1.13);
+  }
+
+  .button:active {
+    transform: scale(.98);
+  }
+
+  .button-dark {
+    border-color: rgba(100, 116, 139, .4);
+    background: rgba(30, 41, 59, .75);
+  }
+
+  .icon-button {
+    min-width: 42px;
+    padding: 9px;
+    font-size: 17px;
+  }
+
+  .count {
+    padding: 3px 7px;
+    border-radius: 999px;
+    background: #08090d;
+    color: #cbd5e1;
+    font-size: 10px;
+  }
+
+  .main-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1152px;
+    margin: 0 auto;
+    padding: 32px 16px;
+  }
+
+  .outer-frame {
+    padding: 2px;
+    border-radius: 26px;
+    background: linear-gradient(180deg, #e2e8f0, #94a3b8 60%, #334155);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
+  }
+
+  .panel {
+    overflow: hidden;
+    border-radius: 24px;
+    background: #0b0c12;
+  }
+
+  .content {
+    padding: 48px clamp(18px, 5vw, 64px);
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: .1em;
+  }
+
+  .pill-gold {
+    border: 1px solid rgba(245, 158, 11, .4);
+    background: #1e293b;
+    color: #fcd34d;
+  }
+
+  .hero {
+    margin: 22px 0 32px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(27px, 5vw, 48px);
+    font-weight: 950;
+    line-height: 1.12;
+    letter-spacing: -.035em;
+  }
+
+  .hero-subtitle {
+    margin: 10px 0;
+    background: linear-gradient(90deg, #cbd5e1, #f8fafc, #94a3b8);
+    background-clip: text;
+    color: transparent;
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 900;
+  }
+
+  .hero-tagline {
+    margin: 14px 0;
+    color: #fbbf24;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    line-height: 1.8;
+  }
+
+  .hero-description {
+    max-width: 680px;
+    margin: 24px auto 0;
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .countdown-card {
+    max-width: 680px;
+    margin: 0 auto 36px;
+    padding: 16px;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
+  }
+
+  .countdown-heading {
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #334155;
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .06em;
+  }
+
+  .date-label {
+    color: #34d399;
+  }
+
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    text-align: center;
+  }
+
+  .time-box {
+    padding: 10px 4px;
+    border-radius: 8px;
+    background: #020617;
+  }
+
+  .time-box strong,
+  .time-box span {
+    display: block;
+  }
+
+  .time-box strong {
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 950;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .time-box span {
+    margin-top: 3px;
+    color: #94a3b8;
+    font-size: 10px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .feature-card {
+    display: flex;
+    min-width: 0;
+    min-height: 145px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 12px;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    background: #0f172a;
+    text-align: center;
+  }
+
+  .feature-icon {
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+
+  .muted {
+    color: #94a3b8;
+  }
+
+  .feature-card .muted {
+    font-size: 10px;
+  }
+
+  .feature-card p {
+    margin: 8px 0 0;
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .prize-text,
+  .prize-footer span {
+    color: #fb7185;
+  }
+
+  .pill-game {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: rgba(245, 158, 11, .16);
+    color: #fcd34d;
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+
+  .primary-actions {
+    display: grid;
+    max-width: 600px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0 auto 40px;
+  }
+
+  .button-primary {
+    border-color: #cbd5e1;
+    background: linear-gradient(90deg, #e2e8f0, #94a3b8);
+    color: #08090d;
+  }
+
+  .primary-actions .button {
+    min-height: 58px;
+    padding: 16px 12px;
+    font-size: 12px;
+    font-weight: 950;
+  }
+
+  .button-secondary {
+    border-color: #334155;
+    background: #0f172a;
+    color: #f8fafc;
+  }
+
+  .section-heading {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .section-heading span {
+    display: inline-block;
+    padding: 10px 24px;
+    border: 1px solid rgba(245, 158, 11, .3);
+    border-radius: 999px;
+    color: #fbbf24;
+    font-size: 10px;
+    font-weight: 950;
+    letter-spacing: .12em;
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .detail-card {
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid #1e293b;
+    border-radius: 18px;
+    background: #0f172a;
+  }
+
+  .detail-card h2 {
+    margin: 0 0 10px;
+    color: #fbbf24;
+    font-size: 14px;
+    font-weight: 950;
+  }
+
+  .detail-main {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 950;
+    line-height: 1.5;
+  }
+
+  .small {
+    margin: 5px 0 0;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .spaced-heading {
+    margin-top: 28px !important;
+  }
+
+  .detail-footer {
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #1e293b;
+  }
+
+  .detail-footer strong {
+    color: #fbbf24;
+    font-size: 11px;
+  }
+
+  .registration-heading {
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .registration-heading h2 {
+    margin: 0;
+  }
+
+  .status {
+    padding: 6px 8px;
+    border-radius: 5px;
+    background: rgba(244, 63, 94, .15);
+    color: #fb7185;
+    font-size: 10px;
+    font-weight: 950;
+  }
+
+  .registration-info {
+    color: #cbd5e1;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .registration-info p {
+    margin: 5px 0;
+  }
+
+  .prize-footer {
+    margin: 22px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid #1e293b;
+    color: #cbd5e1;
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  .prize-footer strong {
+    color: #fbbf24;
+  }
+
+  .prize-footer span {
+    font-weight: 900;
+  }
+
+  .discord-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 24px;
+    padding: 16px;
+    border: 1px solid rgba(254, 240, 138, .5);
+    border-radius: 12px;
+    background: linear-gradient(100deg, #422006, #18181b, #000);
+    color: #fef3c7;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(245, 158, 11, .07);
+    transition: border-color .2s, filter .2s;
+  }
+
+  .discord-button:hover {
+    border-color: #fcd34d;
+    filter: brightness(1.2);
+  }
+
+  .discord-icon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    color: #a5b4fc;
+    transition: transform .2s;
+  }
+
+  .discord-button:hover .discord-icon {
+    transform: scale(1.1);
+  }
+
+  .discord-copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+  }
+
+  .discord-copy strong {
+    font-size: 12px;
+  }
+
+  .discord-copy small {
+    color: rgba(254, 240, 138, .7);
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .discord-arrow {
+    margin-left: auto;
+    font-size: 22px;
+  }
+
+  .toast-container {
+    position: fixed;
+    z-index: 100;
+    top: 80px;
+    right: 16px;
+    width: min(360px, calc(100% - 32px));
+  }
+
+  .toast-body {
+    padding: 14px 16px;
+    border: 1px solid #64748b;
+    border-radius: 12px;
+    background: #0f172a;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
+  }
+
+  .toast-body.error {
+    border-color: #f43f5e;
+  }
+
+  .toast-body p {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  .modal[hidden],
+  [hidden] {
+    display: none !important;
+  }
+
+  .modal {
+    position: fixed;
+    z-index: 50;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 16px;
+    background: rgba(0, 0, 0, .82);
+    backdrop-filter: blur(12px);
+  }
+
+  .modal-card {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    flex-direction: column;
+    padding: 24px;
+    overflow: hidden;
+    border: 1px solid #475569;
+    border-radius: 18px;
+    background: #0f172a;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
+  }
+
+  .modal-narrow {
+    max-width: 480px;
+  }
+
+  .close-button {
+    position: absolute;
+    z-index: 1;
+    top: 16px;
+    right: 16px;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 18px;
+  }
+
+  .close-button:hover {
+    background: #1e293b;
+    color: #fff;
+  }
+
+  .modal-header {
+    flex-shrink: 0;
+    margin-bottom: 20px;
+    padding: 0 36px 16px 0;
+    border-bottom: 1px solid #1e293b;
+  }
+
+  .modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 950;
+    text-transform: uppercase;
+  }
+
+  .modal-header p {
+    margin: 6px 0 0;
+    color: #94a3b8;
+    font-size: 11px;
+  }
+
+  .modal-title-row {
+    gap: 12px;
+  }
+
+  .shield-icon {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    place-items: center;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    background: #1e293b;
+    font-size: 22px;
+  }
+
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .form-field label {
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .form-field input {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    background: #020617;
+    color: #f8fafc;
+    font-size: 14px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.6;
+    cursor: pointer;
+  }
+
+  .checkbox-label input {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: #fbbf24;
+  }
+
+  .modal-actions {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .rules-content,
+  .leaderboard-list {
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+
+  .rules-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    color: #cbd5e1;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .rules-content p {
+    margin: 0;
+  }
+
+  .rules-content strong {
+    color: #fbbf24;
+  }
+
+  .leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 50px;
+    color: #cbd5e1;
+    font-size: 13px;
+  }
+
+  .leaderboard-row {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    background: rgba(2, 6, 23, .6);
+  }
+
+  .leaderboard-position {
+    width: 28px;
+    flex-shrink: 0;
+    color: #fbbf24;
+    font-weight: 950;
+    text-align: center;
+  }
+
+  .leaderboard-avatar {
+    font-size: 20px;
+  }
+
+  .leaderboard-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .leaderboard-nickname {
+    overflow: hidden;
+    color: #f1f5f9;
+    font-size: 13px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .leaderboard-region {
+    margin-top: 4px;
+    color: #94a3b8;
+    font-size: 10px;
+  }
+
+  .leaderboard-count {
+    flex-shrink: 0;
+    color: #34d399;
+    font-size: 12px;
+    font-weight: 950;
+  }
+
+  @media (max-width: 700px) {
+    .main-container {
+      padding: 20px 10px;
+    }
+
+    .content {
+      padding: 28px 16px;
+    }
+
+    .details-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .feature-grid {
+      gap: 8px;
+    }
+
+    .feature-card {
+      padding: 16px 6px;
+    }
+
+    .feature-card p {
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .detail-card {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .navbar {
+      padding: 10px;
+    }
+
+    .nav-inner {
+      gap: 8px;
+    }
+
+    .brand {
+      gap: 8px;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      font-size: 18px;
+    }
+
+    .brand small {
+      max-width: 135px;
+      font-size: 8px;
+      letter-spacing: .04em;
+    }
+
+    .brand strong {
+      font-size: 10px;
+      letter-spacing: 0;
+    }
+
+    .nav-actions {
+      gap: 5px;
+    }
+
+    .button {
+      padding: 9px;
+      font-size: 10px;
+    }
+
+    .players-label {
+      display: none;
+    }
+
+    .icon-button {
+      min-width: 36px;
+    }
+
+    .hero-tagline {
+      font-size: 9px;
+    }
+
+    .primary-actions {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .countdown-card {
+      padding: 12px 8px;
+    }
+
+    .countdown-heading {
+      font-size: 9px;
+    }
+
+    .time-box strong {
+      font-size: 22px;
+    }
+
+    .time-box span {
+      font-size: 9px;
+    }
+
+    .discord-button {
+      gap: 8px;
+      padding: 12px 10px;
+    }
+
+    .discord-copy strong {
+      font-size: 10px;
+    }
+
+    .discord-copy small {
+      font-size: 9px;
+    }
+
+    .modal-card {
+      padding: 20px 16px;
+    }
+
+    .modal-actions {
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: .01ms !important;
+      transition-duration: .01ms !important;
+    }
+  }
+</style>
