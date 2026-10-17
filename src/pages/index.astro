@@ -9,7 +9,12 @@ const title = "Copa Artemis 2026";
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#08090d" />
   <title>{title}</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- CDN oficial de Supabase. En Astro necesita is:inline. -->
+  <script
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
 </head>
 
 <body>
@@ -23,19 +28,34 @@ const title = "Copa Artemis 2026";
   <header class="navbar">
     <div class="nav-inner">
       <a class="brand" href="/" aria-label="Copa Artemis, inicio">
-        <img src="https://files.catbox.moe/0naii0.jpg" class="brand-icon-img" alt="">
+        <img
+          src="https://files.catbox.moe/0naii0.jpg"
+          class="brand-icon-img"
+          alt=""
+        />
         <span>
           <small>Torneo Oficial Moemon</small>
           <strong>COPA ARTEMIS 2026</strong>
         </span>
       </a>
+
       <nav class="nav-actions">
-        <button id="btn-leaderboard" class="button button-dark">
+        <button id="btn-leaderboard" class="button button-dark" type="button">
           <span class="players-label">Jugadores</span>
           <span id="player-count" class="count">0</span>
         </button>
-        <button id="btn-share" class="button button-dark">Compartir</button>
-        <button id="btn-audio" class="button button-dark icon-button" aria-pressed="true">
+
+        <button id="btn-share" class="button button-dark" type="button">
+          Compartir
+        </button>
+
+        <button
+          id="btn-audio"
+          class="button button-dark icon-button"
+          type="button"
+          aria-pressed="true"
+          aria-label="Activar o desactivar el indicador de audio"
+        >
           <span id="icon-vol-on">🔊</span>
           <span id="icon-vol-off" hidden>🔇</span>
         </button>
@@ -43,7 +63,7 @@ const title = "Copa Artemis 2026";
     </div>
   </header>
 
-  <div id="toast-container" class="toast-container" hidden>
+  <div id="toast-container" class="toast-container" hidden role="status" aria-live="polite">
     <div id="toast-body" class="toast-body">
       <p id="toast-text">Notificación</p>
     </div>
@@ -60,46 +80,91 @@ const title = "Copa Artemis 2026";
           <section class="hero">
             <h1>CONCURSO ARTEMIS</h1>
             <p class="hero-subtitle">x CURI GAMEPLAYS</p>
-            <p class="hero-tagline">ATRÁPALOS A TODOS - CACERÍA DE POKÉMON EN MOEMON KETZAL</p>
+            <p class="hero-tagline">
+              ATRÁPALOS A TODOS - CACERÍA DE POKÉMON EN MOEMON KETZAL
+            </p>
             <p class="hero-description">
-              Participa en el primer gran torneo de captura de Pokémon Moemon. Una carrera épica para ver quién es el maestro absoluto. El primero en completar la Pokédex será el ganador y se llevará la gloria y un premio masivo.
+              Participa en el primer gran torneo de captura de Pokémon Moemon.
+              Una carrera épica para ver quién es el maestro absoluto. El primero
+              en completar la Pokédex será el ganador y se llevará la gloria y
+              un premio masivo.
             </p>
           </section>
 
           <section class="countdown-card">
             <div class="countdown-heading">
-              <span>INICIO DEL TORNEO</span>
-              <span class="date-label">10 OCT, 2026</span>
+              <span id="countdown-title">INICIO DEL TORNEO</span>
+              <span id="countdown-date" class="date-label">10 OCT, 2026</span>
             </div>
+
             <div class="countdown-grid">
-              <div class="time-box"><strong id="t-days">00</strong><span>DÍAS</span></div>
-              <div class="time-box"><strong id="t-hours">00</strong><span>HORAS</span></div>
-              <div class="time-box"><strong id="t-minutes">00</strong><span>MIN</span></div>
-              <div class="time-box"><strong id="t-seconds">00</strong><span>SEG</span></div>
+              <div class="time-box">
+                <strong id="t-days">00</strong>
+                <span>DÍAS</span>
+              </div>
+              <div class="time-box">
+                <strong id="t-hours">00</strong>
+                <span>HORAS</span>
+              </div>
+              <div class="time-box">
+                <strong id="t-minutes">00</strong>
+                <span>MIN</span>
+              </div>
+              <div class="time-box">
+                <strong id="t-seconds">00</strong>
+                <span>SEG</span>
+              </div>
             </div>
           </section>
 
           <section class="feature-grid">
             <article class="feature-card">
-              <img src="https://files.catbox.moe/ptoku8.jpg" class="card-deco" alt="">
+              <img
+                src="https://files.catbox.moe/ptoku8.jpg"
+                class="card-deco"
+                alt=""
+              />
               <span class="muted">PREMIO MAYOR</span>
               <p class="prize-text">REGALOS EXCLUSIVOS</p>
             </article>
+
             <article class="feature-card">
-              <img src="https://files.catbox.moe/1iilzg.jpg" class="card-deco" alt="">
+              <img
+                src="https://files.catbox.moe/1iilzg.jpg"
+                class="card-deco"
+                alt=""
+              />
               <span class="pill pill-game">MOÉMON KETZAL</span>
               <p>ÚNICO JUEGO OFICIAL</p>
             </article>
+
             <article class="feature-card">
-              <img src="https://files.catbox.moe/an6jpo.jpg" class="card-deco" alt="">
+              <img
+                src="https://files.catbox.moe/an6jpo.jpg"
+                class="card-deco"
+                alt=""
+              />
               <p>1 GANADOR ABSOLUTO</p>
               <span class="muted">POKÉDEX COMPLETADA</span>
             </article>
           </section>
 
           <section class="primary-actions">
-            <button id="btn-open-register" class="button button-primary">¡INSCRÍBETE AHORA!</button>
-            <button id="btn-open-rules" class="button button-secondary">REGLAMENTO OFICIAL</button>
+            <button
+              id="btn-open-register"
+              class="button button-primary"
+              type="button"
+            >
+              ¡INSCRÍBETE AHORA!
+            </button>
+
+            <button
+              id="btn-open-rules"
+              class="button button-secondary"
+              type="button"
+            >
+              REGLAMENTO OFICIAL
+            </button>
           </section>
 
           <div class="section-heading">
@@ -108,13 +173,24 @@ const title = "Copa Artemis 2026";
 
           <section class="details-grid">
             <article class="detail-card">
-              <img src="https://files.catbox.moe/omht9x.jpg" class="card-deco deco-detail" alt="">
+              <img
+                src="https://files.catbox.moe/omht9x.jpg"
+                class="card-deco deco-detail"
+                alt=""
+              />
+
               <h2>FECHA</h2>
               <p class="detail-main">10-25 DE OCTUBRE, 2026</p>
-              <p class="muted small">Horario: 16:00 GMT-6 · 15 días de competición</p>
+              <p class="muted small">
+                Horario: 16:00 GMT-6 · 15 días de competición
+              </p>
+
               <h2 class="spaced-heading">LUGAR</h2>
               <p class="detail-main">SERVIDOR EXCLUSIVO MOEMON KETZAL</p>
-              <p class="muted small">Emisiones en vivo por Curi Gameplays y YouTube Gaming</p>
+              <p class="muted small">
+                Emisiones en vivo por Curi Gameplays y YouTube Gaming
+              </p>
+
               <div class="detail-footer">
                 <strong>MOÉMON KETZAL</strong>
                 <span>🌱 🔥 💧</span>
@@ -122,23 +198,45 @@ const title = "Copa Artemis 2026";
             </article>
 
             <article class="detail-card">
-              <img src="https://files.catbox.moe/lniiri.jpg" class="card-deco deco-detail" alt="">
+              <img
+                src="https://files.catbox.moe/lniiri.jpg"
+                class="card-deco deco-detail"
+                alt=""
+              />
+
               <div class="registration-heading">
                 <h2>INSCRIPCIONES</h2>
               </div>
+
               <div class="registration-info">
                 <p><strong>REGISTRO INDIVIDUAL ACTIVO</strong></p>
                 <p>• Carrera individual de velocidad</p>
                 <p>• Región Ketzal completa</p>
                 <p>• Pokédex Galar ampliada</p>
               </div>
+
               <p class="prize-footer">
-                <strong>🏆 Premios:</strong> Master Trophy + <span>regalos exclusivos</span>
+                <strong>🏆 Premios:</strong> Master Trophy +
+                <span>regalos exclusivos</span>
               </p>
-              <a id="btn-community" href="https://discord.gg/3GWTVzjHS4" target="_blank" rel="noopener noreferrer" class="discord-button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="discord-icon" aria-hidden="true">
+
+              <a
+                id="btn-community"
+                href="https://discord.gg/3GWTVzjHS4"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="discord-button"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="discord-icon"
+                  aria-hidden="true"
+                >
                   <path d="M19.73 5.2a18.1 18.1 0 0 0-4.46-1.38.07.07 0 0 0-.08.04c-.19.34-.4.78-.55 1.13a16.7 16.7 0 0 0-5.02 0c-.15-.36-.37-.79-.56-1.13a.08.08 0 0 0-.08-.04A18 18 0 0 0 4.52 5.2a.07.07 0 0 0-.03.03C1.66 9.43.89 13.53 1.27 17.58c0 .02.01.04.03.05a18.2 18.2 0 0 0 5.47 2.76.08.08 0 0 0 .09-.03c.42-.57.79-1.17 1.11-1.8a.08.08 0 0 0-.04-.11 12 12 0 0 1-1.71-.81.08.08 0 0 1-.01-.13l.34-.27a.08.08 0 0 1 .08-.01c3.58 1.63 7.45 1.63 10.99 0a.08.08 0 0 1 .08.01l.34.27a.08.08 0 0 1-.01.13c-.55.32-1.12.59-1.71.81a.08.08 0 0 0-.04.11c.33.63.7 1.23 1.11 1.8a.08.08 0 0 0 .09.03 18.2 18.2 0 0 0 5.48-2.76.08.08 0 0 0 .03-.05c.45-4.69-.76-8.76-3.23-12.35a.06.06 0 0 0-.03-.03ZM8.24 14.6c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Zm7.28 0c-1.08 0-1.97-.99-1.97-2.21s.87-2.21 1.97-2.21 1.99 1 1.97 2.21c0 1.22-.87 2.21-1.97 2.21Z"/>
                 </svg>
+
                 <span class="discord-copy">
                   <strong>Únete a nuestra comunidad</strong>
                   <small>Discord oficial · Copa Artemis 2026</small>
@@ -152,106 +250,299 @@ const title = "Copa Artemis 2026";
     </section>
   </main>
 
+  <!-- Modal de inscripción -->
   <div id="modal-register" class="modal" hidden>
-    <section class="modal-card modal-narrow" role="dialog" aria-modal="true">
-      <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
+    <section
+      class="modal-card modal-narrow"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="register-title"
+    >
+      <button
+        type="button"
+        class="close-modal close-button"
+        aria-label="Cerrar"
+      >
+        ✕
+      </button>
+
       <header class="modal-header">
-        <h2>Registro de Entrenador</h2>
+        <h2 id="register-title">Registro de Entrenador</h2>
         <p>Inscripción para la Copa Artemis Moémon</p>
       </header>
+
       <form id="form-register" class="register-form">
         <div class="form-field">
           <label for="reg-nick">Nombre de entrenador *</label>
-          <input type="text" id="reg-nick" required maxlength="40" />
+          <input
+            type="text"
+            id="reg-nick"
+            name="nickname"
+            required
+            maxlength="40"
+            autocomplete="nickname"
+          />
         </div>
+
         <div class="form-field">
           <label for="reg-discord">Usuario de Discord *</label>
-          <input type="text" id="reg-discord" required maxlength="80" />
+          <input
+            type="text"
+            id="reg-discord"
+            name="discord"
+            required
+            maxlength="80"
+            autocomplete="off"
+          />
         </div>
+
         <label class="checkbox-label">
           <input type="checkbox" id="reg-rules" required />
           <span>Acepto cumplir con el reglamento oficial y jugar limpio.</span>
         </label>
+
         <div class="modal-actions">
-          <button type="button" class="button button-dark close-modal">Cancelar</button>
-          <button type="submit" class="button button-primary">Confirmar inscripción</button>
+          <button
+            type="button"
+            class="button button-dark close-modal"
+          >
+            Cancelar
+          </button>
+          <button type="submit" class="button button-primary">
+            Confirmar inscripción
+          </button>
         </div>
       </form>
     </section>
   </div>
 
+  <!-- Modal del reglamento -->
   <div id="modal-rules" class="modal" hidden>
-    <section class="modal-card" role="dialog" aria-modal="true">
-      <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
+    <section
+      class="modal-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="rules-title"
+    >
+      <button
+        type="button"
+        class="close-modal close-button"
+        aria-label="Cerrar"
+      >
+        ✕
+      </button>
+
       <header class="modal-header modal-title-row">
         <span class="shield-icon">🛡️</span>
         <div>
-          <h2>Reglamento Oficial</h2>
+          <h2 id="rules-title">Reglamento Oficial</h2>
           <p>Copa Artemis 2026 · Moémon Ketzal</p>
         </div>
       </header>
+
       <div class="rules-content">
-        <p><strong>1. Registro:</strong> Solo se permiten cuentas individuales. Usa tu nickname de entrenador y tu usuario de Discord.</p>
-        <p><strong>2. Objetivo:</strong> Completar la Pokédex de la región Ketzal lo más rápido posible. El primero en completarla es el ganador.</p>
-        <p><strong>3. Juego limpio:</strong> Prohibido el uso de hacks, mods, exploits o cualquier ventaja injusta. Cualquier infracción resulta en descalificación inmediata.</p>
-        <p><strong>4. Duración:</strong> La competición va del 10 al 25 de octubre de 2026, de 16:00 GMT-6.</p>
-        <p><strong>5. Verificación:</strong> Los ganadores deberán mostrar prueba de su Pokédex completa en el servidor oficial.</p>
-        <p><strong>6. Premio:</strong> Master Trophy + regalos exclusivos para el maestro absoluto.</p>
+        <p>
+          <strong>1. Registro:</strong> Solo se permiten cuentas individuales.
+          Usa tu nickname de entrenador y tu usuario de Discord.
+        </p>
+        <p>
+          <strong>2. Objetivo:</strong> Completar la Pokédex de la región Ketzal
+          lo más rápido posible. El primero en completarla es el ganador.
+        </p>
+        <p>
+          <strong>3. Juego limpio:</strong> Prohibido el uso de hacks, mods,
+          exploits o cualquier ventaja injusta. Cualquier infracción resulta en
+          descalificación inmediata.
+        </p>
+        <p>
+          <strong>4. Duración:</strong> La competición va del 10 al 25 de
+          octubre de 2026, de 16:00 GMT-6.
+        </p>
+        <p>
+          <strong>5. Verificación:</strong> Los ganadores deberán mostrar prueba
+          de su Pokédex completa en el servidor oficial.
+        </p>
+        <p>
+          <strong>6. Premio:</strong> Master Trophy + regalos exclusivos para
+          el maestro absoluto.
+        </p>
       </div>
+
       <footer class="modal-actions">
-        <button type="button" class="button button-dark close-modal">Cerrar</button>
+        <button type="button" class="button button-dark close-modal">
+          Cerrar
+        </button>
       </footer>
     </section>
   </div>
 
+  <!-- Modal de clasificación -->
   <div id="modal-leaderboard" class="modal" hidden>
-    <section class="modal-card" role="dialog" aria-modal="true">
-      <button type="button" class="close-modal close-button" aria-label="Cerrar">✕</button>
+    <section
+      class="modal-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="leaderboard-title"
+    >
+      <button
+        type="button"
+        class="close-modal close-button"
+        aria-label="Cerrar"
+      >
+        ✕
+      </button>
+
       <header class="modal-header">
-        <h2>Clasificación de entrenadores</h2>
+        <h2 id="leaderboard-title">Clasificación de entrenadores</h2>
       </header>
-      <div id="leaderboard-list" class="leaderboard-list"></div>
+
+      <div id="leaderboard-list" class="leaderboard-list">
+        <p class="list-status">Conectando con Supabase...</p>
+      </div>
     </section>
   </div>
 
   <style is:global>
-    * { box-sizing: border-box; }
-    html { min-width: 320px; scroll-behavior: smooth; background: #08090d; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      scroll-behavior: smooth;
+      background: #08090d;
+    }
+
     body {
-      position: relative; min-height: 100vh; margin: 0; overflow-x: hidden;
-      color: #f1f5f9; background: #08090d;
+      position: relative;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: #f1f5f9;
+      background: #08090d;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
     }
-    button, input { font: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    button { color: inherit; cursor: pointer; }
-    button:disabled { cursor: wait; opacity: .65; }
-    button:focus-visible, a:focus-visible, input:focus-visible {
-      outline: 2px solid #fbbf24; outline-offset: 3px;
+
+    button,
+    input {
+      font: inherit;
     }
-    .background { position: fixed; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
-    .background-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(203, 213, 225, .12), transparent); }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      color: inherit;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: .65;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible {
+      outline: 2px solid #fbbf24;
+      outline-offset: 3px;
+    }
+
+    .background {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .background-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(203, 213, 225, .12), transparent);
+    }
+
     .background-grid {
-      position: absolute; inset: 0;
-      background-image: linear-gradient(to right, rgba(30, 41, 59, .08) 1px, transparent 1px), linear-gradient(to bottom, rgba(30, 41, 59, .08) 1px, transparent 1px);
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(30, 41, 59, .08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 41, 59, .08) 1px, transparent 1px);
       background-size: 32px 32px;
     }
-    .glow { position: absolute; width: 24rem; height: 24rem; border-radius: 50%; filter: blur(64px); animation: pulse 6s ease-in-out infinite alternate; }
-    .glow-silver { top: 25%; left: 2.5rem; background: rgba(203, 213, 225, .05); }
-    .glow-gold { right: 2.5rem; bottom: 33%; background: rgba(245, 158, 11, .05); animation-delay: 1s; }
-    @keyframes pulse { from { opacity: .45; transform: scale(.96); } to { opacity: 1; transform: scale(1.04); } }
+
+    .glow {
+      position: absolute;
+      width: 24rem;
+      height: 24rem;
+      border-radius: 50%;
+      filter: blur(64px);
+      animation: pulse 6s ease-in-out infinite alternate;
+    }
+
+    .glow-silver {
+      top: 25%;
+      left: 2.5rem;
+      background: rgba(203, 213, 225, .05);
+    }
+
+    .glow-gold {
+      right: 2.5rem;
+      bottom: 33%;
+      background: rgba(245, 158, 11, .05);
+      animation-delay: 1s;
+    }
+
+    @keyframes pulse {
+      from {
+        opacity: .45;
+        transform: scale(.96);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1.04);
+      }
+    }
+
     .navbar {
-      position: sticky; z-index: 40; top: 0; padding: 12px 16px;
+      position: sticky;
+      z-index: 40;
+      top: 0;
+      padding: 12px 16px;
       border-bottom: 1px solid rgba(51, 65, 85, .8);
-      background: rgba(8, 9, 13, .82); box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
+      background: rgba(8, 9, 13, .82);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
       backdrop-filter: blur(20px);
     }
-    .nav-inner, .brand, .nav-actions, .registration-heading, .countdown-heading, .detail-footer, .modal-title-row {
-      display: flex; align-items: center;
+
+    .nav-inner,
+    .brand,
+    .nav-actions,
+    .registration-heading,
+    .countdown-heading,
+    .detail-footer,
+    .modal-title-row {
+      display: flex;
+      align-items: center;
     }
-    .nav-inner { max-width: 1280px; justify-content: space-between; gap: 16px; margin: 0 auto; }
-    .brand { min-width: 0; gap: 12px; color: inherit; text-decoration: none; }
+
+    .nav-inner {
+      max-width: 1280px;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      min-width: 0;
+      gap: 12px;
+      color: inherit;
+      text-decoration: none;
+    }
+
     .brand-icon-img {
       width: 42px;
       height: 42px;
@@ -260,155 +551,737 @@ const title = "Copa Artemis 2026";
       border: 1px solid #64748b;
       flex-shrink: 0;
     }
-    .brand small, .brand strong { display: block; }
-    .brand small { margin-bottom: 4px; color: #94a3b8; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    .brand strong { font-size: 13px; font-weight: 900; letter-spacing: .06em; }
-    .nav-actions { gap: 8px; }
+
+    .brand small,
+    .brand strong {
+      display: block;
+    }
+
+    .brand small {
+      margin-bottom: 4px;
+      color: #94a3b8;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .brand strong {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .06em;
+    }
+
+    .nav-actions {
+      gap: 8px;
+    }
+
     .button {
-      display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 14px; border: 1px solid transparent; border-radius: 10px;
-      font-size: 12px; font-weight: 800; text-align: center;
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
       transition: transform .2s, border-color .2s, filter .2s;
     }
-    .button:hover { filter: brightness(1.13); }
-    .button:active { transform: scale(.98); }
-    .button-dark { border-color: rgba(100, 116, 139, .4); background: rgba(30, 41, 59, .75); }
-    .icon-button { min-width: 42px; padding: 9px; font-size: 17px; }
-    .count { padding: 3px 7px; border-radius: 999px; background: #08090d; color: #cbd5e1; font-size: 10px; }
-    .main-container { position: relative; z-index: 1; max-width: 1152px; margin: 0 auto; padding: 32px 16px; }
-    .outer-frame { padding: 2px; border-radius: 26px; background: linear-gradient(180deg, #e2e8f0, #94a3b8 60%, #334155); box-shadow: 0 24px 70px rgba(0, 0, 0, .35); }
-    .panel { overflow: hidden; border-radius: 24px; background: #0b0c12; }
-    .content { padding: 48px clamp(18px, 5vw, 64px); }
-    .text-center { text-align: center; }
-    .pill { display: inline-flex; align-items: center; justify-content: center; padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 900; letter-spacing: .1em; }
-    .pill-gold { border: 1px solid rgba(245, 158, 11, .4); background: #1e293b; color: #fcd34d; }
-    .hero { margin: 22px 0 32px; text-align: center; }
-    .hero h1 { margin: 0; font-size: clamp(27px, 5vw, 48px); font-weight: 950; line-height: 1.12; letter-spacing: -.035em; }
-    .hero-subtitle { margin: 10px 0; background: linear-gradient(90deg, #cbd5e1, #f8fafc, #94a3b8); background-clip: text; color: transparent; font-size: clamp(24px, 4vw, 38px); font-weight: 900; }
-    .hero-tagline { margin: 14px 0; color: #fbbf24; font-size: 11px; font-weight: 900; letter-spacing: .1em; line-height: 1.8; }
-    .hero-description { max-width: 680px; margin: 24px auto 0; color: #cbd5e1; font-size: 14px; line-height: 1.8; }
-    .countdown-card { max-width: 680px; margin: 0 auto 36px; padding: 16px; border: 1px solid #334155; border-radius: 14px; background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a); }
-    .countdown-heading { justify-content: space-between; gap: 12px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #334155; color: #cbd5e1; font-size: 11px; font-weight: 900; letter-spacing: .06em; }
-    .date-label { color: #34d399; }
-    .countdown-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; text-align: center; }
-    .time-box { padding: 10px 4px; border-radius: 8px; background: #020617; }
-    .time-box strong, .time-box span { display: block; }
-    .time-box strong { font-size: clamp(22px, 4vw, 30px); font-weight: 950; font-variant-numeric: tabular-nums; }
-    .time-box span { margin-top: 3px; color: #94a3b8; font-size: 10px; }
-    .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px; }
+
+    .button:hover {
+      filter: brightness(1.13);
+    }
+
+    .button:active {
+      transform: scale(.98);
+    }
+
+    .button-dark {
+      border-color: rgba(100, 116, 139, .4);
+      background: rgba(30, 41, 59, .75);
+    }
+
+    .icon-button {
+      min-width: 42px;
+      padding: 9px;
+      font-size: 17px;
+    }
+
+    .count {
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: #08090d;
+      color: #cbd5e1;
+      font-size: 10px;
+    }
+
+    .main-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 32px 16px;
+    }
+
+    .outer-frame {
+      padding: 2px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, #e2e8f0, #94a3b8 60%, #334155);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
+    }
+
+    .panel {
+      overflow: hidden;
+      border-radius: 24px;
+      background: #0b0c12;
+    }
+
+    .content {
+      padding: 48px clamp(18px, 5vw, 64px);
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .1em;
+    }
+
+    .pill-gold {
+      border: 1px solid rgba(245, 158, 11, .4);
+      background: #1e293b;
+      color: #fcd34d;
+    }
+
+    .hero {
+      margin: 22px 0 32px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(27px, 5vw, 48px);
+      font-weight: 950;
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+
+    .hero-subtitle {
+      margin: 10px 0;
+      background: linear-gradient(90deg, #cbd5e1, #f8fafc, #94a3b8);
+      background-clip: text;
+      color: transparent;
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 900;
+    }
+
+    .hero-tagline {
+      margin: 14px 0;
+      color: #fbbf24;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      line-height: 1.8;
+    }
+
+    .hero-description {
+      max-width: 680px;
+      margin: 24px auto 0;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .countdown-card {
+      max-width: 680px;
+      margin: 0 auto 36px;
+      padding: 16px;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
+    }
+
+    .countdown-heading {
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #334155;
+      color: #cbd5e1;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .06em;
+    }
+
+    .date-label {
+      color: #34d399;
+      text-align: right;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      text-align: center;
+    }
+
+    .time-box {
+      padding: 10px 4px;
+      border-radius: 8px;
+      background: #020617;
+    }
+
+    .time-box strong,
+    .time-box span {
+      display: block;
+    }
+
+    .time-box strong {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 950;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .time-box span {
+      margin-top: 3px;
+      color: #94a3b8;
+      font-size: 10px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
     .feature-card {
-      display: flex; min-width: 0; min-height: 180px; flex-direction: column; align-items: center; justify-content: flex-end;
-      padding: 16px 12px 20px; border: 1px solid #334155; border-radius: 14px; background: #0f172a; text-align: center;
-      position: relative; overflow: hidden;
+      position: relative;
+      display: flex;
+      min-width: 0;
+      min-height: 180px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 16px 12px 20px;
+      overflow: hidden;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      background: #0f172a;
+      text-align: center;
     }
-    .muted { color: #94a3b8; }
-    .feature-card .muted { font-size: 10px; }
-    .feature-card p { margin: 8px 0 0; font-size: 13px; font-weight: 900; }
-    .prize-text, .prize-footer span { color: #fb7185; }
-    .pill-game { padding: 6px 10px; border-radius: 6px; background: rgba(245, 158, 11, .16); color: #fcd34d; font-size: 10px; letter-spacing: 0; }
-    .primary-actions { display: grid; max-width: 600px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0 auto 40px; }
-    .button-primary { border-color: #cbd5e1; background: linear-gradient(90deg, #e2e8f0, #94a3b8); color: #08090d; }
-    .primary-actions .button { min-height: 58px; padding: 16px 12px; font-size: 12px; font-weight: 950; }
-    .button-secondary { border-color: #334155; background: #0f172a; color: #f8fafc; }
-    .section-heading { margin-bottom: 24px; text-align: center; }
-    .section-heading span { display: inline-block; padding: 10px 24px; border: 1px solid rgba(245, 158, 11, .3); border-radius: 999px; color: #fbbf24; font-size: 10px; font-weight: 950; letter-spacing: .12em; }
-    .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+
+    .muted {
+      color: #94a3b8;
+    }
+
+    .feature-card .muted {
+      font-size: 10px;
+    }
+
+    .feature-card p {
+      margin: 8px 0 0;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .prize-text,
+    .prize-footer span {
+      color: #fb7185;
+    }
+
+    .pill-game {
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, .16);
+      color: #fcd34d;
+      font-size: 10px;
+      letter-spacing: 0;
+    }
+
+    .primary-actions {
+      display: grid;
+      max-width: 600px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 0 auto 40px;
+    }
+
+    .button-primary {
+      border-color: #cbd5e1;
+      background: linear-gradient(90deg, #e2e8f0, #94a3b8);
+      color: #08090d;
+    }
+
+    .primary-actions .button {
+      min-height: 58px;
+      padding: 16px 12px;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .button-secondary {
+      border-color: #334155;
+      background: #0f172a;
+      color: #f8fafc;
+    }
+
+    .section-heading {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .section-heading span {
+      display: inline-block;
+      padding: 10px 24px;
+      border: 1px solid rgba(245, 158, 11, .3);
+      border-radius: 999px;
+      color: #fbbf24;
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: .12em;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
     .detail-card {
-      min-width: 0; padding: 24px; border: 1px solid #1e293b; border-radius: 18px; background: #0f172a;
-      position: relative; overflow: hidden;
+      position: relative;
+      min-width: 0;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      background: #0f172a;
     }
-    .detail-card h2 { margin: 0 0 10px; color: #fbbf24; font-size: 14px; font-weight: 950; }
-    .detail-main { margin: 0; font-size: 15px; font-weight: 950; line-height: 1.5; }
-    .small { margin: 5px 0 0; font-size: 11px; line-height: 1.7; }
-    .spaced-heading { margin-top: 28px !important; }
-    .detail-footer { justify-content: space-between; gap: 12px; margin-top: 24px; padding-top: 18px; border-top: 1px solid #1e293b; }
-    .detail-footer strong { color: #fbbf24; font-size: 11px; }
-    .registration-heading { justify-content: space-between; gap: 12px; margin-bottom: 20px; }
-    .registration-heading h2 { margin: 0; }
-    .registration-info { color: #cbd5e1; font-size: 12px; line-height: 1.8; }
-    .registration-info p { margin: 5px 0; }
-    .prize-footer { margin: 22px 0 0; padding-top: 18px; border-top: 1px solid #1e293b; color: #cbd5e1; font-size: 11px; line-height: 1.8; }
-    .prize-footer strong { color: #fbbf24; }
-    .prize-footer span { font-weight: 900; }
+
+    .detail-card h2 {
+      margin: 0 0 10px;
+      color: #fbbf24;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .detail-main {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 950;
+      line-height: 1.5;
+    }
+
+    .small {
+      margin: 5px 0 0;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .spaced-heading {
+      margin-top: 28px !important;
+    }
+
+    .detail-footer {
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid #1e293b;
+    }
+
+    .detail-footer strong {
+      color: #fbbf24;
+      font-size: 11px;
+    }
+
+    .registration-heading {
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .registration-heading h2 {
+      margin: 0;
+    }
+
+    .registration-info {
+      color: #cbd5e1;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .registration-info p {
+      margin: 5px 0;
+    }
+
+    .prize-footer {
+      margin: 22px 0 0;
+      padding-top: 18px;
+      border-top: 1px solid #1e293b;
+      color: #cbd5e1;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .prize-footer strong {
+      color: #fbbf24;
+    }
+
+    .prize-footer span {
+      font-weight: 900;
+    }
+
     .discord-button {
-      display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 24px; padding: 16px;
-      border: 1px solid rgba(254, 240, 138, .5); border-radius: 12px;
-      background: linear-gradient(100deg, #422006, #18181b, #000); color: #fef3c7;
-      text-decoration: none; box-shadow: 0 10px 25px rgba(245, 158, 11, .07);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      margin-top: 24px;
+      padding: 16px;
+      border: 1px solid rgba(254, 240, 138, .5);
+      border-radius: 12px;
+      background: linear-gradient(100deg, #422006, #18181b, #000);
+      color: #fef3c7;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, .07);
       transition: border-color .2s, filter .2s;
     }
-    .discord-button:hover { border-color: #fcd34d; filter: brightness(1.2); }
-    .discord-icon { width: 34px; height: 34px; flex-shrink: 0; color: #a5b4fc; transition: transform .2s; }
-    .discord-button:hover .discord-icon { transform: scale(1.1); }
-    .discord-copy { display: flex; min-width: 0; flex-direction: column; gap: 5px; text-align: left; }
-    .discord-copy strong { font-size: 12px; }
-    .discord-copy small { color: rgba(254, 240, 138, .7); font-size: 10px; line-height: 1.5; }
-    .discord-arrow { margin-left: auto; font-size: 22px; }
-    .toast-container { position: fixed; z-index: 100; top: 80px; right: 16px; width: min(360px, calc(100% - 32px)); }
-    .toast-body { padding: 14px 16px; border: 1px solid #64748b; border-radius: 12px; background: #0f172a; box-shadow: 0 20px 40px rgba(0, 0, 0, .4); }
-    .toast-body.error { border-color: #f43f5e; }
-    .toast-body p { margin: 0; font-size: 13px; font-weight: 600; line-height: 1.6; }
-    .modal[hidden], [hidden] { display: none !important; }
+
+    .discord-button:hover {
+      border-color: #fcd34d;
+      filter: brightness(1.2);
+    }
+
+    .discord-icon {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      color: #a5b4fc;
+      transition: transform .2s;
+    }
+
+    .discord-button:hover .discord-icon {
+      transform: scale(1.1);
+    }
+
+    .discord-copy {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 5px;
+      text-align: left;
+    }
+
+    .discord-copy strong {
+      font-size: 12px;
+    }
+
+    .discord-copy small {
+      color: rgba(254, 240, 138, .7);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .discord-arrow {
+      margin-left: auto;
+      font-size: 22px;
+    }
+
+    .toast-container {
+      position: fixed;
+      z-index: 100;
+      top: 80px;
+      right: 16px;
+      width: min(360px, calc(100% - 32px));
+    }
+
+    .toast-body {
+      padding: 14px 16px;
+      border: 1px solid #64748b;
+      border-radius: 12px;
+      background: #0f172a;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
+    }
+
+    .toast-body.error {
+      border-color: #f43f5e;
+    }
+
+    .toast-body p {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .modal[hidden],
+    [hidden] {
+      display: none !important;
+    }
+
     .modal {
-      position: fixed; z-index: 50; inset: 0; display: flex; align-items: center; justify-content: center;
-      overflow-y: auto; padding: 16px; background: rgba(0, 0, 0, .82); backdrop-filter: blur(12px);
+      position: fixed;
+      z-index: 50;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+      padding: 16px;
+      background: rgba(0, 0, 0, .82);
+      backdrop-filter: blur(12px);
     }
+
     .modal-card {
-      position: relative; display: flex; width: 100%; max-width: 680px; max-height: 85vh; flex-direction: column;
-      padding: 24px; overflow: hidden; border: 1px solid #475569; border-radius: 18px;
-      background: #0f172a; box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
+      position: relative;
+      display: flex;
+      width: 100%;
+      max-width: 680px;
+      max-height: 85vh;
+      flex-direction: column;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid #475569;
+      border-radius: 18px;
+      background: #0f172a;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
     }
-    .modal-narrow { max-width: 480px; }
+
+    .modal-narrow {
+      max-width: 480px;
+    }
+
     .close-button {
-      position: absolute; z-index: 1; top: 16px; right: 16px; display: grid; width: 34px; height: 34px;
-      place-items: center; border: 0; border-radius: 8px; background: transparent; color: #94a3b8; font-size: 18px;
+      position: absolute;
+      z-index: 1;
+      top: 16px;
+      right: 16px;
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 18px;
     }
-    .close-button:hover { background: #1e293b; color: #fff; }
-    .modal-header { flex-shrink: 0; margin-bottom: 20px; padding: 0 36px 16px 0; border-bottom: 1px solid #1e293b; }
-    .modal-header h2 { margin: 0; font-size: 18px; font-weight: 950; text-transform: uppercase; }
-    .modal-header p { margin: 6px 0 0; color: #94a3b8; font-size: 11px; }
-    .modal-title-row { gap: 12px; }
+
+    .close-button:hover {
+      background: #1e293b;
+      color: #fff;
+    }
+
+    .modal-header {
+      flex-shrink: 0;
+      margin-bottom: 20px;
+      padding: 0 36px 16px 0;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .modal-header p {
+      margin: 6px 0 0;
+      color: #94a3b8;
+      font-size: 11px;
+    }
+
+    .modal-title-row {
+      gap: 12px;
+    }
+
     .shield-icon {
-      display: grid; width: 44px; height: 44px; flex-shrink: 0; place-items: center;
-      border: 1px solid #334155; border-radius: 12px; background: #1e293b; font-size: 22px;
+      display: grid;
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      place-items: center;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      background: #1e293b;
+      font-size: 22px;
     }
-    .register-form { display: flex; flex-direction: column; gap: 18px; }
-    .form-field { display: flex; flex-direction: column; gap: 7px; }
-    .form-field label { color: #cbd5e1; font-size: 12px; font-weight: 800; }
+
+    .register-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-field label {
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
     .form-field input {
-      width: 100%; min-height: 46px; padding: 12px 14px; border: 1px solid #334155; border-radius: 10px;
-      background: #020617; color: #f8fafc; font-size: 14px;
+      width: 100%;
+      min-height: 46px;
+      padding: 12px 14px;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      background: #020617;
+      color: #f8fafc;
+      font-size: 14px;
     }
-    .checkbox-label { display: flex; align-items: flex-start; gap: 10px; color: #94a3b8; font-size: 12px; line-height: 1.6; cursor: pointer; }
-    .checkbox-label input { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: #fbbf24; }
-    .modal-actions { display: flex; flex-shrink: 0; justify-content: flex-end; gap: 12px; margin-top: 20px; }
-    .rules-content, .leaderboard-list { overflow-y: auto; padding-right: 6px; }
-    .rules-content { display: flex; flex-direction: column; gap: 16px; color: #cbd5e1; font-size: 13px; line-height: 1.8; }
-    .rules-content p { margin: 0; }
-    .rules-content strong { color: #fbbf24; }
-    .leaderboard-list { display: flex; flex-direction: column; gap: 8px; min-height: 50px; color: #cbd5e1; font-size: 13px; }
-    .leaderboard-row { display: flex; min-width: 0; align-items: center; gap: 12px; padding: 12px; border: 1px solid #1e293b; border-radius: 12px; background: rgba(2, 6, 23, .6); }
-    .leaderboard-position { width: 28px; flex-shrink: 0; color: #fbbf24; font-weight: 950; text-align: center; }
-    .leaderboard-avatar { font-size: 20px; }
-    .leaderboard-info { flex: 1; min-width: 0; }
-    .leaderboard-nickname { overflow: hidden; color: #f1f5f9; font-size: 13px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
-    .leaderboard-region { margin-top: 4px; color: #94a3b8; font-size: 10px; }
-    .leaderboard-count { flex-shrink: 0; color: #34d399; font-size: 12px; font-weight: 950; }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.6;
+      cursor: pointer;
+    }
+
+    .checkbox-label input {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: #fbbf24;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-shrink: 0;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .rules-content,
+    .leaderboard-list {
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .rules-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      color: #cbd5e1;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .rules-content p {
+      margin: 0;
+    }
+
+    .rules-content strong {
+      color: #fbbf24;
+    }
+
+    .leaderboard-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 50px;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+
+    .list-status {
+      padding: 20px;
+      color: #94a3b8;
+      text-align: center;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .leaderboard-row {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      background: rgba(2, 6, 23, .6);
+    }
+
+    .leaderboard-position {
+      width: 28px;
+      flex-shrink: 0;
+      color: #fbbf24;
+      font-weight: 950;
+      text-align: center;
+    }
+
+    .leaderboard-avatar {
+      font-size: 20px;
+    }
+
+    .leaderboard-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .leaderboard-nickname {
+      overflow: hidden;
+      color: #f1f5f9;
+      font-size: 13px;
+      font-weight: 800;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .leaderboard-region {
+      margin-top: 4px;
+      color: #94a3b8;
+      font-size: 10px;
+    }
+
+    .leaderboard-count {
+      flex-shrink: 0;
+      color: #34d399;
+      font-size: 12px;
+      font-weight: 950;
+    }
 
     .card-deco {
       width: 90px;
       height: 90px;
       object-fit: cover;
       border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .45);
+      border: 1px solid rgba(255, 255, 255, .12);
       margin-bottom: 10px;
-      transition: transform 0.25s ease;
+      transition: transform .25s ease;
     }
+
     .feature-card:hover .card-deco,
     .detail-card:hover .card-deco {
       transform: scale(1.06);
     }
+
     .deco-detail {
       position: absolute;
       top: 16px;
@@ -419,41 +1292,145 @@ const title = "Copa Artemis 2026";
     }
 
     @media (max-width: 700px) {
-      .main-container { padding: 20px 10px; }
-      .content { padding: 28px 16px; }
-      .details-grid { grid-template-columns: 1fr; gap: 16px; }
-      .feature-grid { gap: 8px; }
-      .feature-card { padding: 14px 6px 16px; min-height: 160px; }
-      .feature-card p { font-size: 11px; line-height: 1.5; }
-      .detail-card { padding: 20px; }
-      .card-deco { width: 76px; height: 76px; }
-      .deco-detail { width: 60px; height: 60px; }
+      .main-container {
+        padding: 20px 10px;
+      }
+
+      .content {
+        padding: 28px 16px;
+      }
+
+      .details-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .feature-grid {
+        gap: 8px;
+      }
+
+      .feature-card {
+        padding: 14px 6px 16px;
+        min-height: 160px;
+      }
+
+      .feature-card p {
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      .detail-card {
+        padding: 20px;
+      }
+
+      .card-deco {
+        width: 76px;
+        height: 76px;
+      }
+
+      .deco-detail {
+        width: 60px;
+        height: 60px;
+      }
     }
+
     @media (max-width: 480px) {
-      .navbar { padding: 10px; }
-      .nav-inner { gap: 8px; }
-      .brand { gap: 8px; }
-      .brand-icon-img { width: 34px; height: 34px; }
-      .brand small { max-width: 135px; font-size: 8px; letter-spacing: .04em; }
-      .brand strong { font-size: 10px; letter-spacing: 0; }
-      .nav-actions { gap: 5px; }
-      .button { padding: 9px; font-size: 10px; }
-      .players-label { display: none; }
-      .icon-button { min-width: 36px; }
-      .hero-tagline { font-size: 9px; }
-      .primary-actions { grid-template-columns: 1fr; gap: 10px; }
-      .countdown-card { padding: 12px 8px; }
-      .countdown-heading { font-size: 9px; }
-      .time-box strong { font-size: 22px; }
-      .time-box span { font-size: 9px; }
-      .discord-button { gap: 8px; padding: 12px 10px; }
-      .discord-copy strong { font-size: 10px; }
-      .discord-copy small { font-size: 9px; }
-      .modal-card { padding: 20px 16px; }
-      .modal-actions { flex-wrap: wrap; }
+      .navbar {
+        padding: 10px;
+      }
+
+      .nav-inner {
+        gap: 8px;
+      }
+
+      .brand {
+        gap: 8px;
+      }
+
+      .brand-icon-img {
+        width: 34px;
+        height: 34px;
+      }
+
+      .brand small {
+        max-width: 135px;
+        font-size: 8px;
+        letter-spacing: .04em;
+      }
+
+      .brand strong {
+        font-size: 10px;
+        letter-spacing: 0;
+      }
+
+      .nav-actions {
+        gap: 5px;
+      }
+
+      .button {
+        padding: 9px;
+        font-size: 10px;
+      }
+
+      .players-label {
+        display: none;
+      }
+
+      .icon-button {
+        min-width: 36px;
+      }
+
+      .hero-tagline {
+        font-size: 9px;
+      }
+
+      .primary-actions {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .countdown-card {
+        padding: 12px 8px;
+      }
+
+      .countdown-heading {
+        font-size: 9px;
+      }
+
+      .time-box strong {
+        font-size: 22px;
+      }
+
+      .time-box span {
+        font-size: 9px;
+      }
+
+      .discord-button {
+        gap: 8px;
+        padding: 12px 10px;
+      }
+
+      .discord-copy strong {
+        font-size: 10px;
+      }
+
+      .discord-copy small {
+        font-size: 9px;
+      }
+
+      .modal-card {
+        padding: 20px 16px;
+      }
+
+      .modal-actions {
+        flex-wrap: wrap;
+      }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+      *,
+      *::before,
+      *::after {
         scroll-behavior: auto !important;
         animation-duration: .01ms !important;
         transition-duration: .01ms !important;
@@ -461,173 +1438,569 @@ const title = "Copa Artemis 2026";
     }
   </style>
 
-  <script>
-    const SUPABASE_URL = 'https://flldgvplxxogaqdmvhkb.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsbGRndnBseHhvZ2FxdG12aGtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMTY0ODksImV4cCI6MjEwNzc5MjQ4OX0.mmBIPpVvp0pmfIZtTnEBRGN74fCYnfdPMs4Uym9Y8h30';
+  <!-- Lógica de la página y conexión con Supabase -->
+  <script is:inline>
+    (() => {
+      'use strict';
 
-    const $ = id => document.getElementById(id);
-    let supabaseClient = null;
+      // =========================================================
+      // CONFIGURACIÓN DE SUPABASE
+      // =========================================================
 
-    function initializeSupabase() {
-      if (!window.supabase?.createClient) {
-        console.error('No se pudo cargar Supabase.');
-        return false;
-      }
-      if (!supabaseClient) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      }
-      return true;
-    }
+      const SUPABASE_URL = 'https://flldgvplxxogaqdmvhkb.supabase.co';
 
-    const targetDate = new Date("2026-10-10T16:00:00-06:00").getTime();
-    function updateCountdown() {
-      const diff = targetDate - Date.now();
-      if (diff <= 0) {
-        $('t-days').textContent = '00';
-        $('t-hours').textContent = '00';
-        $('t-minutes').textContent = '00';
-        $('t-seconds').textContent = '00';
-        return;
-      }
-      $('t-days').textContent = String(Math.floor(diff / 86400000)).padStart(2, '0');
-      $('t-hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
-      $('t-minutes').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-      $('t-seconds').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+      // Clave PÚBLICA. Debe corresponder al proyecto de la URL.
+      // Nunca coloques una sb_secret o service_role en el navegador.
+      const SUPABASE_PUBLISHABLE_KEY =
+        'sb_publishable_xak3DICWNkTS2ibbeeixLg_9vEcgDjc';
 
-    function openModal(id) {
-      $(id).hidden = false;
-      document.body.style.overflow = 'hidden';
-    }
-    function closeModal() {
-      document.querySelectorAll('.modal').forEach(m => m.hidden = true);
-      document.body.style.overflow = '';
-    }
-    $('btn-open-register')?.addEventListener('click', () => openModal('modal-register'));
-    $('btn-open-rules')?.addEventListener('click', () => openModal('modal-rules'));
-    $('btn-leaderboard')?.addEventListener('click', async () => {
-      openModal('modal-leaderboard');
-      await loadLeaderboard();
-    });
-    document.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', closeModal));
-    document.querySelectorAll('.modal').forEach(modal => {
-      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-    });
+      const $ = (id) => document.getElementById(id);
 
-    function showToast(text, isError = false) {
-      const container = $('toast-container');
-      const body = $('toast-body');
-      $('toast-text').textContent = text;
-      body.classList.toggle('error', isError);
-      container.hidden = false;
-      clearTimeout(window.__toastT);
-      window.__toastT = setTimeout(() => container.hidden = true, 3500);
-    }
+      let supabaseClient = null;
+      let leaderboardLoading = false;
+      let toastTimer = null;
 
-    $('form-register')?.addEventListener('submit', async e => {
-      e.preventDefault();
-      const nick = $('reg-nick').value.trim();
-      const discord = $('reg-discord').value.trim();
-      const accepted = $('reg-rules').checked;
-      if (!nick || !discord || !accepted) {
-        showToast('Completa todos los campos y acepta el reglamento', true);
-        return;
-      }
-      if (!initializeSupabase()) {
-        showToast('No se pudo conectar con Supabase.', true);
-        return;
-      }
-      const btn = e.target.querySelector('[type="submit"]');
-      btn.disabled = true;
-      btn.textContent = 'Registrando...';
-      try {
-        const { data: trainer, error: trainerError } = await supabaseClient
-          .from('entrenadores')
-          .insert([{ nickname: nick, discord: discord }])
-          .select()
-          .single();
-        if (trainerError) throw trainerError;
-        const { error: progressError } = await supabaseClient
-          .from('progreso')
-          .insert([{ entrenador_id: trainer.id, capturas: 0, pokedex_total: 200 }]);
-        if (progressError) console.error(progressError);
-        showToast(`¡${nick} se ha inscrito correctamente!`);
-        e.target.reset();
-        closeModal();
-        await loadLeaderboard();
-      } catch (err) {
-        console.error(err);
-        showToast('Error al registrar. Revisa la configuración de Supabase.', true);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Confirmar inscripción';
-      }
-    });
+      // =========================================================
+      // INICIALIZACIÓN Y DIAGNÓSTICO DE SUPABASE
+      // =========================================================
 
-    async function loadLeaderboard() {
-      const list = $('leaderboard-list');
-      if (!initializeSupabase()) {
-        list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">No se pudo conectar con Supabase.</p>';
-        return;
+      function getSupabaseSetupError() {
+        if (!window.supabase) {
+          return 'No se cargó el CDN de Supabase. Comprueba tu conexión a internet o el bloqueo del CDN.';
+        }
+
+        if (typeof window.supabase.createClient !== 'function') {
+          return 'El CDN se descargó, pero no está disponible createClient. Revisa la URL del CDN.';
+        }
+
+        if (!SUPABASE_URL.startsWith('https://')) {
+          return 'La URL de Supabase no es válida.';
+        }
+
+        if (
+          !SUPABASE_PUBLISHABLE_KEY ||
+          !SUPABASE_PUBLISHABLE_KEY.startsWith('sb_publishable_')
+        ) {
+          return 'La clave pública de Supabase falta o tiene un formato incorrecto.';
+        }
+
+        return '';
       }
-      list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">Cargando...</p>';
-      try {
-        const { data, error } = await supabaseClient
-          .from('entrenadores')
-          .select('*, progreso(capturas, pokedex_total)')
-          .order('created_at', { ascending: true });
-        if (error) throw error;
-        $('player-count').textContent = data.length;
-        list.innerHTML = '';
-        if (data.length === 0) {
-          list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">Aún no hay entrenadores registrados</p>';
+
+      function initializeSupabase() {
+        const setupError = getSupabaseSetupError();
+
+        if (setupError) {
+          console.error('[Supabase] Error de inicialización:', setupError);
+          return false;
+        }
+
+        if (!supabaseClient) {
+          try {
+            supabaseClient = window.supabase.createClient(
+              SUPABASE_URL,
+              SUPABASE_PUBLISHABLE_KEY
+            );
+
+            console.info('[Supabase] Cliente inicializado correctamente.');
+          } catch (error) {
+            console.error('[Supabase] No se pudo crear el cliente:', error);
+            return false;
+          }
+        }
+
+        return true;
+      }
+
+      function getFriendlyError(error) {
+        const message = String(
+          error?.message ||
+          error?.error_description ||
+          error ||
+          'Error desconocido'
+        );
+
+        const normalized = message.toLowerCase();
+
+        if (
+          normalized.includes('invalid api key') ||
+          normalized.includes('invalid api_key') ||
+          normalized.includes('invalid jwt')
+        ) {
+          return 'Supabase rechazó la clave pública. Comprueba que la clave sb_publishable pertenezca a este proyecto y que no tenga espacios.';
+        }
+
+        if (
+          normalized.includes('failed to fetch') ||
+          normalized.includes('networkerror') ||
+          normalized.includes('load failed') ||
+          normalized.includes('network request failed')
+        ) {
+          return 'No se pudo alcanzar Supabase. Revisa internet, la URL del proyecto y si el navegador bloquea las solicitudes.';
+        }
+
+        if (
+          normalized.includes('row-level security') ||
+          normalized.includes('permission denied') ||
+          error?.code === '42501'
+        ) {
+          return 'La conexión con Supabase respondió, pero las políticas de seguridad RLS no permiten esta operación. Revisa los permisos de las tablas.';
+        }
+
+        if (
+          normalized.includes('does not exist') ||
+          normalized.includes('could not find the table') ||
+          normalized.includes('schema cache')
+        ) {
+          return 'Supabase respondió, pero no encuentra una tabla, columna o relación. Comprueba los nombres de entrenadores, progreso y entrenador_id.';
+        }
+
+        if (
+          normalized.includes('foreign key') ||
+          normalized.includes('violates foreign key constraint')
+        ) {
+          return 'No se pudo guardar el progreso porque la relación entre entrenadores y progreso no coincide con la configuración de la base de datos.';
+        }
+
+        return `Error de Supabase: ${message}`;
+      }
+
+      // =========================================================
+      // NOTIFICACIONES
+      // =========================================================
+
+      function showToast(message, isError = false) {
+        const container = $('toast-container');
+        const body = $('toast-body');
+        const text = $('toast-text');
+
+        if (!container || !body || !text) {
+          console.log(message);
           return;
         }
-        const sorted = [...data].sort((a, b) => (b.progreso?.[0]?.capturas || 0) - (a.progreso?.[0]?.capturas || 0));
-        sorted.forEach((trainer, i) => {
-          const progress = trainer.progreso?.[0];
-          const captures = progress?.capturas || 0;
-          const total = progress?.pokedex_total || 200;
-          const row = document.createElement('div');
-          row.className = 'leaderboard-row';
-          row.innerHTML = `
-            <span class="leaderboard-position">${i + 1}</span>
-            <span class="leaderboard-avatar">🎮</span>
-            <div class="leaderboard-info">
-              <div class="leaderboard-nickname">${trainer.nickname}</div>
-              <div class="leaderboard-region">${trainer.region || 'Ketzal'}</div>
-            </div>
-            <span class="leaderboard-count">\( {captures}/ \){total}</span>
-          `;
-          list.appendChild(row);
+
+        text.textContent = message;
+        body.classList.toggle('error', isError);
+        container.hidden = false;
+
+        if (toastTimer) {
+          clearTimeout(toastTimer);
+        }
+
+        toastTimer = setTimeout(() => {
+          container.hidden = true;
+        }, 6500);
+      }
+
+      function setListStatus(message, isError = false) {
+        const list = $('leaderboard-list');
+        if (!list) return;
+
+        list.replaceChildren();
+
+        const paragraph = document.createElement('p');
+        paragraph.className = 'list-status';
+        paragraph.textContent = message;
+
+        if (isError) {
+          paragraph.style.color = '#fb7185';
+        }
+
+        list.appendChild(paragraph);
+      }
+
+      // =========================================================
+      // CUENTA REGRESIVA
+      // =========================================================
+
+      const tournamentStart = new Date(
+        '2026-10-10T16:00:00-06:00'
+      ).getTime();
+
+      const tournamentEnd = new Date(
+        '2026-10-25T23:59:59-06:00'
+      ).getTime();
+
+      function updateCountdown() {
+        const now = Date.now();
+        let diff = 0;
+
+        if (now < tournamentStart) {
+          diff = tournamentStart - now;
+
+          $('countdown-title').textContent = 'INICIO DEL TORNEO';
+          $('countdown-date').textContent = '10 OCT, 2026';
+        } else if (now <= tournamentEnd) {
+          diff = tournamentEnd - now;
+
+          $('countdown-title').textContent = 'FIN DEL TORNEO';
+          $('countdown-date').textContent = '25 OCT, 2026';
+        } else {
+          $('countdown-title').textContent = 'TORNEO FINALIZADO';
+          $('countdown-date').textContent = '25 OCT, 2026';
+        }
+
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+
+        $('t-days').textContent = String(days).padStart(2, '0');
+        $('t-hours').textContent = String(hours).padStart(2, '0');
+        $('t-minutes').textContent = String(minutes).padStart(2, '0');
+        $('t-seconds').textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // =========================================================
+      // MODALES
+      // =========================================================
+
+      function openModal(id) {
+        const modal = $(id);
+        if (!modal) return;
+
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        document.querySelectorAll('.modal').forEach((modal) => {
+          modal.hidden = true;
         });
-      } catch (err) {
-        console.error(err);
-        list.innerHTML = '<p style="text-align:center;color:#fb7185;padding:20px;">Error al cargar la clasificación.</p>';
+
+        document.body.style.overflow = '';
       }
-    }
 
-    $('btn-share')?.addEventListener('click', async () => {
-      const data = { title: 'Copa Artemis 2026', text: '¡Participa en la Copa Artemis 2026!', url: location.href };
-      if (navigator.share) {
-        try { await navigator.share(data); } catch {}
-      } else {
-        await navigator.clipboard.writeText(location.href);
-        showToast('Enlace copiado al portapapeles');
+      $('btn-open-register')?.addEventListener('click', () => {
+        openModal('modal-register');
+      });
+
+      $('btn-open-rules')?.addEventListener('click', () => {
+        openModal('modal-rules');
+      });
+
+      $('btn-leaderboard')?.addEventListener('click', async () => {
+        openModal('modal-leaderboard');
+        await loadLeaderboard();
+      });
+
+      document.querySelectorAll('.close-modal').forEach((button) => {
+        button.addEventListener('click', closeModal);
+      });
+
+      document.querySelectorAll('.modal').forEach((modal) => {
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeModal();
+        }
+      });
+
+      // =========================================================
+      // CLASIFICACIÓN DE ENTRENADORES
+      // =========================================================
+
+      async function loadLeaderboard() {
+        const list = $('leaderboard-list');
+
+        if (!list || leaderboardLoading) return;
+
+        if (!initializeSupabase()) {
+          const setupError = getSupabaseSetupError();
+
+          setListStatus(
+            setupError || 'No se pudo inicializar Supabase.',
+            true
+          );
+
+          return;
+        }
+
+        leaderboardLoading = true;
+        setListStatus('Conectando con la base de datos...');
+
+        try {
+          const { data, error } = await supabaseClient
+            .from('entrenadores')
+            .select(
+              'id, nickname, region, created_at, progreso(capturas, pokedex_total)'
+            )
+            .order('created_at', { ascending: true });
+
+          if (error) {
+            throw error;
+          }
+
+          if (!Array.isArray(data)) {
+            throw new Error(
+              'Supabase no devolvió una lista válida de entrenadores.'
+            );
+          }
+
+          $('player-count').textContent = String(data.length);
+          list.replaceChildren();
+
+          if (data.length === 0) {
+            setListStatus('Aún no hay entrenadores registrados.');
+            return;
+          }
+
+          const sorted = [...data].sort((a, b) => {
+            const progressA = Array.isArray(a.progreso)
+              ? a.progreso[0]
+              : a.progreso;
+
+            const progressB = Array.isArray(b.progreso)
+              ? b.progreso[0]
+              : b.progreso;
+
+            const capturesA = Number(progressA?.capturas ?? 0);
+            const capturesB = Number(progressB?.capturas ?? 0);
+
+            return capturesB - capturesA;
+          });
+
+          sorted.forEach((trainer, index) => {
+            const progress = Array.isArray(trainer.progreso)
+              ? trainer.progreso[0]
+              : trainer.progreso;
+
+            const captures = Number(progress?.capturas ?? 0);
+            const total = Number(progress?.pokedex_total ?? 200);
+
+            // Crear elementos de forma segura para no interpretar
+            // nicknames o datos de la base de datos como HTML.
+            const row = document.createElement('div');
+            row.className = 'leaderboard-row';
+
+            const position = document.createElement('span');
+            position.className = 'leaderboard-position';
+            position.textContent = String(index + 1);
+
+            const avatar = document.createElement('span');
+            avatar.className = 'leaderboard-avatar';
+            avatar.textContent = '🎮';
+            avatar.setAttribute('aria-hidden', 'true');
+
+            const info = document.createElement('div');
+            info.className = 'leaderboard-info';
+
+            const nickname = document.createElement('div');
+            nickname.className = 'leaderboard-nickname';
+            nickname.textContent = trainer.nickname || 'Entrenador';
+
+            const region = document.createElement('div');
+            region.className = 'leaderboard-region';
+            region.textContent = trainer.region || 'Ketzal';
+
+            const count = document.createElement('span');
+            count.className = 'leaderboard-count';
+
+            // Plantilla corregida: ${captures}/${total}
+            count.textContent = `${captures}/${total}`;
+
+            info.append(nickname, region);
+            row.append(position, avatar, info, count);
+            list.appendChild(row);
+          });
+
+          console.info(
+            `[Supabase] Clasificación cargada: ${data.length} entrenador(es).`
+          );
+        } catch (error) {
+          console.error('[Supabase] Error en clasificación:', error);
+
+          const friendlyMessage = getFriendlyError(error);
+
+          setListStatus(friendlyMessage, true);
+          showToast(friendlyMessage, true);
+        } finally {
+          leaderboardLoading = false;
+        }
       }
-    });
 
-    let audioOn = true;
-    $('btn-audio')?.addEventListener('click', () => {
-      audioOn = !audioOn;
-      $('icon-vol-on').hidden = !audioOn;
-      $('icon-vol-off').hidden = audioOn;
-      $('btn-audio').setAttribute('aria-pressed', audioOn);
-    });
+      // =========================================================
+      // REGISTRO DE ENTRENADORES
+      // =========================================================
 
-    loadLeaderboard();
+      $('form-register')?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const form = event.currentTarget;
+        const nick = $('reg-nick').value.trim();
+        const discord = $('reg-discord').value.trim();
+        const accepted = $('reg-rules').checked;
+
+        if (!nick || !discord || !accepted) {
+          showToast(
+            'Completa todos los campos y acepta el reglamento.',
+            true
+          );
+          return;
+        }
+
+        if (!initializeSupabase()) {
+          const setupError = getSupabaseSetupError();
+
+          showToast(
+            setupError || 'No se pudo inicializar Supabase.',
+            true
+          );
+
+          return;
+        }
+
+        const submitButton = form.querySelector('[type="submit"]');
+
+        if (!submitButton) return;
+
+        submitButton.disabled = true;
+        submitButton.textContent = 'Registrando...';
+
+        try {
+          // 1. Crear el entrenador.
+          const { data: trainer, error: trainerError } =
+            await supabaseClient
+              .from('entrenadores')
+              .insert([
+                {
+                  nickname: nick,
+                  discord: discord
+                }
+              ])
+              .select('id, nickname')
+              .single();
+
+          if (trainerError) {
+            throw trainerError;
+          }
+
+          if (!trainer?.id) {
+            throw new Error(
+              'El entrenador se insertó, pero no se recibió su identificador.'
+            );
+          }
+
+          // 2. Crear su registro de progreso.
+          const { error: progressError } = await supabaseClient
+            .from('progreso')
+            .insert([
+              {
+                entrenador_id: trainer.id,
+                capturas: 0,
+                pokedex_total: 200
+              }
+            ]);
+
+          if (progressError) {
+            console.error(
+              '[Supabase] El entrenador se creó, pero falló su progreso:',
+              progressError
+            );
+
+            showToast(
+              `La inscripción de ${nick} se creó, pero no se pudo guardar su progreso. ${getFriendlyError(progressError)}`,
+              true
+            );
+          } else {
+            showToast(`¡${nick} se ha inscrito correctamente!`);
+          }
+
+          form.reset();
+          closeModal();
+
+          // Volver a solicitar los datos después del registro.
+          await loadLeaderboard();
+        } catch (error) {
+          console.error('[Supabase] Error en la inscripción:', error);
+
+          showToast(getFriendlyError(error), true);
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Confirmar inscripción';
+        }
+      });
+
+      // =========================================================
+      // COMPARTIR PÁGINA
+      // =========================================================
+
+      $('btn-share')?.addEventListener('click', async () => {
+        const shareData = {
+          title: 'Copa Artemis 2026',
+          text: '¡Participa en la Copa Artemis 2026!',
+          url: window.location.href
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (error) {
+            // El usuario puede cancelar la ventana de compartir.
+            if (error?.name !== 'AbortError') {
+              console.error('[Compartir] Error:', error);
+              showToast('No se pudo abrir la opción de compartir.', true);
+            }
+          }
+
+          return;
+        }
+
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(window.location.href);
+            showToast('Enlace copiado al portapapeles.');
+          } else {
+            window.prompt(
+              'Copia este enlace para compartir la página:',
+              window.location.href
+            );
+          }
+        } catch (error) {
+          console.error('[Compartir] No se pudo copiar el enlace:', error);
+
+          window.prompt(
+            'Copia este enlace para compartir la página:',
+            window.location.href
+          );
+        }
+      });
+
+      // =========================================================
+      // INDICADOR VISUAL DE AUDIO
+      // =========================================================
+
+      let audioOn = true;
+
+      $('btn-audio')?.addEventListener('click', () => {
+        audioOn = !audioOn;
+
+        $('icon-vol-on').hidden = !audioOn;
+        $('icon-vol-off').hidden = audioOn;
+
+        $('btn-audio').setAttribute(
+          'aria-pressed',
+          String(audioOn)
+        );
+      });
+
+      // =========================================================
+      // PRUEBA INICIAL DE LA BASE DE DATOS
+      // =========================================================
+
+      // Se ejecuta cuando el navegador ya ha procesado el contenido
+      // y el CDN colocado en el head ha tenido oportunidad de cargarse.
+      loadLeaderboard();
+    })();
   </script>
 </body>
 </html>
