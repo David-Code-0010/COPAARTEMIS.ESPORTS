@@ -10,11 +10,8 @@ const title = "Copa Artemis 2026";
   <meta name="theme-color" content="#08090d" />
   <title>{title}</title>
 
-  <!-- SUPABASE CDN FIJO -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0"
-    crossorigin="anonymous"
-  ></script>
+  <!-- Supabase UMD: crea window.supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 
 <body>
@@ -30,7 +27,6 @@ const title = "Copa Artemis 2026";
     <div class="nav-inner">
 
       <a class="brand" href="/" aria-label="Copa Artemis, inicio">
-
         <img
           src="https://files.catbox.moe/0naii0.jpg"
           class="brand-icon-img"
@@ -41,23 +37,16 @@ const title = "Copa Artemis 2026";
           <small>Torneo Oficial Moemon</small>
           <strong>COPA ARTEMIS 2026</strong>
         </span>
-
       </a>
 
       <nav class="nav-actions">
 
-        <button
-          id="btn-leaderboard"
-          class="button button-dark"
-        >
+        <button id="btn-leaderboard" class="button button-dark">
           <span class="players-label">Jugadores</span>
           <span id="player-count" class="count">0</span>
         </button>
 
-        <button
-          id="btn-share"
-          class="button button-dark"
-        >
+        <button id="btn-share" class="button button-dark">
           Compartir
         </button>
 
@@ -71,7 +60,6 @@ const title = "Copa Artemis 2026";
         </button>
 
       </nav>
-
     </div>
   </header>
 
@@ -90,9 +78,7 @@ const title = "Copa Artemis 2026";
         <div class="content">
 
           <div class="text-center">
-            <span class="pill pill-gold">
-              COPA ARTEMIS
-            </span>
+            <span class="pill pill-gold">COPA ARTEMIS</span>
           </div>
 
           <section class="hero">
@@ -108,26 +94,23 @@ const title = "Copa Artemis 2026";
             </p>
 
             <p class="hero-description">
-              Participa en el primer gran torneo de captura de Pokémon
-              Moemon. Una carrera épica para ver quién es el maestro
-              absoluto. El primero en completar la Pokédex será el ganador
-              y se llevará la gloria y un premio masivo.
+              Participa en el primer gran torneo de captura de Pokémon Moemon.
+              Una carrera épica para ver quién es el maestro absoluto.
+              El primero en completar la Pokédex será el ganador y se llevará
+              la gloria y un premio masivo.
             </p>
 
           </section>
 
+          <!-- RELOJ -->
+
           <section class="countdown-card">
 
             <div class="countdown-heading">
-
-              <span>
-                INICIO DEL TORNEO
-              </span>
-
-              <span class="date-label">
+              <span id="countdown-title">INICIO DEL TORNEO</span>
+              <span class="date-label" id="countdown-date">
                 10 OCT, 2026
               </span>
-
             </div>
 
             <div class="countdown-grid">
@@ -233,9 +216,7 @@ const title = "Copa Artemis 2026";
           </section>
 
           <div class="section-heading">
-            <span>
-              DETALLES DEL CONCURSO
-            </span>
+            <span>DETALLES DEL CONCURSO</span>
           </div>
 
           <section class="details-grid">
@@ -271,15 +252,8 @@ const title = "Copa Artemis 2026";
               </p>
 
               <div class="detail-footer">
-
-                <strong>
-                  MOÉMON KETZAL
-                </strong>
-
-                <span>
-                  🌱 🔥 💧
-                </span>
-
+                <strong>MOÉMON KETZAL</strong>
+                <span>🌱 🔥 💧</span>
               </div>
 
             </article>
@@ -303,9 +277,7 @@ const title = "Copa Artemis 2026";
               <div class="registration-info">
 
                 <p>
-                  <strong>
-                    REGISTRO INDIVIDUAL ACTIVO
-                  </strong>
+                  <strong>REGISTRO INDIVIDUAL ACTIVO</strong>
                 </p>
 
                 <p>
@@ -324,14 +296,9 @@ const title = "Copa Artemis 2026";
 
               <p class="prize-footer">
 
-                <strong>
-                  🏆 Premios:
-                </strong>
-
+                <strong>🏆 Premios:</strong>
                 Master Trophy +
-                <span>
-                  regalos exclusivos
-                </span>
+                <span>regalos exclusivos</span>
 
               </p>
 
@@ -383,16 +350,9 @@ const title = "Copa Artemis 2026";
 
   </main>
 
+  <!-- MODAL REGISTRO -->
 
-  <!-- =========================================================
-       MODAL REGISTRO
-  ========================================================== -->
-
-  <div
-    id="modal-register"
-    class="modal"
-    hidden
-  >
+  <div id="modal-register" class="modal" hidden>
 
     <section
       class="modal-card modal-narrow"
@@ -420,10 +380,7 @@ const title = "Copa Artemis 2026";
 
       </header>
 
-      <form
-        id="form-register"
-        class="register-form"
-      >
+      <form id="form-register" class="register-form">
 
         <div class="form-field">
 
@@ -493,16 +450,9 @@ const title = "Copa Artemis 2026";
 
   </div>
 
+  <!-- MODAL REGLAMENTO -->
 
-  <!-- =========================================================
-       MODAL REGLAS
-  ========================================================== -->
-
-  <div
-    id="modal-rules"
-    class="modal"
-    hidden
-  >
+  <div id="modal-rules" class="modal" hidden>
 
     <section
       class="modal-card"
@@ -542,27 +492,32 @@ const title = "Copa Artemis 2026";
 
         <p>
           <strong>1. Registro:</strong>
-          Solo se permiten cuentas individuales. Usa tu nickname de entrenador y tu usuario de Discord.
+          Solo se permiten cuentas individuales. Usa tu nickname de entrenador
+          y tu usuario de Discord.
         </p>
 
         <p>
           <strong>2. Objetivo:</strong>
-          Completar la Pokédex de la región Ketzal lo más rápido posible. El primero en completarla es el ganador.
+          Completar la Pokédex de la región Ketzal lo más rápido posible.
+          El primero en completarla es el ganador.
         </p>
 
         <p>
           <strong>3. Juego limpio:</strong>
-          Prohibido el uso de hacks, mods, exploits o cualquier ventaja injusta. Cualquier infracción resulta en descalificación inmediata.
+          Prohibido el uso de hacks, mods, exploits o cualquier ventaja injusta.
+          Cualquier infracción resulta en descalificación inmediata.
         </p>
 
         <p>
           <strong>4. Duración:</strong>
-          La competición va del 10 al 25 de octubre de 2026, de 16:00 GMT-6.
+          La competición va del 10 al 25 de octubre de 2026,
+          de 16:00 GMT-6.
         </p>
 
         <p>
           <strong>5. Verificación:</strong>
-          Los ganadores deberán mostrar prueba de su Pokédex completa en el servidor oficial.
+          Los ganadores deberán mostrar prueba de su Pokédex completa
+          en el servidor oficial.
         </p>
 
         <p>
@@ -587,16 +542,9 @@ const title = "Copa Artemis 2026";
 
   </div>
 
+  <!-- MODAL CLASIFICACIÓN -->
 
-  <!-- =========================================================
-       MODAL CLASIFICACIÓN
-  ========================================================== -->
-
-  <div
-    id="modal-leaderboard"
-    class="modal"
-    hidden
-  >
+  <div id="modal-leaderboard" class="modal" hidden>
 
     <section
       class="modal-card"
@@ -629,2263 +577,2120 @@ const title = "Copa Artemis 2026";
 
   </div>
 
+<style is:global>
 
-  <style is:global>
+* {
+  box-sizing: border-box;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+  background: #08090d;
+}
 
-    html {
-      min-width: 320px;
-      scroll-behavior: smooth;
-      background: #08090d;
-    }
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  color: #f1f5f9;
+  background: #08090d;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 
-    body {
-      position: relative;
-      min-height: 100vh;
-      margin: 0;
-      overflow-x: hidden;
-      color: #f1f5f9;
-      background: #08090d;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+button,
+input {
+  font: inherit;
+}
 
-    button,
-    input {
-      font: inherit;
-    }
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
 
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
+button {
+  color: inherit;
+  cursor: pointer;
+}
 
-    button {
-      color: inherit;
-      cursor: pointer;
-    }
+button:disabled {
+  cursor: wait;
+  opacity: .65;
+}
 
-    button:disabled {
-      cursor: wait;
-      opacity: .65;
-    }
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #fbbf24;
+  outline-offset: 3px;
+}
 
-    button:focus-visible,
-    a:focus-visible,
-    input:focus-visible {
-      outline: 2px solid #fbbf24;
-      outline-offset: 3px;
-    }
+.background {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
 
-    .background {
-      position: fixed;
-      z-index: 0;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
+.background-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 80% at 50% -20%,
+    rgba(203, 213, 225, .12),
+    transparent
+  );
+}
 
-    .background-glow {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        ellipse 80% 80% at 50% -20%,
-        rgba(203, 213, 225, .12),
-        transparent
+.background-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(30, 41, 59, .08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(30, 41, 59, .08) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+}
+
+.glow {
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 50%;
+  filter: blur(64px);
+  animation: pulse 6s ease-in-out infinite alternate;
+}
+
+.glow-silver {
+  top: 25%;
+  left: 2.5rem;
+  background: rgba(203, 213, 225, .05);
+}
+
+.glow-gold {
+  right: 2.5rem;
+  bottom: 33%;
+  background: rgba(245, 158, 11, .05);
+  animation-delay: 1s;
+}
+
+@keyframes pulse {
+  from {
+    opacity: .45;
+    transform: scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.navbar {
+  position: sticky;
+  z-index: 40;
+  top: 0;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(51, 65, 85, .8);
+  background: rgba(8, 9, 13, .82);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
+  backdrop-filter: blur(20px);
+}
+
+.nav-inner,
+.brand,
+.nav-actions,
+.registration-heading,
+.countdown-heading,
+.detail-footer,
+.modal-title-row {
+  display: flex;
+  align-items: center;
+}
+
+.nav-inner {
+  max-width: 1280px;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 auto;
+}
+
+.brand {
+  min-width: 0;
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-icon-img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #64748b;
+  flex-shrink: 0;
+}
+
+.brand small,
+.brand strong {
+  display: block;
+}
+
+.brand small {
+  margin-bottom: 4px;
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.brand strong {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+.nav-actions {
+  gap: 8px;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  transition: transform .2s, border-color .2s, filter .2s;
+}
+
+.button:hover {
+  filter: brightness(1.13);
+}
+
+.button:active {
+  transform: scale(.98);
+}
+
+.button-dark {
+  border-color: rgba(100, 116, 139, .4);
+  background: rgba(30, 41, 59, .75);
+}
+
+.icon-button {
+  min-width: 42px;
+  padding: 9px;
+  font-size: 17px;
+}
+
+.count {
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #08090d;
+  color: #cbd5e1;
+  font-size: 10px;
+}
+
+.main-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.outer-frame {
+  padding: 2px;
+  border-radius: 26px;
+  background: linear-gradient(
+    180deg,
+    #e2e8f0,
+    #94a3b8 60%,
+    #334155
+  );
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
+}
+
+.panel {
+  overflow: hidden;
+  border-radius: 24px;
+  background: #0b0c12;
+}
+
+.content {
+  padding: 48px clamp(18px, 5vw, 64px);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.pill-gold {
+  border: 1px solid rgba(245, 158, 11, .4);
+  background: #1e293b;
+  color: #fcd34d;
+}
+
+.hero {
+  margin: 22px 0 32px;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(27px, 5vw, 48px);
+  font-weight: 950;
+  line-height: 1.12;
+  letter-spacing: -.035em;
+}
+
+.hero-subtitle {
+  margin: 10px 0;
+  background: linear-gradient(
+    90deg,
+    #cbd5e1,
+    #f8fafc,
+    #94a3b8
+  );
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 900;
+}
+
+.hero-tagline {
+  margin: 14px 0;
+  color: #fbbf24;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  line-height: 1.8;
+}
+
+.hero-description {
+  max-width: 680px;
+  margin: 24px auto 0;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.countdown-card {
+  max-width: 680px;
+  margin: 0 auto 36px;
+  padding: 16px;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  background: linear-gradient(
+    90deg,
+    #0f172a,
+    #1e293b,
+    #0f172a
+  );
+}
+
+.countdown-heading {
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #334155;
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+.date-label {
+  color: #34d399;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  text-align: center;
+}
+
+.time-box {
+  padding: 10px 4px;
+  border-radius: 8px;
+  background: #020617;
+}
+
+.time-box strong,
+.time-box span {
+  display: block;
+}
+
+.time-box strong {
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 950;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-box span {
+  margin-top: 3px;
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.feature-card {
+  display: flex;
+  min-width: 0;
+  min-height: 180px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px 12px 20px;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  background: #0f172a;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.muted {
+  color: #94a3b8;
+}
+
+.feature-card .muted {
+  font-size: 10px;
+}
+
+.feature-card p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.prize-text,
+.prize-footer span {
+  color: #fb7185;
+}
+
+.pill-game {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(245, 158, 11, .16);
+  color: #fcd34d;
+  font-size: 10px;
+  letter-spacing: 0;
+}
+
+.primary-actions {
+  display: grid;
+  max-width: 600px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 auto 40px;
+}
+
+.button-primary {
+  border-color: #cbd5e1;
+  background: linear-gradient(
+    90deg,
+    #e2e8f0,
+    #94a3b8
+  );
+  color: #08090d;
+}
+
+.primary-actions .button {
+  min-height: 58px;
+  padding: 16px 12px;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.button-secondary {
+  border-color: #334155;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.section-heading {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.section-heading span {
+  display: inline-block;
+  padding: 10px 24px;
+  border: 1px solid rgba(245, 158, 11, .3);
+  border-radius: 999px;
+  color: #fbbf24;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .12em;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.detail-card {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #1e293b;
+  border-radius: 18px;
+  background: #0f172a;
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-card h2 {
+  margin: 0 0 10px;
+  color: #fbbf24;
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.detail-main {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1.5;
+}
+
+.small {
+  margin: 5px 0 0;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.spaced-heading {
+  margin-top: 28px !important;
+}
+
+.detail-footer {
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #1e293b;
+}
+
+.detail-footer strong {
+  color: #fbbf24;
+  font-size: 11px;
+}
+
+.registration-heading {
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.registration-heading h2 {
+  margin: 0;
+}
+
+.registration-info {
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.registration-info p {
+  margin: 5px 0;
+}
+
+.prize-footer {
+  margin: 22px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid #1e293b;
+  color: #cbd5e1;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.prize-footer strong {
+  color: #fbbf24;
+}
+
+.prize-footer span {
+  font-weight: 900;
+}
+
+.discord-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid rgba(254, 240, 138, .5);
+  border-radius: 12px;
+  background: linear-gradient(
+    100deg,
+    #422006,
+    #18181b,
+    #000
+  );
+  color: #fef3c7;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(245, 158, 11, .07);
+  transition: border-color .2s, filter .2s;
+}
+
+.discord-button:hover {
+  border-color: #fcd34d;
+  filter: brightness(1.2);
+}
+
+.discord-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  color: #a5b4fc;
+  transition: transform .2s;
+}
+
+.discord-button:hover .discord-icon {
+  transform: scale(1.1);
+}
+
+.discord-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+
+.discord-copy strong {
+  font-size: 12px;
+}
+
+.discord-copy small {
+  color: rgba(254, 240, 138, .7);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.discord-arrow {
+  margin-left: auto;
+  font-size: 22px;
+}
+
+.toast-container {
+  position: fixed;
+  z-index: 100;
+  top: 80px;
+  right: 16px;
+  width: min(360px, calc(100% - 32px));
+}
+
+.toast-body {
+  padding: 14px 16px;
+  border: 1px solid #64748b;
+  border-radius: 12px;
+  background: #0f172a;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
+}
+
+.toast-body.error {
+  border-color: #f43f5e;
+}
+
+.toast-body p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.modal[hidden],
+[hidden] {
+  display: none !important;
+}
+
+.modal {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 16px;
+  background: rgba(0, 0, 0, .82);
+  backdrop-filter: blur(12px);
+}
+
+.modal-card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  flex-direction: column;
+  padding: 24px;
+  overflow: hidden;
+  border: 1px solid #475569;
+  border-radius: 18px;
+  background: #0f172a;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
+}
+
+.modal-narrow {
+  max-width: 480px;
+}
+
+.close-button {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+.close-button:hover {
+  background: #1e293b;
+  color: #fff;
+}
+
+.modal-header {
+  flex-shrink: 0;
+  margin-bottom: 20px;
+  padding: 0 36px 16px 0;
+  border-bottom: 1px solid #1e293b;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.modal-header p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.modal-title-row {
+  gap: 12px;
+}
+
+.shield-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #1e293b;
+  font-size: 22px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-field label {
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.form-field input {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #020617;
+  color: #f8fafc;
+  font-size: 14px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: #fbbf24;
+}
+
+.modal-actions {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.rules-content,
+.leaderboard-list {
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.rules-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.rules-content p {
+  margin: 0;
+}
+
+.rules-content strong {
+  color: #fbbf24;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 50px;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.leaderboard-row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  background: rgba(2, 6, 23, .6);
+}
+
+.leaderboard-position {
+  width: 28px;
+  flex-shrink: 0;
+  color: #fbbf24;
+  font-weight: 950;
+  text-align: center;
+}
+
+.leaderboard-avatar {
+  font-size: 20px;
+}
+
+.leaderboard-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.leaderboard-nickname {
+  overflow: hidden;
+  color: #f1f5f9;
+  font-size: 13px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leaderboard-region {
+  margin-top: 4px;
+  color: #94a3b8;
+  font-size: 10px;
+}
+
+.leaderboard-count {
+  flex-shrink: 0;
+  color: #34d399;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.card-deco {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 10px;
+  transition: transform 0.25s ease;
+}
+
+.feature-card:hover .card-deco,
+.detail-card:hover .card-deco {
+  transform: scale(1.06);
+}
+
+.deco-detail {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 72px;
+  height: 72px;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+
+  .main-container {
+    padding: 20px 10px;
+  }
+
+  .content {
+    padding: 28px 16px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .feature-grid {
+    gap: 8px;
+  }
+
+  .feature-card {
+    padding: 14px 6px 16px;
+    min-height: 160px;
+  }
+
+  .feature-card p {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .detail-card {
+    padding: 20px;
+  }
+
+  .card-deco {
+    width: 76px;
+    height: 76px;
+  }
+
+  .deco-detail {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .navbar {
+    padding: 10px;
+  }
+
+  .nav-inner {
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 8px;
+  }
+
+  .brand-icon-img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .brand small {
+    max-width: 135px;
+    font-size: 8px;
+    letter-spacing: .04em;
+  }
+
+  .brand strong {
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+
+  .nav-actions {
+    gap: 5px;
+  }
+
+  .button {
+    padding: 9px;
+    font-size: 10px;
+  }
+
+  .players-label {
+    display: none;
+  }
+
+  .icon-button {
+    min-width: 36px;
+  }
+
+  .hero-tagline {
+    font-size: 9px;
+  }
+
+  .primary-actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .countdown-card {
+    padding: 12px 8px;
+  }
+
+  .countdown-heading {
+    font-size: 9px;
+  }
+
+  .time-box strong {
+    font-size: 22px;
+  }
+
+  .time-box span {
+    font-size: 9px;
+  }
+
+  .discord-button {
+    gap: 8px;
+    padding: 12px 10px;
+  }
+
+  .discord-copy strong {
+    font-size: 10px;
+  }
+
+  .discord-copy small {
+    font-size: 9px;
+  }
+
+  .modal-card {
+    padding: 20px 16px;
+  }
+
+  .modal-actions {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+</style>
+
+<script>
+
+const SUPABASE_URL =
+  'https://flldgvplxxogaqdmvhkb.supabase.co';
+
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_xak3DICWNkTS2ibbeeixLg_9vEcgDjc';
+
+const $ = id => document.getElementById(id);
+
+let supabaseClient = null;
+
+
+/* =========================================================
+   SUPABASE
+   ========================================================= */
+
+function initializeSupabase() {
+
+  if (
+    !window.supabase ||
+    typeof window.supabase.createClient !== 'function'
+  ) {
+
+    console.error(
+      'Supabase CDN no cargado.',
+      window.supabase
+    );
+
+    showToast(
+      'No se cargó la librería de Supabase. Revisa el CDN.',
+      true
+    );
+
+    return false;
+  }
+
+  if (!supabaseClient) {
+
+    try {
+
+      supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
       );
-    }
 
-    .background-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(
-          to right,
-          rgba(30, 41, 59, .08) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          to bottom,
-          rgba(30, 41, 59, .08) 1px,
-          transparent 1px
-        );
-      background-size: 32px 32px;
-    }
-
-    .glow {
-      position: absolute;
-      width: 24rem;
-      height: 24rem;
-      border-radius: 50%;
-      filter: blur(64px);
-      animation: pulse 6s ease-in-out infinite alternate;
-    }
-
-    .glow-silver {
-      top: 25%;
-      left: 2.5rem;
-      background: rgba(203, 213, 225, .05);
-    }
-
-    .glow-gold {
-      right: 2.5rem;
-      bottom: 33%;
-      background: rgba(245, 158, 11, .05);
-      animation-delay: 1s;
-    }
-
-    @keyframes pulse {
-      from {
-        opacity: .45;
-        transform: scale(.96);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1.04);
-      }
-    }
-
-    .navbar {
-      position: sticky;
-      z-index: 40;
-      top: 0;
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(51, 65, 85, .8);
-      background: rgba(8, 9, 13, .82);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
-      backdrop-filter: blur(20px);
-    }
-
-    .nav-inner,
-    .brand,
-    .nav-actions,
-    .registration-heading,
-    .countdown-heading,
-    .detail-footer,
-    .modal-title-row {
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-inner {
-      max-width: 1280px;
-      justify-content: space-between;
-      gap: 16px;
-      margin: 0 auto;
-    }
-
-    .brand {
-      min-width: 0;
-      gap: 12px;
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .brand-icon-img {
-      width: 42px;
-      height: 42px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid #64748b;
-      flex-shrink: 0;
-    }
-
-    .brand small,
-    .brand strong {
-      display: block;
-    }
-
-    .brand small {
-      margin-bottom: 4px;
-      color: #94a3b8;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .brand strong {
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: .06em;
-    }
-
-    .nav-actions {
-      gap: 8px;
-    }
-
-    .button {
-      display: inline-flex;
-      min-height: 42px;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 800;
-      text-align: center;
-      transition:
-        transform .2s,
-        border-color .2s,
-        filter .2s;
-    }
-
-    .button:hover {
-      filter: brightness(1.13);
-    }
-
-    .button:active {
-      transform: scale(.98);
-    }
-
-    .button-dark {
-      border-color: rgba(100, 116, 139, .4);
-      background: rgba(30, 41, 59, .75);
-    }
-
-    .icon-button {
-      min-width: 42px;
-      padding: 9px;
-      font-size: 17px;
-    }
-
-    .count {
-      padding: 3px 7px;
-      border-radius: 999px;
-      background: #08090d;
-      color: #cbd5e1;
-      font-size: 10px;
-    }
-
-    .main-container {
-      position: relative;
-      z-index: 1;
-      max-width: 1152px;
-      margin: 0 auto;
-      padding: 32px 16px;
-    }
-
-    .outer-frame {
-      padding: 2px;
-      border-radius: 26px;
-      background: linear-gradient(
-        180deg,
-        #e2e8f0,
-        #94a3b8 60%,
-        #334155
+      console.log(
+        'Supabase inicializado correctamente.'
       );
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
-    }
 
-    .panel {
-      overflow: hidden;
-      border-radius: 24px;
-      background: #0b0c12;
-    }
-
-    .content {
-      padding: 48px clamp(18px, 5vw, 64px);
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: .1em;
-    }
-
-    .pill-gold {
-      border: 1px solid rgba(245, 158, 11, .4);
-      background: #1e293b;
-      color: #fcd34d;
-    }
-
-    .hero {
-      margin: 22px 0 32px;
-      text-align: center;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(27px, 5vw, 48px);
-      font-weight: 950;
-      line-height: 1.12;
-      letter-spacing: -.035em;
-    }
-
-    .hero-subtitle {
-      margin: 10px 0;
-      background: linear-gradient(
-        90deg,
-        #cbd5e1,
-        #f8fafc,
-        #94a3b8
-      );
-      background-clip: text;
-      color: transparent;
-      font-size: clamp(24px, 4vw, 38px);
-      font-weight: 900;
-    }
-
-    .hero-tagline {
-      margin: 14px 0;
-      color: #fbbf24;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: .1em;
-      line-height: 1.8;
-    }
-
-    .hero-description {
-      max-width: 680px;
-      margin: 24px auto 0;
-      color: #cbd5e1;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .countdown-card {
-      max-width: 680px;
-      margin: 0 auto 36px;
-      padding: 16px;
-      border: 1px solid #334155;
-      border-radius: 14px;
-      background: linear-gradient(
-        90deg,
-        #0f172a,
-        #1e293b,
-        #0f172a
-      );
-    }
-
-    .countdown-heading {
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #334155;
-      color: #cbd5e1;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: .06em;
-    }
-
-    .date-label {
-      color: #34d399;
-    }
-
-    .countdown-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 8px;
-      text-align: center;
-    }
-
-    .time-box {
-      padding: 10px 4px;
-      border-radius: 8px;
-      background: #020617;
-    }
-
-    .time-box strong,
-    .time-box span {
-      display: block;
-    }
-
-    .time-box strong {
-      font-size: clamp(22px, 4vw, 30px);
-      font-weight: 950;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .time-box span {
-      margin-top: 3px;
-      color: #94a3b8;
-      font-size: 10px;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .feature-card {
-      display: flex;
-      min-width: 0;
-      min-height: 180px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 16px 12px 20px;
-      border: 1px solid #334155;
-      border-radius: 14px;
-      background: #0f172a;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .muted {
-      color: #94a3b8;
-    }
-
-    .feature-card .muted {
-      font-size: 10px;
-    }
-
-    .feature-card p {
-      margin: 8px 0 0;
-      font-size: 13px;
-      font-weight: 900;
-    }
-
-    .prize-text,
-    .prize-footer span {
-      color: #fb7185;
-    }
-
-    .pill-game {
-      padding: 6px 10px;
-      border-radius: 6px;
-      background: rgba(245, 158, 11, .16);
-      color: #fcd34d;
-      font-size: 10px;
-      letter-spacing: 0;
-    }
-
-    .primary-actions {
-      display: grid;
-      max-width: 600px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin: 0 auto 40px;
-    }
-
-    .button-primary {
-      border-color: #cbd5e1;
-      background: linear-gradient(
-        90deg,
-        #e2e8f0,
-        #94a3b8
-      );
-      color: #08090d;
-    }
-
-    .primary-actions .button {
-      min-height: 58px;
-      padding: 16px 12px;
-      font-size: 12px;
-      font-weight: 950;
-    }
-
-    .button-secondary {
-      border-color: #334155;
-      background: #0f172a;
-      color: #f8fafc;
-    }
-
-    .section-heading {
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .section-heading span {
-      display: inline-block;
-      padding: 10px 24px;
-      border: 1px solid rgba(245, 158, 11, .3);
-      border-radius: 999px;
-      color: #fbbf24;
-      font-size: 10px;
-      font-weight: 950;
-      letter-spacing: .12em;
-    }
-
-    .details-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 24px;
-    }
-
-    .detail-card {
-      min-width: 0;
-      padding: 24px;
-      border: 1px solid #1e293b;
-      border-radius: 18px;
-      background: #0f172a;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .detail-card h2 {
-      margin: 0 0 10px;
-      color: #fbbf24;
-      font-size: 14px;
-      font-weight: 950;
-    }
-
-    .detail-main {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 950;
-      line-height: 1.5;
-    }
-
-    .small {
-      margin: 5px 0 0;
-      font-size: 11px;
-      line-height: 1.7;
-    }
-
-    .spaced-heading {
-      margin-top: 28px !important;
-    }
-
-    .detail-footer {
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 24px;
-      padding-top: 18px;
-      border-top: 1px solid #1e293b;
-    }
-
-    .detail-footer strong {
-      color: #fbbf24;
-      font-size: 11px;
-    }
-
-    .registration-heading {
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .registration-heading h2 {
-      margin: 0;
-    }
-
-    .registration-info {
-      color: #cbd5e1;
-      font-size: 12px;
-      line-height: 1.8;
-    }
-
-    .registration-info p {
-      margin: 5px 0;
-    }
-
-    .prize-footer {
-      margin: 22px 0 0;
-      padding-top: 18px;
-      border-top: 1px solid #1e293b;
-      color: #cbd5e1;
-      font-size: 11px;
-      line-height: 1.8;
-    }
-
-    .prize-footer strong {
-      color: #fbbf24;
-    }
-
-    .prize-footer span {
-      font-weight: 900;
-    }
-
-    .discord-button {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-      margin-top: 24px;
-      padding: 16px;
-      border: 1px solid rgba(254, 240, 138, .5);
-      border-radius: 12px;
-      background: linear-gradient(
-        100deg,
-        #422006,
-        #18181b,
-        #000
-      );
-      color: #fef3c7;
-      text-decoration: none;
-      box-shadow: 0 10px 25px rgba(245, 158, 11, .07);
-      transition:
-        border-color .2s,
-        filter .2s;
-    }
-
-    .discord-button:hover {
-      border-color: #fcd34d;
-      filter: brightness(1.2);
-    }
-
-    .discord-icon {
-      width: 34px;
-      height: 34px;
-      flex-shrink: 0;
-      color: #a5b4fc;
-      transition: transform .2s;
-    }
-
-    .discord-button:hover .discord-icon {
-      transform: scale(1.1);
-    }
-
-    .discord-copy {
-      display: flex;
-      min-width: 0;
-      flex-direction: column;
-      gap: 5px;
-      text-align: left;
-    }
-
-    .discord-copy strong {
-      font-size: 12px;
-    }
-
-    .discord-copy small {
-      color: rgba(254, 240, 138, .7);
-      font-size: 10px;
-      line-height: 1.5;
-    }
-
-    .discord-arrow {
-      margin-left: auto;
-      font-size: 22px;
-    }
-
-    .toast-container {
-      position: fixed;
-      z-index: 100;
-      top: 80px;
-      right: 16px;
-      width: min(360px, calc(100% - 32px));
-    }
-
-    .toast-body {
-      padding: 14px 16px;
-      border: 1px solid #64748b;
-      border-radius: 12px;
-      background: #0f172a;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
-    }
-
-    .toast-body.error {
-      border-color: #f43f5e;
-    }
-
-    .toast-body p {
-      margin: 0;
-      font-size: 13px;
-      font-weight: 600;
-      line-height: 1.6;
-    }
-
-    .modal[hidden],
-    [hidden] {
-      display: none !important;
-    }
-
-    .modal {
-      position: fixed;
-      z-index: 50;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-y: auto;
-      padding: 16px;
-      background: rgba(0, 0, 0, .82);
-      backdrop-filter: blur(12px);
-    }
-
-    .modal-card {
-      position: relative;
-      display: flex;
-      width: 100%;
-      max-width: 680px;
-      max-height: 85vh;
-      flex-direction: column;
-      padding: 24px;
-      overflow: hidden;
-      border: 1px solid #475569;
-      border-radius: 18px;
-      background: #0f172a;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
-    }
-
-    .modal-narrow {
-      max-width: 480px;
-    }
-
-    .close-button {
-      position: absolute;
-      z-index: 1;
-      top: 16px;
-      right: 16px;
-      display: grid;
-      width: 34px;
-      height: 34px;
-      place-items: center;
-      border: 0;
-      border-radius: 8px;
-      background: transparent;
-      color: #94a3b8;
-      font-size: 18px;
-    }
-
-    .close-button:hover {
-      background: #1e293b;
-      color: #fff;
-    }
-
-    .modal-header {
-      flex-shrink: 0;
-      margin-bottom: 20px;
-      padding: 0 36px 16px 0;
-      border-bottom: 1px solid #1e293b;
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 950;
-      text-transform: uppercase;
-    }
-
-    .modal-header p {
-      margin: 6px 0 0;
-      color: #94a3b8;
-      font-size: 11px;
-    }
-
-    .modal-title-row {
-      gap: 12px;
-    }
-
-    .shield-icon {
-      display: grid;
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-      place-items: center;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      background: #1e293b;
-      font-size: 22px;
-    }
-
-    .register-form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .form-field label {
-      color: #cbd5e1;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .form-field input {
-      width: 100%;
-      min-height: 46px;
-      padding: 12px 14px;
-      border: 1px solid #334155;
-      border-radius: 10px;
-      background: #020617;
-      color: #f8fafc;
-      font-size: 14px;
-    }
-
-    .checkbox-label {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      color: #94a3b8;
-      font-size: 12px;
-      line-height: 1.6;
-      cursor: pointer;
-    }
-
-    .checkbox-label input {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      margin-top: 2px;
-      accent-color: #fbbf24;
-    }
-
-    .modal-actions {
-      display: flex;
-      flex-shrink: 0;
-      justify-content: flex-end;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .rules-content,
-    .leaderboard-list {
-      overflow-y: auto;
-      padding-right: 6px;
-    }
-
-    .rules-content {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      color: #cbd5e1;
-      font-size: 13px;
-      line-height: 1.8;
-    }
-
-    .rules-content p {
-      margin: 0;
-    }
-
-    .rules-content strong {
-      color: #fbbf24;
-    }
-
-    .leaderboard-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-height: 50px;
-      color: #cbd5e1;
-      font-size: 13px;
-    }
-
-    .leaderboard-row {
-      display: flex;
-      min-width: 0;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      background: rgba(2, 6, 23, .6);
-    }
-
-    .leaderboard-position {
-      width: 28px;
-      flex-shrink: 0;
-      color: #fbbf24;
-      font-weight: 950;
-      text-align: center;
-    }
-
-    .leaderboard-avatar {
-      font-size: 20px;
-    }
-
-    .leaderboard-info {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .leaderboard-nickname {
-      overflow: hidden;
-      color: #f1f5f9;
-      font-size: 13px;
-      font-weight: 800;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .leaderboard-region {
-      margin-top: 4px;
-      color: #94a3b8;
-      font-size: 10px;
-    }
-
-    .leaderboard-count {
-      flex-shrink: 0;
-      color: #34d399;
-      font-size: 12px;
-      font-weight: 950;
-    }
-
-    .card-deco {
-      width: 90px;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      margin-bottom: 10px;
-      transition: transform 0.25s ease;
-    }
-
-    .feature-card:hover .card-deco,
-    .detail-card:hover .card-deco {
-      transform: scale(1.06);
-    }
-
-    .deco-detail {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 72px;
-      height: 72px;
-      margin: 0;
-    }
-
-    @media (max-width: 700px) {
-
-      .main-container {
-        padding: 20px 10px;
-      }
-
-      .content {
-        padding: 28px 16px;
-      }
-
-      .details-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .feature-grid {
-        gap: 8px;
-      }
-
-      .feature-card {
-        padding: 14px 6px 16px;
-        min-height: 160px;
-      }
-
-      .feature-card p {
-        font-size: 11px;
-        line-height: 1.5;
-      }
-
-      .detail-card {
-        padding: 20px;
-      }
-
-      .card-deco {
-        width: 76px;
-        height: 76px;
-      }
-
-      .deco-detail {
-        width: 60px;
-        height: 60px;
-      }
-    }
-
-    @media (max-width: 480px) {
-
-      .navbar {
-        padding: 10px;
-      }
-
-      .nav-inner {
-        gap: 8px;
-      }
-
-      .brand {
-        gap: 8px;
-      }
-
-      .brand-icon-img {
-        width: 34px;
-        height: 34px;
-      }
-
-      .brand small {
-        max-width: 135px;
-        font-size: 8px;
-        letter-spacing: .04em;
-      }
-
-      .brand strong {
-        font-size: 10px;
-        letter-spacing: 0;
-      }
-
-      .nav-actions {
-        gap: 5px;
-      }
-
-      .button {
-        padding: 9px;
-        font-size: 10px;
-      }
-
-      .players-label {
-        display: none;
-      }
-
-      .icon-button {
-        min-width: 36px;
-      }
-
-      .hero-tagline {
-        font-size: 9px;
-      }
-
-      .primary-actions {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
-      .countdown-card {
-        padding: 12px 8px;
-      }
-
-      .countdown-heading {
-        font-size: 9px;
-      }
-
-      .time-box strong {
-        font-size: 22px;
-      }
-
-      .time-box span {
-        font-size: 9px;
-      }
-
-      .discord-button {
-        gap: 8px;
-        padding: 12px 10px;
-      }
-
-      .discord-copy strong {
-        font-size: 10px;
-      }
-
-      .discord-copy small {
-        font-size: 9px;
-      }
-
-      .modal-card {
-        padding: 20px 16px;
-      }
-
-      .modal-actions {
-        flex-wrap: wrap;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-      }
-
-    }
-
-  </style>
-
-
-  <!-- =========================================================
-       JAVASCRIPT
-  ========================================================== -->
-
-  <script is:inline>
-
-    // =========================================================
-    // SUPABASE
-    // =========================================================
-
-    const SUPABASE_URL =
-      'https://flldgvplxxogaqdmvhkb.supabase.co';
-
-    const SUPABASE_PUBLISHABLE_KEY =
-      'sb_publishable_xak3DICWNkTS2ibbeeixLg_9vEcgDjc';
-
-    const $ =
-      id => document.getElementById(id);
-
-    let supabaseClient =
-      null;
-
-
-    // =========================================================
-    // INICIALIZAR SUPABASE
-    // =========================================================
-
-    function initializeSupabase() {
-
-      if (
-        !window.supabase ||
-        typeof window.supabase.createClient !== 'function'
-      ) {
-
-        console.error(
-          'SUPABASE CDN NO CARGÓ',
-          window.supabase
-        );
-
-        showToast(
-          'No se pudo cargar la librería de Supabase. Revisa el CDN.',
-          true
-        );
-
-        return false;
-      }
-
-
-      if (!supabaseClient) {
-
-        supabaseClient =
-          window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_PUBLISHABLE_KEY
-          );
-
-        console.log(
-          'Supabase inicializado correctamente.'
-        );
-
-      }
-
-
-      return true;
-    }
-
-
-    // =========================================================
-    // MENSAJE DE ERROR
-    // =========================================================
-
-    function supabaseError(error) {
-
-      if (!error) {
-        return 'Error desconocido.';
-      }
+    } catch (error) {
 
       console.error(
-        'Supabase error completo:',
+        'Error creando el cliente de Supabase:',
         error
       );
 
-      return (
-        error.message ||
-        error.details ||
-        error.hint ||
-        'Error desconocido de Supabase.'
+      showToast(
+        'No se pudo iniciar Supabase.',
+        true
       );
+
+      return false;
+    }
+  }
+
+  return true;
+}
+
+
+/* =========================================================
+   MENSAJES
+   ========================================================= */
+
+function showToast(text, isError = false) {
+
+  const container = $('toast-container');
+  const body = $('toast-body');
+
+  if (!container || !body) return;
+
+  $('toast-text').textContent = text;
+
+  body.classList.toggle(
+    'error',
+    isError
+  );
+
+  container.hidden = false;
+
+  clearTimeout(window.__toastT);
+
+  window.__toastT = setTimeout(() => {
+    container.hidden = true;
+  }, 4500);
+}
+
+
+/* =========================================================
+   ESCAPAR HTML
+   ========================================================= */
+
+function escapeHtml(value) {
+
+  return String(value ?? '').replace(
+    /[&<>"']/g,
+    character => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    })[character]
+  );
+}
+
+
+/* =========================================================
+   RELOJ DE LA COPA ARTEMIS
+   HORA MÉXICO GMT-6
+   ========================================================= */
+
+/*
+   Inicio:
+   10 de octubre de 2026 a las 16:00 GMT-6
+
+   Final:
+   25 de octubre de 2026 a las 16:00 GMT-6
+*/
+
+const tournamentStart =
+  new Date(
+    '2026-10-10T16:00:00-06:00'
+  ).getTime();
+
+const tournamentEnd =
+  new Date(
+    '2026-10-25T16:00:00-06:00'
+  ).getTime();
+
+
+function updateCountdown() {
+
+  const now = Date.now();
+
+  let diff;
+
+  /*
+    ANTES DEL TORNEO
+  */
+
+  if (now < tournamentStart) {
+
+    diff = tournamentStart - now;
+
+    if ($('countdown-title')) {
+      $('countdown-title').textContent =
+        'INICIO DEL TORNEO';
     }
 
-
-    // =========================================================
-    // COUNTDOWN
-    // =========================================================
-
-    const targetDate =
-      new Date(
-        "2026-10-10T16:00:00-06:00"
-      ).getTime();
-
-
-    function updateCountdown() {
-
-      const diff =
-        targetDate - Date.now();
-
-
-      if (diff <= 0) {
-
-        $('t-days').textContent =
-          '00';
-
-        $('t-hours').textContent =
-          '00';
-
-        $('t-minutes').textContent =
-          '00';
-
-        $('t-seconds').textContent =
-          '00';
-
-        return;
-      }
-
-
-      $('t-days').textContent =
-        String(
-          Math.floor(
-            diff / 86400000
-          )
-        ).padStart(2, '0');
-
-
-      $('t-hours').textContent =
-        String(
-          Math.floor(
-            (
-              diff % 86400000
-            ) / 3600000
-          )
-        ).padStart(2, '0');
-
-
-      $('t-minutes').textContent =
-        String(
-          Math.floor(
-            (
-              diff % 3600000
-            ) / 60000
-          )
-        ).padStart(2, '0');
-
-
-      $('t-seconds').textContent =
-        String(
-          Math.floor(
-            (
-              diff % 60000
-            ) / 1000
-          )
-        ).padStart(2, '0');
-
+    if ($('countdown-date')) {
+      $('countdown-date').textContent =
+        '10 OCT, 2026 · 16:00 GMT-6';
     }
 
+  }
 
-    updateCountdown();
+  /*
+    TORNEO EN CURSO
+  */
 
-    setInterval(
-      updateCountdown,
-      1000
+  else if (now < tournamentEnd) {
+
+    diff = tournamentEnd - now;
+
+    if ($('countdown-title')) {
+      $('countdown-title').textContent =
+        'TIEMPO RESTANTE DEL TORNEO';
+    }
+
+    if ($('countdown-date')) {
+      $('countdown-date').textContent =
+        '25 OCT, 2026 · 16:00 GMT-6';
+    }
+
+  }
+
+  /*
+    TORNEO TERMINADO
+  */
+
+  else {
+
+    diff = 0;
+
+    if ($('countdown-title')) {
+      $('countdown-title').textContent =
+        'TORNEO FINALIZADO';
+    }
+
+    if ($('countdown-date')) {
+      $('countdown-date').textContent =
+        '25 OCT, 2026 · 16:00 GMT-6';
+    }
+  }
+
+
+  const days =
+    Math.floor(
+      diff / 86400000
+    );
+
+  const hours =
+    Math.floor(
+      (diff % 86400000) / 3600000
+    );
+
+  const minutes =
+    Math.floor(
+      (diff % 3600000) / 60000
+    );
+
+  const seconds =
+    Math.floor(
+      (diff % 60000) / 1000
     );
 
 
-    // =========================================================
-    // MODALES
-    // =========================================================
+  $('t-days').textContent =
+    String(days).padStart(2, '0');
 
-    function openModal(id) {
+  $('t-hours').textContent =
+    String(hours).padStart(2, '0');
 
-      $(id).hidden =
-        false;
+  $('t-minutes').textContent =
+    String(minutes).padStart(2, '0');
 
-      document.body.style.overflow =
-        'hidden';
-    }
+  $('t-seconds').textContent =
+    String(seconds).padStart(2, '0');
+}
 
 
-    function closeModal() {
+/*
+   Ejecutar inmediatamente
+*/
 
-      document
-        .querySelectorAll('.modal')
-        .forEach(
-          modal => modal.hidden = true
-        );
+updateCountdown();
 
-      document.body.style.overflow =
-        '';
-    }
 
+/*
+   Actualizar cada segundo
+*/
 
-    $('btn-open-register')
-      ?.addEventListener(
-        'click',
-        () =>
-          openModal(
-            'modal-register'
-          )
-      );
+setInterval(
+  updateCountdown,
+  1000
+);
 
 
-    $('btn-open-rules')
-      ?.addEventListener(
-        'click',
-        () =>
-          openModal(
-            'modal-rules'
-          )
-      );
+/* =========================================================
+   MODALES
+   ========================================================= */
 
+function openModal(id) {
 
-    $('btn-leaderboard')
-      ?.addEventListener(
-        'click',
-        async () => {
+  const modal = $(id);
 
-          openModal(
-            'modal-leaderboard'
-          );
+  if (!modal) return;
 
-          await loadLeaderboard();
+  modal.hidden = false;
 
-        }
-      );
+  document.body.style.overflow = 'hidden';
+}
 
 
-    document
-      .querySelectorAll('.close-modal')
-      .forEach(
-        btn =>
-          btn.addEventListener(
-            'click',
-            closeModal
-          )
-      );
+function closeModal() {
 
+  document
+    .querySelectorAll('.modal')
+    .forEach(modal => {
+      modal.hidden = true;
+    });
 
-    document
-      .querySelectorAll('.modal')
-      .forEach(
-        modal => {
+  document.body.style.overflow = '';
+}
 
-          modal.addEventListener(
-            'click',
-            e => {
 
-              if (
-                e.target === modal
-              ) {
+/* =========================================================
+   BOTONES
+   ========================================================= */
 
-                closeModal();
+$('btn-open-register')?.addEventListener(
+  'click',
+  () => {
+    openModal('modal-register');
+  }
+);
 
-              }
 
-            }
-          );
+$('btn-open-rules')?.addEventListener(
+  'click',
+  () => {
+    openModal('modal-rules');
+  }
+);
 
-        }
-      );
 
+$('btn-leaderboard')?.addEventListener(
+  'click',
+  async () => {
 
-    // =========================================================
-    // TOAST
-    // =========================================================
+    openModal(
+      'modal-leaderboard'
+    );
 
-    function showToast(
-      text,
-      isError = false
-    ) {
+    await loadLeaderboard();
+  }
+);
 
-      const container =
-        $('toast-container');
 
-      const body =
-        $('toast-body');
+document
+  .querySelectorAll('.close-modal')
+  .forEach(button => {
 
+    button.addEventListener(
+      'click',
+      closeModal
+    );
 
-      $('toast-text')
-        .textContent =
-        text;
+  });
 
 
-      body.classList.toggle(
-        'error',
-        isError
-      );
+document
+  .querySelectorAll('.modal')
+  .forEach(modal => {
 
-
-      container.hidden =
-        false;
-
-
-      clearTimeout(
-        window.__toastT
-      );
-
-
-      window.__toastT =
-        setTimeout(
-          () =>
-            container.hidden = true,
-          4500
-        );
-
-    }
-
-
-    // =========================================================
-    // REGISTRO
-    // =========================================================
-
-    $('form-register')
-      ?.addEventListener(
-        'submit',
-        async e => {
-
-          e.preventDefault();
-
-
-          const nick =
-            $('reg-nick')
-              .value
-              .trim();
-
-
-          const discord =
-            $('reg-discord')
-              .value
-              .trim();
-
-
-          const accepted =
-            $('reg-rules')
-              .checked;
-
-
-          if (
-            !nick ||
-            !discord ||
-            !accepted
-          ) {
-
-            showToast(
-              'Completa todos los campos y acepta el reglamento',
-              true
-            );
-
-            return;
-          }
-
-
-          if (
-            !initializeSupabase()
-          ) {
-
-            showToast(
-              'No se pudo conectar con Supabase.',
-              true
-            );
-
-            return;
-          }
-
-
-          const btn =
-            e.target.querySelector(
-              '[type="submit"]'
-            );
-
-
-          btn.disabled =
-            true;
-
-
-          btn.textContent =
-            'Registrando...';
-
-
-          try {
-
-            // -------------------------------------------------
-            // CREAR ENTRENADOR
-            // -------------------------------------------------
-
-            const {
-              data: trainer,
-              error: trainerError
-            } =
-              await supabaseClient
-                .from('entrenadores')
-                .insert([
-                  {
-                    nickname:
-                      nick,
-
-                    discord_user:
-                      discord,
-
-                    avatar:
-                      '',
-
-                    region:
-                      'Ketzal',
-
-                    status:
-                      'active',
-
-                    accepted_rules:
-                      true
-                  }
-                ])
-                .select()
-                .single();
-
-
-            if (trainerError) {
-
-              throw new Error(
-                'entrenadores: ' +
-                supabaseError(
-                  trainerError
-                )
-              );
-
-            }
-
-
-            if (
-              !trainer ||
-              !trainer.id
-            ) {
-
-              throw new Error(
-                'Supabase no devolvió el ID del entrenador.'
-              );
-
-            }
-
-
-            console.log(
-              'Entrenador creado:',
-              trainer
-            );
-
-
-            // -------------------------------------------------
-            // CREAR PROGRESO
-            // -------------------------------------------------
-
-            const {
-              data: progress,
-              error: progressError
-            } =
-              await supabaseClient
-                .from('progreso')
-                .insert([
-                  {
-                    id:
-                      crypto.randomUUID(),
-
-                    trainer_id:
-                      trainer.id,
-
-                    pokemon_caught:
-                      0,
-
-                    total_pokedex:
-                      200,
-
-                    updated_at:
-                      new Date().toISOString()
-                  }
-                ])
-                .select()
-                .single();
-
-
-            if (progressError) {
-
-              throw new Error(
-                'progreso: ' +
-                supabaseError(
-                  progressError
-                )
-              );
-
-            }
-
-
-            console.log(
-              'Progreso creado:',
-              progress
-            );
-
-
-            // -------------------------------------------------
-            // ÉXITO
-            // -------------------------------------------------
-
-            showToast(
-              `¡${nick} se ha inscrito correctamente!`
-            );
-
-
-            e.target.reset();
-
-
-            closeModal();
-
-
-            await loadLeaderboard();
-
-
-          } catch (err) {
-
-            console.error(
-              'ERROR DE REGISTRO:',
-              err
-            );
-
-
-            showToast(
-              err.message ||
-              'Error al registrar.',
-              true
-            );
-
-
-          } finally {
-
-            btn.disabled =
-              false;
-
-            btn.textContent =
-              'Confirmar inscripción';
-
-          }
-
-        }
-      );
-
-
-    // =========================================================
-    // CLASIFICACIÓN
-    // =========================================================
-
-    async function loadLeaderboard() {
-
-      const list =
-        $('leaderboard-list');
-
-
-      if (
-        !initializeSupabase()
-      ) {
-
-        list.innerHTML =
-          `
-            <p
-              style="
-                text-align:center;
-                color:#fb7185;
-                padding:20px;
-              "
-            >
-              No se pudo cargar Supabase.
-            </p>
-          `;
-
-        return;
-      }
-
-
-      list.innerHTML =
-        `
-          <p
-            style="
-              text-align:center;
-              color:#94a3b8;
-              padding:20px;
-            "
-          >
-            Cargando...
-          </p>
-        `;
-
-
-      try {
-
-        // -----------------------------------------------------
-        // ENTRENADORES
-        // -----------------------------------------------------
-
-        const {
-          data: trainers,
-          error: trainersError
-        } =
-          await supabaseClient
-            .from('entrenadores')
-            .select(
-              `
-                id,
-                nickname,
-                discord_user,
-                avatar,
-                region,
-                status,
-                accepted_rules,
-                created_at
-              `
-            )
-            .order(
-              'created_at',
-              {
-                ascending: true
-              }
-            );
-
-
-        if (trainersError) {
-
-          throw new Error(
-            'entrenadores: ' +
-            supabaseError(
-              trainersError
-            )
-          );
-
-        }
-
-
-        $('player-count')
-          .textContent =
-          trainers.length;
-
+    modal.addEventListener(
+      'click',
+      event => {
 
         if (
-          trainers.length === 0
+          event.target === modal
         ) {
-
-          list.innerHTML =
-            `
-              <p
-                style="
-                  text-align:center;
-                  color:#94a3b8;
-                  padding:20px;
-                "
-              >
-                Aún no hay entrenadores registrados
-              </p>
-            `;
-
-          return;
+          closeModal();
         }
-
-
-        // -----------------------------------------------------
-        // IDS DE ENTRENADORES
-        // -----------------------------------------------------
-
-        const trainerIds =
-          trainers.map(
-            trainer =>
-              trainer.id
-          );
-
-
-        // -----------------------------------------------------
-        // PROGRESO
-        // -----------------------------------------------------
-
-        const {
-          data: progressRows,
-          error: progressError
-        } =
-          await supabaseClient
-            .from('progreso')
-            .select(
-              `
-                id,
-                trainer_id,
-                pokemon_caught,
-                total_pokedex,
-                updated_at
-              `
-            )
-            .in(
-              'trainer_id',
-              trainerIds
-            );
-
-
-        if (progressError) {
-
-          throw new Error(
-            'progreso: ' +
-            supabaseError(
-              progressError
-            )
-          );
-
-        }
-
-
-        // -----------------------------------------------------
-        // MAPA DE PROGRESO
-        // -----------------------------------------------------
-
-        const progressMap =
-          new Map();
-
-
-        (
-          progressRows || []
-        ).forEach(
-          progress => {
-
-            progressMap.set(
-              String(
-                progress.trainer_id
-              ),
-              progress
-            );
-
-          }
-        );
-
-
-        // -----------------------------------------------------
-        // ORDENAR
-        // -----------------------------------------------------
-
-        const sorted =
-          [...trainers]
-            .sort(
-              (a, b) => {
-
-                const progressA =
-                  progressMap.get(
-                    String(a.id)
-                  );
-
-
-                const progressB =
-                  progressMap.get(
-                    String(b.id)
-                  );
-
-
-                const capturesA =
-                  Number(
-                    progressA?.pokemon_caught ||
-                    0
-                  );
-
-
-                const capturesB =
-                  Number(
-                    progressB?.pokemon_caught ||
-                    0
-                  );
-
-
-                return (
-                  capturesB -
-                  capturesA
-                );
-
-              }
-            );
-
-
-        // -----------------------------------------------------
-        // GENERAR CLASIFICACIÓN
-        // -----------------------------------------------------
-
-        list.innerHTML =
-          '';
-
-
-        sorted.forEach(
-          (
-            trainer,
-            i
-          ) => {
-
-            const progress =
-              progressMap.get(
-                String(
-                  trainer.id
-                )
-              );
-
-
-            const captures =
-              Number(
-                progress?.pokemon_caught ||
-                0
-              );
-
-
-            const total =
-              Number(
-                progress?.total_pokedex ||
-                200
-              );
-
-
-            const row =
-              document.createElement(
-                'div'
-              );
-
-
-            row.className =
-              'leaderboard-row';
-
-
-            const position =
-              document.createElement(
-                'span'
-              );
-
-            position.className =
-              'leaderboard-position';
-
-            position.textContent =
-              String(i + 1);
-
-
-            const avatar =
-              document.createElement(
-                'span'
-              );
-
-            avatar.className =
-              'leaderboard-avatar';
-
-            avatar.textContent =
-              '🎮';
-
-
-            const info =
-              document.createElement(
-                'div'
-              );
-
-            info.className =
-              'leaderboard-info';
-
-
-            const nickname =
-              document.createElement(
-                'div'
-              );
-
-            nickname.className =
-              'leaderboard-nickname';
-
-            nickname.textContent =
-              trainer.nickname ||
-              'Entrenador';
-
-
-            const region =
-              document.createElement(
-                'div'
-              );
-
-            region.className =
-              'leaderboard-region';
-
-            region.textContent =
-              trainer.region ||
-              'Ketzal';
-
-
-            info.appendChild(
-              nickname
-            );
-
-            info.appendChild(
-              region
-            );
-
-
-            const count =
-              document.createElement(
-                'span'
-              );
-
-            count.className =
-              'leaderboard-count';
-
-            count.textContent =
-              `${captures}/${total}`;
-
-
-            row.appendChild(
-              position
-            );
-
-            row.appendChild(
-              avatar
-            );
-
-            row.appendChild(
-              info
-            );
-
-            row.appendChild(
-              count
-            );
-
-
-            list.appendChild(
-              row
-            );
-
-          }
-        );
-
-
-      } catch (err) {
-
-        console.error(
-          'ERROR CLASIFICACIÓN:',
-          err
-        );
-
-
-        list.innerHTML =
-          `
-            <p
-              style="
-                text-align:center;
-                color:#fb7185;
-                padding:20px;
-              "
-            >
-              <strong>
-                Error al cargar la clasificación.
-              </strong>
-              <br><br>
-              ${String(
-                err.message ||
-                err
-              )
-                .replace(
-                  /</g,
-                  '&lt;'
-                )
-                .replace(
-                  />/g,
-                  '&gt;'
-                )}
-            </p>
-          `;
 
       }
+    );
 
+  });
+
+
+/* =========================================================
+   REGISTRO DE ENTRENADOR
+   ========================================================= */
+
+$('form-register')?.addEventListener(
+  'submit',
+  async event => {
+
+    event.preventDefault();
+
+
+    const nick =
+      $('reg-nick').value.trim();
+
+    const discord =
+      $('reg-discord').value.trim();
+
+    const accepted =
+      $('reg-rules').checked;
+
+
+    if (
+      !nick ||
+      !discord ||
+      !accepted
+    ) {
+
+      showToast(
+        'Completa todos los campos y acepta el reglamento.',
+        true
+      );
+
+      return;
     }
 
 
-    // =========================================================
-    // COMPARTIR
-    // =========================================================
+    if (!initializeSupabase()) {
 
-    $('btn-share')
-      ?.addEventListener(
-        'click',
-        async () => {
+      showToast(
+        'No se pudo conectar con Supabase.',
+        true
+      );
 
-          const data = {
-
-            title:
-              'Copa Artemis 2026',
-
-            text:
-              '¡Participa en la Copa Artemis 2026!',
-
-            url:
-              location.href
-
-          };
+      return;
+    }
 
 
-          if (
-            navigator.share
-          ) {
-
-            try {
-
-              await navigator.share(
-                data
-              );
-
-            } catch {}
-
-          } else {
-
-            try {
-
-              await navigator.clipboard
-                .writeText(
-                  location.href
-                );
-
-              showToast(
-                'Enlace copiado al portapapeles'
-              );
-
-            } catch {
-
-              showToast(
-                'No se pudo copiar el enlace.',
-                true
-              );
-
-            }
-
-          }
-
-        }
+    const button =
+      event.target.querySelector(
+        '[type="submit"]'
       );
 
 
-    // =========================================================
-    // AUDIO
-    // =========================================================
+    button.disabled = true;
 
-    let audioOn =
-      true;
+    button.textContent =
+      'Registrando...';
 
 
-    $('btn-audio')
-      ?.addEventListener(
-        'click',
-        () => {
+    try {
 
-          audioOn =
-            !audioOn;
+      /*
+        INSERTAR ENTRENADOR
 
+        Columnas reales:
 
-          $('icon-vol-on')
-            .hidden =
-            !audioOn;
-
-
-          $('icon-vol-off')
-            .hidden =
-            audioOn;
-
-
-          $('btn-audio')
-            .setAttribute(
-              'aria-pressed',
-              audioOn
-            );
-
-        }
-      );
-
-
-    // =========================================================
-    // INICIO
-    // =========================================================
-
-    async function startApp() {
-
-      console.log(
-        '================================'
-      );
-
-      console.log(
-        'COPA ARTEMIS 2026'
-      );
-
-      console.log(
-        'Inicializando Supabase...'
-      );
-
-
-      const connected =
-        initializeSupabase();
-
-
-      if (!connected) {
-
-        console.error(
-          '❌ SUPABASE NO ESTÁ DISPONIBLE'
-        );
-
-        return;
-      }
-
-
-      console.log(
-        '✅ CDN DE SUPABASE CARGADO'
-      );
-
-
-      console.log(
-        'Probando conexión con entrenadores...'
-      );
-
-
-      // -------------------------------------------------------
-      // PRUEBA DIRECTA DE LA TABLA
-      // -------------------------------------------------------
+        id
+        nickname
+        discord_user
+        avatar
+        region
+        status
+        accepted_rules
+        created_at
+      */
 
       const {
-        error
-      } =
-        await supabaseClient
-          .from('entrenadores')
-          .select('id')
-          .limit(1);
+        data: trainer,
+        error: trainerError
+      } = await supabaseClient
+
+        .from('entrenadores')
+
+        .insert([
+          {
+            nickname: nick,
+
+            discord_user: discord,
+
+            region: 'Ketzal',
+
+            status: 'registered',
+
+            accepted_rules: accepted,
+
+            created_at:
+              new Date().toISOString()
+          }
+        ])
+
+        .select(
+          'id,nickname'
+        )
+
+        .single();
 
 
-      if (error) {
-
-        console.error(
-          '❌ ERROR SUPABASE:',
-          error
-        );
-
-
-        showToast(
-          `Supabase: ${error.message}`,
-          true
-        );
-
-      } else {
-
-        console.log(
-          '✅ TABLA entrenadores ENCONTRADA'
-        );
-
+      if (trainerError) {
+        throw trainerError;
       }
 
 
-      // -------------------------------------------------------
-      // CARGAR CLASIFICACIÓN
-      // -------------------------------------------------------
+      /*
+        INSERTAR PROGRESO
+
+        Columnas reales:
+
+        id
+        trainer_id
+        pokemon_caught
+        total_pokedex
+        updated_at
+      */
+
+      const {
+        error: progressError
+      } = await supabaseClient
+
+        .from('progreso')
+
+        .insert([
+          {
+            trainer_id: trainer.id,
+
+            pokemon_caught: 0,
+
+            total_pokedex: 200,
+
+            updated_at:
+              new Date().toISOString()
+          }
+        ]);
+
+
+      if (progressError) {
+
+        console.error(
+          'Error creando progreso:',
+          progressError
+        );
+
+        /*
+          Intentar borrar el entrenador si
+          la creación del progreso falla.
+        */
+
+        await supabaseClient
+          .from('entrenadores')
+          .delete()
+          .eq('id', trainer.id);
+
+        throw progressError;
+      }
+
+
+      showToast(
+        `¡${nick} se ha inscrito correctamente!`
+      );
+
+
+      event.target.reset();
+
+      closeModal();
 
       await loadLeaderboard();
 
     }
 
+    catch (error) {
 
-    // Esperar a que exista el CDN
-    // antes de inicializar.
-
-    if (
-      document.readyState ===
-      'loading'
-    ) {
-
-      document.addEventListener(
-        'DOMContentLoaded',
-        startApp
+      console.error(
+        'Error completo de registro:',
+        error
       );
 
-    } else {
 
-      startApp();
+      const message =
+        error?.message ||
+        'Error desconocido';
+
+
+      showToast(
+        `Error al registrar: ${message}`,
+        true
+      );
 
     }
 
-  </script>
+    finally {
+
+      button.disabled = false;
+
+      button.textContent =
+        'Confirmar inscripción';
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   CLASIFICACIÓN
+   ========================================================= */
+
+async function loadLeaderboard() {
+
+  const list =
+    $('leaderboard-list');
+
+
+  if (!list) return;
+
+
+  if (!initializeSupabase()) {
+
+    list.innerHTML = `
+      <p style="
+        text-align:center;
+        color:#fb7185;
+        padding:20px;
+      ">
+        No se cargó Supabase. Revisa el CDN.
+      </p>
+    `;
+
+    return;
+  }
+
+
+  list.innerHTML = `
+    <p style="
+      text-align:center;
+      color:#94a3b8;
+      padding:20px;
+    ">
+      Cargando...
+    </p>
+  `;
+
+
+  try {
+
+    /*
+      PRIMERO:
+      Obtener entrenadores.
+
+      NO usamos:
+      progreso(...)
+
+      porque así evitamos depender
+      de que PostgREST tenga detectada
+      correctamente la relación.
+    */
+
+    const {
+      data: trainers,
+      error: trainersError
+    } = await supabaseClient
+
+      .from('entrenadores')
+
+      .select(
+        'id,nickname,region,created_at'
+      )
+
+      .order(
+        'created_at',
+        {
+          ascending: true
+        }
+      );
+
+
+    if (trainersError) {
+      throw trainersError;
+    }
+
+
+    const trainerRows =
+      trainers || [];
+
+
+    $('player-count').textContent =
+      trainerRows.length;
+
+
+    /*
+      Si no hay entrenadores,
+      no necesitamos consultar progreso.
+    */
+
+    if (trainerRows.length === 0) {
+
+      list.innerHTML = `
+        <p style="
+          text-align:center;
+          color:#94a3b8;
+          padding:20px;
+        ">
+          Aún no hay entrenadores registrados
+        </p>
+      `;
+
+      return;
+    }
+
+
+    /*
+      Obtener los IDs de entrenadores.
+    */
+
+    const trainerIds =
+      trainerRows.map(
+        trainer => trainer.id
+      );
+
+
+    /*
+      SEGUNDO:
+      Obtener progreso por separado.
+
+      Columnas reales:
+      trainer_id
+      pokemon_caught
+      total_pokedex
+    */
+
+    const {
+      data: progressRows,
+      error: progressError
+    } = await supabaseClient
+
+      .from('progreso')
+
+      .select(
+        'id,trainer_id,pokemon_caught,total_pokedex,updated_at'
+      )
+
+      .in(
+        'trainer_id',
+        trainerIds
+      );
+
+
+    if (progressError) {
+      throw progressError;
+    }
+
+
+    /*
+      Crear mapa:
+
+      trainer_id -> progreso
+    */
+
+    const progressMap =
+      new Map();
+
+
+    (progressRows || [])
+      .forEach(progress => {
+
+        progressMap.set(
+          String(progress.trainer_id),
+          progress
+        );
+
+      });
+
+
+    /*
+      Ordenar por Pokémon capturados.
+    */
+
+    const sorted =
+      [...trainerRows].sort(
+        (a, b) => {
+
+          const progressA =
+            progressMap.get(
+              String(a.id)
+            );
+
+          const progressB =
+            progressMap.get(
+              String(b.id)
+            );
+
+
+          const capturesA =
+            Number(
+              progressA?.pokemon_caught ?? 0
+            );
+
+
+          const capturesB =
+            Number(
+              progressB?.pokemon_caught ?? 0
+            );
+
+
+          if (
+            capturesB !== capturesA
+          ) {
+
+            return (
+              capturesB -
+              capturesA
+            );
+
+          }
+
+
+          return (
+            new Date(a.created_at || 0).getTime() -
+            new Date(b.created_at || 0).getTime()
+          );
+        }
+      );
+
+
+    list.innerHTML = '';
+
+
+    /*
+      Dibujar clasificación.
+    */
+
+    sorted.forEach(
+      (trainer, index) => {
+
+        const progress =
+          progressMap.get(
+            String(trainer.id)
+          );
+
+
+        const captures =
+          Number(
+            progress?.pokemon_caught ?? 0
+          );
+
+
+        const total =
+          Number(
+            progress?.total_pokedex ?? 200
+          );
+
+
+        const row =
+          document.createElement(
+            'div'
+          );
+
+
+        row.className =
+          'leaderboard-row';
+
+
+        row.innerHTML = `
+
+          <span class="leaderboard-position">
+            ${index + 1}
+          </span>
+
+          <span class="leaderboard-avatar">
+            🎮
+          </span>
+
+          <div class="leaderboard-info">
+
+            <div class="leaderboard-nickname">
+              ${escapeHtml(
+                trainer.nickname
+              )}
+            </div>
+
+            <div class="leaderboard-region">
+              ${escapeHtml(
+                trainer.region || 'Ketzal'
+              )}
+            </div>
+
+          </div>
+
+          <span class="leaderboard-count">
+            ${captures}/${total}
+          </span>
+
+        `;
+
+
+        list.appendChild(row);
+
+      }
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      'Error cargando clasificación:',
+      error
+    );
+
+
+    const message =
+      error?.message ||
+      'Error desconocido';
+
+
+    list.innerHTML = `
+
+      <p style="
+        text-align:center;
+        color:#fb7185;
+        padding:20px;
+        line-height:1.6;
+      ">
+
+        Error al cargar la clasificación.
+
+        <br>
+
+        <small>
+          ${escapeHtml(message)}
+        </small>
+
+      </p>
+
+    `;
+
+  }
+}
+
+
+/* =========================================================
+   COMPARTIR
+   ========================================================= */
+
+$('btn-share')?.addEventListener(
+  'click',
+  async () => {
+
+    const shareData = {
+
+      title:
+        'Copa Artemis 2026',
+
+      text:
+        '¡Participa en la Copa Artemis 2026!',
+
+      url:
+        location.href
+    };
+
+
+    if (
+      navigator.share
+    ) {
+
+      try {
+
+        await navigator.share(
+          shareData
+        );
+
+      }
+
+      catch {
+        /*
+          El usuario canceló compartir.
+        */
+      }
+
+    }
+
+    else {
+
+      try {
+
+        await navigator.clipboard.writeText(
+          location.href
+        );
+
+        showToast(
+          'Enlace copiado al portapapeles'
+        );
+
+      }
+
+      catch {
+
+        showToast(
+          'No se pudo copiar el enlace.',
+          true
+        );
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   AUDIO
+   ========================================================= */
+
+let audioOn = true;
+
+
+$('btn-audio')?.addEventListener(
+  'click',
+  () => {
+
+    audioOn =
+      !audioOn;
+
+
+    $('icon-vol-on').hidden =
+      !audioOn;
+
+
+    $('icon-vol-off').hidden =
+      audioOn;
+
+
+    $('btn-audio').setAttribute(
+      'aria-pressed',
+      String(audioOn)
+    );
+
+  }
+);
+
+
+/* =========================================================
+   INICIO
+   ========================================================= */
+
+/*
+  Esperamos a que la página haya terminado
+  de cargar para asegurarnos de que el CDN
+  de Supabase ya esté disponible.
+*/
+
+window.addEventListener(
+  'load',
+  async () => {
+
+    console.log(
+      'Página cargada.'
+    );
+
+
+    const connected =
+      initializeSupabase();
+
+
+    if (!connected) {
+
+      console.error(
+        'El CDN de Supabase no está disponible.'
+      );
+
+      return;
+    }
+
+
+    /*
+      Cargar clasificación
+      al iniciar la página.
+    */
+
+    await loadLeaderboard();
+
+  }
+);
+
+</script>
 
 </body>
 </html>
